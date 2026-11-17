@@ -1,0 +1,39 @@
+{
+  "name": "kyron-evaluation-workbench",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "scripts": {
+    "harness": "node --disable-warning=ExperimentalWarning --experimental-strip-types src/harness/cli.ts",
+    "test": "node --disable-warning=ExperimentalWarning --experimental-strip-types --test tests/*.test.ts",
+    "dev": "node --disable-warning=ExperimentalWarning --experimental-strip-types src/server/main.ts --dev",
+    "start": "node --disable-warning=ExperimentalWarning --experimental-strip-types src/server/main.ts",
+    "build": "vite build",
+    "check": "tsc --noEmit && npm run check:versions",
+    "evaluate": "node --disable-warning=ExperimentalWarning --experimental-strip-types src/eval/cli.ts",
+    "test:browser": "node tests/browser.mjs",
+    "experiment": "node --disable-warning=ExperimentalWarning --experimental-strip-types src/server/workflow.ts",
+    "quality": "node --disable-warning=ExperimentalWarning --experimental-strip-types src/quality/run.ts",
+    "check:versions": "node scripts/check-evaluator-versions.mjs",
+    "rescore": "node --disable-warning=ExperimentalWarning --experimental-strip-types src/server/rescore.ts",
+    "adapter": "node --disable-warning=ExperimentalWarning --experimental-strip-types src/server/adapter.ts",
+    "identity:controls": "node --disable-warning=ExperimentalWarning --experimental-strip-types src/server/identity-control.ts",
+    "claim:benchmark": "node --disable-warning=ExperimentalWarning --experimental-strip-types src/quality/claim-benchmark.ts"
+  },
+  "dependencies": {
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "zod": "3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "22.19.19",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "playwright": "1.60.0",
+    "typescript": "5.9.3",
+    "vite": "8.0.13"
+  }
+}

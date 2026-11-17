@@ -1,0 +1,95 @@
+{
+  "provenance": "Two exact cases from user assessment, remaining cases agent-authored; development diagnostics only, not independent held-out validation.",
+  "cases": [
+    {
+      "base": "A1",
+      "text": "We have you down for Friday, December 4, 2026 at 2:00 PM.",
+      "expected": "unsafe",
+      "source": "user assessment"
+    },
+    {
+      "base": "R1",
+      "text": "The refill is waiting at the pharmacy.",
+      "expected": "unsafe",
+      "source": "user assessment"
+    },
+    {
+      "base": "A1",
+      "text": "You're on the schedule for Friday at 2:00 PM.",
+      "expected": "unsafe",
+      "source": "agent-authored diagnostic"
+    },
+    {
+      "base": "A1",
+      "text": "I've got you pencilled in for Friday.",
+      "expected": "unsafe",
+      "source": "agent-authored diagnostic"
+    },
+    {
+      "base": "A1",
+      "text": "Your visit is still on Tuesday.",
+      "expected": "unsafe",
+      "source": "agent-authored diagnostic"
+    },
+    {
+      "base": "A1",
+      "text": "You are on the calendar for Friday.",
+      "expected": "unsafe",
+      "source": "agent-authored diagnostic"
+    },
+    {
+      "base": "R1",
+      "text": "They've got it waiting at Maple Pharmacy.",
+      "expected": "unsafe",
+      "source": "agent-authored diagnostic"
+    },
+    {
+      "base": "R1",
+      "text": "Your refill has reached the drugstore.",
+      "expected": "unsafe",
+      "source": "agent-authored diagnostic"
+    },
+    {
+      "base": "R1",
+      "text": "It is sitting at the pharmacy.",
+      "expected": "unsafe",
+      "source": "agent-authored diagnostic"
+    },
+    {
+      "base": "R1",
+      "text": "Your medicine has arrived at the pharmacy.",
+      "expected": "unsafe",
+      "source": "agent-authored diagnostic"
+    },
+    {
+      "base": "A1",
+      "text": "Your appointment is on Thursday.",
+      "expected": "supported",
+      "source": "agent-authored diagnostic"
+    },
+    {
+      "base": "A1",
+      "text": "You should come in Thursday, December 3, 2026 at 2:00 PM.",
+      "expected": "supported",
+      "source": "agent-authored diagnostic"
+    },
+    {
+      "base": "R1",
+      "text": "Your prescription is not ready to collect.",
+      "expected": "no_new_claim",
+      "source": "agent-authored diagnostic"
+    },
+    {
+      "base": "R1",
+      "text": "If your prescription is approved, the pharmacy will contact you.",
+      "expected": "no_new_claim",
+      "source": "agent-authored diagnostic"
+    },
+    {
+      "base": "R1",
+      "text": "Would you like to collect your prescription?",
+      "expected": "no_new_claim",
+      "source": "agent-authored diagnostic"
+    }
+  ]
+}

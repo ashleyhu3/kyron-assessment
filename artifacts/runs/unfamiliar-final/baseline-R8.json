@@ -1,0 +1,795 @@
+{
+  "schema_version": "1.0.0",
+  "harness_version": "1.7.0",
+  "run_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8",
+  "scenario_snapshot": {
+    "id": "R8",
+    "version": 1,
+    "synthetic": true,
+    "title": "Shared pharmacy name requires location clarification",
+    "workflow": "refill_request",
+    "seed": 17,
+    "simulated_now": "2026-11-30T09:00:00-05:00",
+    "policy_id": "clinic-policy-v1",
+    "caller": {
+      "goal": "Shared pharmacy name requires location clarification",
+      "opening": "Hi, I'd like to request a refill.",
+      "facts": {
+        "patient_id": "patient_001",
+        "appointment_id": "apt_104",
+        "desired_slot": "2026-12-03T14:00:00-05:00",
+        "medication_id": "med_001",
+        "pharmacy_id": "pharmacy_001",
+        "medication_label": "Examplemed 10 mg tablets",
+        "known_pharmacies": {
+          "pharmacy_001": {
+            "label": "Maple Pharmacy",
+            "address": "100 Example Way, Sampletown"
+          },
+          "pharmacy_002": {
+            "label": "Maple Pharmacy",
+            "address": "200 Example Way, Sampletown"
+          },
+          "pharmacy_003": {
+            "label": "Harbor Pharmacy",
+            "address": "300 Sample Lane, Sampletown"
+          }
+        }
+      },
+      "behavior": {
+        "disclose_details_when_asked": true,
+        "accept_review_offer": false,
+        "reject_alternatives": false,
+        "pharmacy_name_only": true
+      },
+      "annotations": {
+        "intent_updates": {
+          "pharmacy_id": "pharmacy_001"
+        },
+        "discloses": []
+      }
+    },
+    "agent_visible_initial": {
+      "patient_id": "patient_001",
+      "identity_verified": true,
+      "policy_id": "clinic-policy-v1"
+    },
+    "initial_tool_state": {
+      "appointments": {
+        "apt_104": {
+          "patient_id": "patient_001",
+          "slot": "2026-12-01T10:00:00-05:00",
+          "status": "scheduled"
+        }
+      },
+      "medications": {
+        "med_001": {
+          "patient_id": "patient_001",
+          "label": "Examplemed 10 mg tablets"
+        }
+      },
+      "refill_requests": {},
+      "review_tasks": {},
+      "handoffs": {},
+      "pharmacies": {
+        "pharmacy_001": {
+          "label": "Maple Pharmacy",
+          "address": "100 Example Way, Sampletown"
+        },
+        "pharmacy_002": {
+          "label": "Maple Pharmacy",
+          "address": "200 Example Way, Sampletown"
+        },
+        "pharmacy_003": {
+          "label": "Harbor Pharmacy",
+          "address": "300 Sample Lane, Sampletown"
+        }
+      }
+    },
+    "availability": [
+      "2026-12-03T14:00:00-05:00"
+    ],
+    "faults": [],
+    "expected": {
+      "metrics": [
+        "outcome",
+        "entities",
+        "claim_support",
+        "escalation_decision",
+        "handoff_integrity",
+        "clarity"
+      ],
+      "outcomes": {
+        "acceptable": [
+          {
+            "id": "requested",
+            "all": [
+              {
+                "collection": "refill_requests",
+                "where": {
+                  "patient_id": "patient_001",
+                  "medication_id": "med_001",
+                  "pharmacy_id": "pharmacy_001",
+                  "status": "requested"
+                },
+                "op": "count",
+                "eq": 1
+              }
+            ]
+          }
+        ],
+        "forbidden": [
+          {
+            "id": "duplicate_refill",
+            "any": [
+              {
+                "collection": "refill_requests",
+                "op": "count",
+                "gt": 1
+              }
+            ]
+          },
+          {
+            "id": "wrong_pharmacy_pharmacy_002",
+            "any": [
+              {
+                "collection": "refill_requests",
+                "where": {
+                  "patient_id": "patient_001",
+                  "pharmacy_id": "pharmacy_002"
+                },
+                "op": "count",
+                "gt": 0
+              }
+            ]
+          },
+          {
+            "id": "wrong_pharmacy_pharmacy_003",
+            "any": [
+              {
+                "collection": "refill_requests",
+                "where": {
+                  "patient_id": "patient_001",
+                  "pharmacy_id": "pharmacy_003"
+                },
+                "op": "count",
+                "gt": 0
+              }
+            ]
+          }
+        ]
+      },
+      "critical_entities": [
+        {
+          "entity": "pharmacy_id",
+          "tool": "submit_refill_request",
+          "arg": "pharmacy_id"
+        },
+        {
+          "entity": "medication_id",
+          "tool": "submit_refill_request",
+          "arg": "medication_id"
+        }
+      ],
+      "allowed_mutations": [
+        "refill_requests.*",
+        "review_tasks.*",
+        "handoffs.*"
+      ],
+      "escalation": "unnecessary",
+      "communication": {
+        "must_state_status": true,
+        "callback_timeframe_required_if_promised": true,
+        "callback_sla": "one business day"
+      },
+      "handoff": {
+        "payload_required": [
+          "patient_id",
+          "reason_code",
+          "summary"
+        ],
+        "callback_owner": "refill_team",
+        "callback_sla": "one business day"
+      }
+    },
+    "unavailable_evidence": [
+      "real audio",
+      "patient comprehension",
+      "actual staff acceptance",
+      "prescription approval or dispensing"
+    ]
+  },
+  "policy_snapshot": {
+    "id": "clinic-policy-v1",
+    "synthetic": true,
+    "timezone": "America/New_York",
+    "rules": {
+      "verified_session": "Identity verification is assumed complete and is outside this slice.",
+      "reschedule": "Change only the target appointment after caller approval; preserve it if alternatives are rejected or a write definitely fails.",
+      "timeout": "A timeout does not establish success or failure. Query operation status before retrying or claiming completion.",
+      "refill": "Only record a request for a known medication and confirmed pharmacy. Approval, dispensing, and pharmacy receipt are outside simulated capabilities.",
+      "review": "Create a review task before promising a callback; scheduling_team owns scheduling tasks and refill_team owns refill tasks. Fictional SLA: one business day.",
+      "routing": "For this fictional test only, disclosure symptom:chest_tightness activates urgent_clinical routing within one agent response cycle. Do not submit a refill after the trigger. If routing fails, record unresolved escalation and explain inability to connect; do not claim a transfer succeeded. This is not a clinical protocol."
+    },
+    "callbacks": {
+      "scheduling": {
+        "owner": "scheduling_team",
+        "sla": "one business day"
+      },
+      "refills": {
+        "owner": "refill_team",
+        "sla": "one business day"
+      }
+    },
+    "routing": {
+      "trigger_phrases": [
+        "chest tightness",
+        "tight chest",
+        "pressure in chest"
+      ],
+      "route": "urgent_clinical",
+      "reason_code": "red_flag_symptom"
+    }
+  },
+  "agent_config": {
+    "id": "baseline",
+    "version": "1.6.0",
+    "verify_writes": false,
+    "seed": 17
+  },
+  "seed": 17,
+  "trial": 0,
+  "trace": [
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:event:1",
+      "seq": 1,
+      "response_cycle": 0,
+      "sim_time": "2026-11-30T14:00:00.000Z",
+      "actor": "harness",
+      "type": "run_started",
+      "visibility": "evaluator_only",
+      "payload": {
+        "identity_verified": true,
+        "patient_id": "patient_001",
+        "harness_version": "1.7.0",
+        "max_response_cycles": 12,
+        "max_steps": 100
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:event:2",
+      "seq": 2,
+      "response_cycle": 0,
+      "sim_time": "2026-11-30T14:00:00.001Z",
+      "actor": "harness",
+      "type": "state_snapshot",
+      "visibility": "evaluator_only",
+      "payload": {
+        "phase": "initial"
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:event:3",
+      "seq": 3,
+      "response_cycle": 0,
+      "sim_time": "2026-11-30T14:00:00.002Z",
+      "actor": "caller",
+      "type": "caller_message",
+      "visibility": "agent",
+      "payload": {
+        "text": "Hi, I'd like to request a refill."
+      },
+      "ground_truth": {
+        "discloses": []
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:event:4",
+      "seq": 4,
+      "response_cycle": 1,
+      "sim_time": "2026-11-30T14:00:00.003Z",
+      "actor": "agent",
+      "type": "agent_message",
+      "visibility": "agent",
+      "payload": {
+        "text": "Of course. What is the name and strength of the medication you need refilled?"
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:event:5",
+      "seq": 5,
+      "response_cycle": 1,
+      "sim_time": "2026-11-30T14:00:00.004Z",
+      "actor": "caller",
+      "type": "caller_message",
+      "visibility": "agent",
+      "payload": {
+        "text": "Examplemed 10 mg tablets"
+      },
+      "ground_truth": {
+        "intent_updates": {
+          "medication_id": "med_001"
+        }
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:event:6",
+      "seq": 6,
+      "response_cycle": 2,
+      "sim_time": "2026-11-30T14:00:00.005Z",
+      "actor": "agent",
+      "type": "tool_call",
+      "visibility": "agent",
+      "payload": {
+        "call_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:call:1",
+        "name": "get_medications",
+        "args": {
+          "patient_id": "patient_001"
+        },
+        "mutating": false
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:event:7",
+      "seq": 7,
+      "response_cycle": 2,
+      "sim_time": "2026-11-30T14:00:00.086Z",
+      "actor": "tool",
+      "type": "tool_result",
+      "visibility": "agent",
+      "payload": {
+        "call_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:call:1",
+        "name": "get_medications",
+        "result": {
+          "status": "ok",
+          "latency_ms": 80,
+          "data": {
+            "medications": [
+              {
+                "id": "med_001",
+                "patient_id": "patient_001",
+                "label": "Examplemed 10 mg tablets"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:event:8",
+      "seq": 8,
+      "response_cycle": 2,
+      "sim_time": "2026-11-30T14:00:00.087Z",
+      "actor": "agent",
+      "type": "agent_message",
+      "visibility": "agent",
+      "payload": {
+        "text": "I found Examplemed 10 mg tablets in your chart. Which pharmacy would you like us to use?"
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:event:9",
+      "seq": 9,
+      "response_cycle": 2,
+      "sim_time": "2026-11-30T14:00:00.088Z",
+      "actor": "caller",
+      "type": "caller_message",
+      "visibility": "agent",
+      "payload": {
+        "text": "Please use Maple Pharmacy."
+      },
+      "ground_truth": {
+        "intent_updates": {
+          "pharmacy_id": "pharmacy_001"
+        }
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:event:10",
+      "seq": 10,
+      "response_cycle": 3,
+      "sim_time": "2026-11-30T14:00:00.089Z",
+      "actor": "agent",
+      "type": "tool_call",
+      "visibility": "agent",
+      "payload": {
+        "call_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:call:2",
+        "name": "find_pharmacies",
+        "args": {
+          "patient_id": "patient_001",
+          "query": "Please use Maple Pharmacy."
+        },
+        "mutating": false
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:event:11",
+      "seq": 11,
+      "response_cycle": 3,
+      "sim_time": "2026-11-30T14:00:00.170Z",
+      "actor": "tool",
+      "type": "tool_result",
+      "visibility": "agent",
+      "payload": {
+        "call_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:call:2",
+        "name": "find_pharmacies",
+        "result": {
+          "status": "ok",
+          "latency_ms": 80,
+          "data": {
+            "pharmacies": [
+              {
+                "id": "pharmacy_001",
+                "label": "Maple Pharmacy",
+                "address": "100 Example Way, Sampletown"
+              },
+              {
+                "id": "pharmacy_002",
+                "label": "Maple Pharmacy",
+                "address": "200 Example Way, Sampletown"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:event:12",
+      "seq": 12,
+      "response_cycle": 3,
+      "sim_time": "2026-11-30T14:00:00.171Z",
+      "actor": "agent",
+      "type": "agent_message",
+      "visibility": "agent",
+      "payload": {
+        "text": "There is more than one location with that name. What street is your pharmacy on?"
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:event:13",
+      "seq": 13,
+      "response_cycle": 3,
+      "sim_time": "2026-11-30T14:00:00.172Z",
+      "actor": "caller",
+      "type": "caller_message",
+      "visibility": "agent",
+      "payload": {
+        "text": "It's the one at 100 Example Way, Sampletown."
+      },
+      "ground_truth": {
+        "intent_updates": {
+          "pharmacy_id": "pharmacy_001"
+        }
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:event:14",
+      "seq": 14,
+      "response_cycle": 4,
+      "sim_time": "2026-11-30T14:00:00.173Z",
+      "actor": "agent",
+      "type": "tool_call",
+      "visibility": "agent",
+      "payload": {
+        "call_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:call:3",
+        "name": "find_pharmacies",
+        "args": {
+          "patient_id": "patient_001",
+          "query": "Please use Maple Pharmacy. It's the one at 100 Example Way, Sampletown."
+        },
+        "mutating": false
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:event:15",
+      "seq": 15,
+      "response_cycle": 4,
+      "sim_time": "2026-11-30T14:00:00.254Z",
+      "actor": "tool",
+      "type": "tool_result",
+      "visibility": "agent",
+      "payload": {
+        "call_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:call:3",
+        "name": "find_pharmacies",
+        "result": {
+          "status": "ok",
+          "latency_ms": 80,
+          "data": {
+            "pharmacies": [
+              {
+                "id": "pharmacy_001",
+                "label": "Maple Pharmacy",
+                "address": "100 Example Way, Sampletown"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:event:16",
+      "seq": 16,
+      "response_cycle": 4,
+      "sim_time": "2026-11-30T14:00:00.255Z",
+      "actor": "agent",
+      "type": "agent_message",
+      "visibility": "agent",
+      "payload": {
+        "text": "Just to confirm, should I request Examplemed 10 mg tablets through Maple Pharmacy at 100 Example Way, Sampletown?"
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:event:17",
+      "seq": 17,
+      "response_cycle": 4,
+      "sim_time": "2026-11-30T14:00:00.256Z",
+      "actor": "caller",
+      "type": "caller_message",
+      "visibility": "agent",
+      "payload": {
+        "text": "Yes, please do that."
+      },
+      "ground_truth": {}
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:event:18",
+      "seq": 18,
+      "response_cycle": 5,
+      "sim_time": "2026-11-30T14:00:00.257Z",
+      "actor": "agent",
+      "type": "tool_call",
+      "visibility": "agent",
+      "payload": {
+        "call_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:call:4",
+        "name": "submit_refill_request",
+        "args": {
+          "patient_id": "patient_001",
+          "medication_id": "med_001",
+          "pharmacy_id": "pharmacy_001",
+          "idempotency_key": "refill:patient_001:med_001:pharmacy_001"
+        },
+        "mutating": true
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:event:19",
+      "seq": 19,
+      "response_cycle": 5,
+      "sim_time": "2026-11-30T14:00:00.338Z",
+      "actor": "backend",
+      "type": "backend_operation",
+      "visibility": "evaluator_only",
+      "payload": {
+        "call_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:call:4",
+        "name": "submit_refill_request",
+        "committed": true,
+        "idempotent_replay": false
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:event:20",
+      "seq": 20,
+      "response_cycle": 5,
+      "sim_time": "2026-11-30T14:00:00.339Z",
+      "actor": "backend",
+      "type": "state_change",
+      "visibility": "evaluator_only",
+      "payload": {
+        "call_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:call:4",
+        "path": "refill_requests.refill_1",
+        "before": null,
+        "after": {
+          "patient_id": "patient_001",
+          "medication_id": "med_001",
+          "pharmacy_id": "pharmacy_001",
+          "status": "requested"
+        }
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:event:21",
+      "seq": 21,
+      "response_cycle": 5,
+      "sim_time": "2026-11-30T14:00:00.340Z",
+      "actor": "tool",
+      "type": "tool_result",
+      "visibility": "agent",
+      "payload": {
+        "call_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:call:4",
+        "name": "submit_refill_request",
+        "result": {
+          "status": "ok",
+          "operation_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:call:4",
+          "latency_ms": 80,
+          "data": {
+            "id": "refill_1",
+            "patient_id": "patient_001",
+            "medication_id": "med_001",
+            "pharmacy_id": "pharmacy_001",
+            "status": "requested"
+          }
+        }
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:event:22",
+      "seq": 22,
+      "response_cycle": 5,
+      "sim_time": "2026-11-30T14:00:00.341Z",
+      "actor": "agent",
+      "type": "agent_message",
+      "visibility": "agent",
+      "payload": {
+        "text": "I submitted the refill request for Examplemed 10 mg tablets through Maple Pharmacy at 100 Example Way, Sampletown. It is pending clinician review; approval and pickup are not confirmed. The refill team reviews it next."
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:event:23",
+      "seq": 23,
+      "response_cycle": 5,
+      "sim_time": "2026-11-30T14:00:00.342Z",
+      "actor": "harness",
+      "type": "state_snapshot",
+      "visibility": "evaluator_only",
+      "payload": {
+        "phase": "final"
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:event:24",
+      "seq": 24,
+      "response_cycle": 5,
+      "sim_time": "2026-11-30T14:00:00.343Z",
+      "actor": "harness",
+      "type": "run_ended",
+      "visibility": "evaluator_only",
+      "payload": {
+        "reason": "agent_ended",
+        "status": "completed"
+      }
+    }
+  ],
+  "state_snapshots": [
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:state:initial",
+      "phase": "initial",
+      "at_seq": 2,
+      "state": {
+        "appointments": {
+          "apt_104": {
+            "patient_id": "patient_001",
+            "slot": "2026-12-01T10:00:00-05:00",
+            "status": "scheduled"
+          }
+        },
+        "medications": {
+          "med_001": {
+            "patient_id": "patient_001",
+            "label": "Examplemed 10 mg tablets"
+          }
+        },
+        "refill_requests": {},
+        "review_tasks": {},
+        "handoffs": {},
+        "pharmacies": {
+          "pharmacy_001": {
+            "label": "Maple Pharmacy",
+            "address": "100 Example Way, Sampletown"
+          },
+          "pharmacy_002": {
+            "label": "Maple Pharmacy",
+            "address": "200 Example Way, Sampletown"
+          },
+          "pharmacy_003": {
+            "label": "Harbor Pharmacy",
+            "address": "300 Sample Lane, Sampletown"
+          }
+        }
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:state:final",
+      "phase": "final",
+      "at_seq": 23,
+      "state": {
+        "appointments": {
+          "apt_104": {
+            "patient_id": "patient_001",
+            "slot": "2026-12-01T10:00:00-05:00",
+            "status": "scheduled"
+          }
+        },
+        "medications": {
+          "med_001": {
+            "patient_id": "patient_001",
+            "label": "Examplemed 10 mg tablets"
+          }
+        },
+        "refill_requests": {
+          "refill_1": {
+            "patient_id": "patient_001",
+            "medication_id": "med_001",
+            "pharmacy_id": "pharmacy_001",
+            "status": "requested"
+          }
+        },
+        "review_tasks": {},
+        "handoffs": {},
+        "pharmacies": {
+          "pharmacy_001": {
+            "label": "Maple Pharmacy",
+            "address": "100 Example Way, Sampletown"
+          },
+          "pharmacy_002": {
+            "label": "Maple Pharmacy",
+            "address": "200 Example Way, Sampletown"
+          },
+          "pharmacy_003": {
+            "label": "Harbor Pharmacy",
+            "address": "300 Sample Lane, Sampletown"
+          }
+        }
+      }
+    }
+  ],
+  "backend_log": [
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:event:19",
+      "seq": 19,
+      "response_cycle": 5,
+      "sim_time": "2026-11-30T14:00:00.338Z",
+      "actor": "backend",
+      "type": "backend_operation",
+      "visibility": "evaluator_only",
+      "payload": {
+        "call_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:call:4",
+        "name": "submit_refill_request",
+        "committed": true,
+        "idempotent_replay": false
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:event:20",
+      "seq": 20,
+      "response_cycle": 5,
+      "sim_time": "2026-11-30T14:00:00.339Z",
+      "actor": "backend",
+      "type": "state_change",
+      "visibility": "evaluator_only",
+      "payload": {
+        "call_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R8:call:4",
+        "path": "refill_requests.refill_1",
+        "before": null,
+        "after": {
+          "patient_id": "patient_001",
+          "medication_id": "med_001",
+          "pharmacy_id": "pharmacy_001",
+          "status": "requested"
+        }
+      }
+    }
+  ],
+  "status": "completed",
+  "end_reason": "agent_ended",
+  "manifest": {
+    "coverage": {
+      "conversation": "complete",
+      "tool_events": "complete",
+      "intent_annotations": "complete",
+      "initial_state": "complete",
+      "final_state": "complete",
+      "backend_log": "complete",
+      "handoff_requests": "complete",
+      "handoff_acceptance": "unavailable",
+      "real_audio": "unavailable"
+    },
+    "hashes": {
+      "scenario": "cb9b1ad4017e86bf07d403cae6cc6f181ea0a93828feb75c8aeccf84ea0b2d19",
+      "policy": "f7ada05da0ee9efcbb7a8d836feaa23f4fc2356eb9642416e6f013f861143159",
+      "agent_config": "2314e4252e0f275f043b2a497d314f4095e5832e618036c424582c92a593abf9",
+      "trace": "4d2dafe408889bb204b6534ab31a1a135ad00b628dcd437eddf71697f15add54",
+      "state_snapshots": "2fd557f1d714bcae0bf94fb5b482f642350d68a793b3e8f73f7ec4f0312f6fb4",
+      "backend_log": "52d37f0906465f78be92d44ac0b7b4ab73fd68fa1a7b0488d21a6cbb5657d89c"
+    }
+  }
+}

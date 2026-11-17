@@ -1,0 +1,22 @@
+{
+  "suiteVersion": "1.12.0",
+  "extractorVersion": "1.8.1",
+  "codeHash": "2aaefb11f20226f0ca2898184cf14385cadb91a491e0a5711fa6dcd3bf3acc83",
+  "files": [
+    "src/contracts/artifacts.ts",
+    "src/contracts/calendar.ts",
+    "src/contracts/catalog.ts",
+    "src/contracts/types.ts",
+    "src/contracts/validation.ts",
+    "src/eval/calibration.ts",
+    "src/eval/claims.ts",
+    "src/eval/cli.ts",
+    "src/eval/compare.ts",
+    "src/eval/evaluators.ts",
+    "src/eval/facts.ts",
+    "src/eval/pipeline.ts",
+    "src/eval/predicates.ts",
+    "src/eval/refill-handoff.ts",
+    "src/eval/types.ts"
+  ]
+}

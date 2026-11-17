@@ -1,0 +1,229 @@
+{
+  "suiteVersion": "evaluation@1.0.0/lexicon@1.0.0/clarity.v2",
+  "evidenceProfile": "full",
+  "verdicts": [
+    {
+      "metric": "outcome",
+      "status": "fail",
+      "evaluatorVersion": "outcome@1.0.0",
+      "reasonCode": "no_acceptable_outcome",
+      "explanation": "No acceptable final-state predicate set holds.",
+      "evidence": [
+        {
+          "kind": "state",
+          "snapshotId": "quality-candidate-A5:state:final",
+          "path": ""
+        },
+        {
+          "kind": "expectation",
+          "key": "outcomes"
+        }
+      ],
+      "items": [],
+      "severity": "major"
+    },
+    {
+      "metric": "entities",
+      "status": "pass",
+      "evaluatorVersion": "entities@1.0.0",
+      "reasonCode": "all_match",
+      "explanation": "All critical arguments match the latest disclosed intent.",
+      "evidence": [
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:12"
+        },
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:5"
+        }
+      ],
+      "items": [
+        {
+          "id": "quality-candidate-A5:event:12:slot",
+          "status": "pass",
+          "reason": "all_match",
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "quality-candidate-A5:event:12"
+            },
+            {
+              "kind": "event",
+              "id": "quality-candidate-A5:event:5"
+            }
+          ],
+          "details": {
+            "entity": "slot",
+            "expected": "2026-12-03T14:00:00-05:00",
+            "actual": "2026-12-03T14:00:00-05:00"
+          }
+        }
+      ]
+    },
+    {
+      "metric": "claim_support",
+      "status": "pass",
+      "evaluatorVersion": "claim_support@1.0.0",
+      "reasonCode": "supported",
+      "explanation": "All extracted status claims have supporting evidence.",
+      "evidence": [
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:18"
+        },
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:17"
+        }
+      ],
+      "items": [
+        {
+          "id": "quality-candidate-A5:event:18:claim:1",
+          "status": "supported",
+          "reason": "prior_confirmation",
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "quality-candidate-A5:event:18"
+            },
+            {
+              "kind": "event",
+              "id": "quality-candidate-A5:event:17"
+            }
+          ],
+          "details": {
+            "text": "Your appointment is moved to 2026-12-03T14:00:00-05:00.",
+            "type": "appointment_moved",
+            "entities": {
+              "slot": "2026-12-03T14:00:00-05:00"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "metric": "escalation_decision",
+      "status": "pass",
+      "evaluatorVersion": "escalation_decision@1.0.0",
+      "reasonCode": "policy_satisfied",
+      "explanation": "Escalation policy satisfied (0 request(s)).",
+      "evidence": [
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:20"
+        }
+      ],
+      "items": []
+    },
+    {
+      "metric": "handoff_integrity",
+      "status": "not_applicable",
+      "evaluatorVersion": "handoff_integrity@1.0.0",
+      "reasonCode": "no_handoff",
+      "explanation": "No handoff or callback was requested.",
+      "evidence": [
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:20"
+        }
+      ],
+      "items": []
+    },
+    {
+      "metric": "clarity",
+      "status": "pass",
+      "evaluatorVersion": "clarity.rules@2.0.0",
+      "reasonCode": "clear",
+      "explanation": "Closing meets this clarity rubric.",
+      "evidence": [
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:18"
+        },
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:18"
+        },
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:17"
+        }
+      ],
+      "items": [],
+      "raw": {
+        "status_present": true,
+        "next_step_present": true,
+        "owner_stated": false,
+        "timeframe_ok": true,
+        "status_accurate": true,
+        "label": "clear"
+      }
+    }
+  ],
+  "counts": {
+    "pass": 4,
+    "fail": 1,
+    "unknown": 0,
+    "not_applicable": 1
+  },
+  "gate": "WARN",
+  "diagnostics": [],
+  "facts": {
+    "claims": [
+      {
+        "id": "quality-candidate-A5:event:18:claim:1",
+        "eventId": "quality-candidate-A5:event:18",
+        "seq": 18,
+        "text": "Your appointment is moved to 2026-12-03T14:00:00-05:00.",
+        "type": "appointment_moved",
+        "entities": {
+          "slot": "2026-12-03T14:00:00-05:00"
+        },
+        "evidence": [
+          {
+            "kind": "event",
+            "id": "quality-candidate-A5:event:18"
+          },
+          {
+            "kind": "event",
+            "id": "quality-candidate-A5:event:17"
+          }
+        ],
+        "status": "supported",
+        "reason": "prior_confirmation"
+      }
+    ],
+    "changes": [
+      {
+        "path": "appointments.apt_104",
+        "before": {
+          "patient_id": "patient_001",
+          "slot": "2026-12-01T10:00:00-05:00",
+          "status": "scheduled"
+        },
+        "after": {
+          "patient_id": "patient_001",
+          "slot": "2026-12-04T14:00:00-05:00",
+          "status": "scheduled"
+        },
+        "evidence": [
+          {
+            "kind": "state",
+            "snapshotId": "quality-candidate-A5:state:initial",
+            "path": ""
+          },
+          {
+            "kind": "state",
+            "snapshotId": "quality-candidate-A5:state:final",
+            "path": ""
+          },
+          {
+            "kind": "event",
+            "id": "quality-candidate-A5:event:14"
+          }
+        ]
+      }
+    ]
+  }
+}

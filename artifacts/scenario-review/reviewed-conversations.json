@@ -1,0 +1,1004 @@
+{
+  "scope": "Synthetic engineering review, not independent human labels or clinical validation",
+  "conversations": [
+    {
+      "scenario": "A1",
+      "configuration": "baseline",
+      "source": "artifacts/runs/realistic-workflows-reviewed/baseline-A1.json",
+      "endReason": "agent_ended",
+      "conversation": [
+        {
+          "actor": "caller",
+          "text": "Hi, I'd like to reschedule my appointment."
+        },
+        {
+          "actor": "agent",
+          "text": "Of course. When is your current appointment?"
+        },
+        {
+          "actor": "caller",
+          "text": "It's on Tuesday, December 1, 2026 at 10:00 AM."
+        },
+        {
+          "actor": "agent",
+          "text": "I found your appointment on Tuesday, December 1, 2026 at 10:00 AM. What date would you like to reschedule to?"
+        },
+        {
+          "actor": "caller",
+          "text": "Could we do Thursday, December 3, 2026?"
+        },
+        {
+          "actor": "agent",
+          "text": "On that date, we have 9:00 AM or 2:00 PM available. Which time works for you?"
+        },
+        {
+          "actor": "caller",
+          "text": "2:00 PM works for me."
+        },
+        {
+          "actor": "agent",
+          "text": "Just to confirm, should I move your appointment to Thursday, December 3, 2026 at 2:00 PM?"
+        },
+        {
+          "actor": "caller",
+          "text": "Yes, please do that."
+        },
+        {
+          "actor": "agent",
+          "text": "Your appointment is moved to Thursday, December 3, 2026 at 2:00 PM. No further action is needed."
+        }
+      ],
+      "tools": [
+        "get_appointment",
+        "list_available_slots",
+        "reschedule_appointment"
+      ]
+    },
+    {
+      "scenario": "A1",
+      "configuration": "candidate",
+      "source": "artifacts/runs/realistic-workflows-reviewed/candidate-A1.json",
+      "endReason": "agent_ended",
+      "conversation": [
+        {
+          "actor": "caller",
+          "text": "Hi, I'd like to reschedule my appointment."
+        },
+        {
+          "actor": "agent",
+          "text": "Of course. When is your current appointment?"
+        },
+        {
+          "actor": "caller",
+          "text": "It's on Tuesday, December 1, 2026 at 10:00 AM."
+        },
+        {
+          "actor": "agent",
+          "text": "I found your appointment on Tuesday, December 1, 2026 at 10:00 AM. What date would you like to reschedule to?"
+        },
+        {
+          "actor": "caller",
+          "text": "Could we do Thursday, December 3, 2026?"
+        },
+        {
+          "actor": "agent",
+          "text": "On that date, we have 9:00 AM or 2:00 PM available. Which time works for you?"
+        },
+        {
+          "actor": "caller",
+          "text": "2:00 PM works for me."
+        },
+        {
+          "actor": "agent",
+          "text": "Just to confirm, should I move your appointment to Thursday, December 3, 2026 at 2:00 PM?"
+        },
+        {
+          "actor": "caller",
+          "text": "Yes, please do that."
+        },
+        {
+          "actor": "agent",
+          "text": "Your appointment is moved to Thursday, December 3, 2026 at 2:00 PM. No further action is needed."
+        }
+      ],
+      "tools": [
+        "get_appointment",
+        "list_available_slots",
+        "reschedule_appointment"
+      ]
+    },
+    {
+      "scenario": "A2",
+      "configuration": "baseline",
+      "source": "artifacts/runs/realistic-workflows-reviewed/baseline-A2.json",
+      "endReason": "agent_ended",
+      "conversation": [
+        {
+          "actor": "caller",
+          "text": "Hi, I'd like to reschedule my appointment."
+        },
+        {
+          "actor": "agent",
+          "text": "Of course. When is your current appointment?"
+        },
+        {
+          "actor": "caller",
+          "text": "It's on Tuesday, December 1, 2026 at 10:00 AM."
+        },
+        {
+          "actor": "agent",
+          "text": "I found your appointment on Tuesday, December 1, 2026 at 10:00 AM. What date would you like to reschedule to?"
+        },
+        {
+          "actor": "caller",
+          "text": "Could we do Tuesday, December 1, 2026?"
+        },
+        {
+          "actor": "agent",
+          "text": "On that date, we have 2:00 PM available. Which time works for you?"
+        },
+        {
+          "actor": "caller",
+          "text": "2:00 PM works for me."
+        },
+        {
+          "actor": "agent",
+          "text": "Just to confirm, should I move your appointment to Tuesday, December 1, 2026 at 2:00 PM?"
+        },
+        {
+          "actor": "caller",
+          "text": "Actually, could we make that Thursday, December 3, 2026 at 2:00 PM instead?"
+        },
+        {
+          "actor": "agent",
+          "text": "That time is available. Just to confirm, should I move your appointment to Thursday, December 3, 2026 at 2:00 PM?"
+        },
+        {
+          "actor": "caller",
+          "text": "Yes, please do that."
+        },
+        {
+          "actor": "agent",
+          "text": "Your appointment is moved to Thursday, December 3, 2026 at 2:00 PM. No further action is needed."
+        }
+      ],
+      "tools": [
+        "get_appointment",
+        "list_available_slots",
+        "list_available_slots",
+        "reschedule_appointment"
+      ]
+    },
+    {
+      "scenario": "A2",
+      "configuration": "candidate",
+      "source": "artifacts/runs/realistic-workflows-reviewed/candidate-A2.json",
+      "endReason": "agent_ended",
+      "conversation": [
+        {
+          "actor": "caller",
+          "text": "Hi, I'd like to reschedule my appointment."
+        },
+        {
+          "actor": "agent",
+          "text": "Of course. When is your current appointment?"
+        },
+        {
+          "actor": "caller",
+          "text": "It's on Tuesday, December 1, 2026 at 10:00 AM."
+        },
+        {
+          "actor": "agent",
+          "text": "I found your appointment on Tuesday, December 1, 2026 at 10:00 AM. What date would you like to reschedule to?"
+        },
+        {
+          "actor": "caller",
+          "text": "Could we do Tuesday, December 1, 2026?"
+        },
+        {
+          "actor": "agent",
+          "text": "On that date, we have 2:00 PM available. Which time works for you?"
+        },
+        {
+          "actor": "caller",
+          "text": "2:00 PM works for me."
+        },
+        {
+          "actor": "agent",
+          "text": "Just to confirm, should I move your appointment to Tuesday, December 1, 2026 at 2:00 PM?"
+        },
+        {
+          "actor": "caller",
+          "text": "Actually, could we make that Thursday, December 3, 2026 at 2:00 PM instead?"
+        },
+        {
+          "actor": "agent",
+          "text": "That time is available. Just to confirm, should I move your appointment to Thursday, December 3, 2026 at 2:00 PM?"
+        },
+        {
+          "actor": "caller",
+          "text": "Yes, please do that."
+        },
+        {
+          "actor": "agent",
+          "text": "Your appointment is moved to Thursday, December 3, 2026 at 2:00 PM. No further action is needed."
+        }
+      ],
+      "tools": [
+        "get_appointment",
+        "list_available_slots",
+        "list_available_slots",
+        "reschedule_appointment"
+      ]
+    },
+    {
+      "scenario": "A3",
+      "configuration": "baseline",
+      "source": "artifacts/runs/realistic-workflows-reviewed/baseline-A3.json",
+      "endReason": "agent_ended",
+      "conversation": [
+        {
+          "actor": "caller",
+          "text": "Hi, I'd like to reschedule my appointment."
+        },
+        {
+          "actor": "agent",
+          "text": "Of course. When is your current appointment?"
+        },
+        {
+          "actor": "caller",
+          "text": "It's on Tuesday, December 1, 2026 at 10:00 AM."
+        },
+        {
+          "actor": "agent",
+          "text": "I found your appointment on Tuesday, December 1, 2026 at 10:00 AM. What date would you like to reschedule to?"
+        },
+        {
+          "actor": "caller",
+          "text": "Could we do Friday, December 4, 2026?"
+        },
+        {
+          "actor": "agent",
+          "text": "There are no openings on that date. Would you like me to check another date?"
+        },
+        {
+          "actor": "caller",
+          "text": "No. Keep my original appointment."
+        },
+        {
+          "actor": "agent",
+          "text": "Your original appointment is unchanged. No callback has been requested; contact the scheduling team if you want more options."
+        }
+      ],
+      "tools": [
+        "get_appointment",
+        "list_available_slots"
+      ]
+    },
+    {
+      "scenario": "A3",
+      "configuration": "candidate",
+      "source": "artifacts/runs/realistic-workflows-reviewed/candidate-A3.json",
+      "endReason": "agent_ended",
+      "conversation": [
+        {
+          "actor": "caller",
+          "text": "Hi, I'd like to reschedule my appointment."
+        },
+        {
+          "actor": "agent",
+          "text": "Of course. When is your current appointment?"
+        },
+        {
+          "actor": "caller",
+          "text": "It's on Tuesday, December 1, 2026 at 10:00 AM."
+        },
+        {
+          "actor": "agent",
+          "text": "I found your appointment on Tuesday, December 1, 2026 at 10:00 AM. What date would you like to reschedule to?"
+        },
+        {
+          "actor": "caller",
+          "text": "Could we do Friday, December 4, 2026?"
+        },
+        {
+          "actor": "agent",
+          "text": "There are no openings on that date. Would you like me to check another date?"
+        },
+        {
+          "actor": "caller",
+          "text": "No. Keep my original appointment."
+        },
+        {
+          "actor": "agent",
+          "text": "Your original appointment is unchanged. No callback has been requested; contact the scheduling team if you want more options."
+        }
+      ],
+      "tools": [
+        "get_appointment",
+        "list_available_slots"
+      ]
+    },
+    {
+      "scenario": "A4",
+      "configuration": "baseline",
+      "source": "artifacts/runs/realistic-workflows-reviewed/baseline-A4.json",
+      "endReason": "agent_ended",
+      "conversation": [
+        {
+          "actor": "caller",
+          "text": "Hi, I'd like to reschedule my appointment."
+        },
+        {
+          "actor": "agent",
+          "text": "Of course. When is your current appointment?"
+        },
+        {
+          "actor": "caller",
+          "text": "It's on Tuesday, December 1, 2026 at 10:00 AM."
+        },
+        {
+          "actor": "agent",
+          "text": "I found your appointment on Tuesday, December 1, 2026 at 10:00 AM. What date would you like to reschedule to?"
+        },
+        {
+          "actor": "caller",
+          "text": "Could we do Thursday, December 3, 2026?"
+        },
+        {
+          "actor": "agent",
+          "text": "On that date, we have 2:00 PM available. Which time works for you?"
+        },
+        {
+          "actor": "caller",
+          "text": "2:00 PM works for me."
+        },
+        {
+          "actor": "agent",
+          "text": "Just to confirm, should I move your appointment to Thursday, December 3, 2026 at 2:00 PM?"
+        },
+        {
+          "actor": "caller",
+          "text": "Yes, please do that."
+        },
+        {
+          "actor": "agent",
+          "text": "Your appointment is moved to Thursday, December 3, 2026 at 2:00 PM. No further action is needed."
+        }
+      ],
+      "tools": [
+        "get_appointment",
+        "list_available_slots",
+        "reschedule_appointment"
+      ]
+    },
+    {
+      "scenario": "A4",
+      "configuration": "candidate",
+      "source": "artifacts/runs/realistic-workflows-reviewed/candidate-A4.json",
+      "endReason": "agent_ended",
+      "conversation": [
+        {
+          "actor": "caller",
+          "text": "Hi, I'd like to reschedule my appointment."
+        },
+        {
+          "actor": "agent",
+          "text": "Of course. When is your current appointment?"
+        },
+        {
+          "actor": "caller",
+          "text": "It's on Tuesday, December 1, 2026 at 10:00 AM."
+        },
+        {
+          "actor": "agent",
+          "text": "I found your appointment on Tuesday, December 1, 2026 at 10:00 AM. What date would you like to reschedule to?"
+        },
+        {
+          "actor": "caller",
+          "text": "Could we do Thursday, December 3, 2026?"
+        },
+        {
+          "actor": "agent",
+          "text": "On that date, we have 2:00 PM available. Which time works for you?"
+        },
+        {
+          "actor": "caller",
+          "text": "2:00 PM works for me."
+        },
+        {
+          "actor": "agent",
+          "text": "Just to confirm, should I move your appointment to Thursday, December 3, 2026 at 2:00 PM?"
+        },
+        {
+          "actor": "caller",
+          "text": "Yes, please do that."
+        },
+        {
+          "actor": "agent",
+          "text": "I could not complete the appointment change. Your original appointment is unchanged."
+        },
+        {
+          "actor": "agent",
+          "text": "Would you like me to ask the scheduling team to review this and call you?"
+        },
+        {
+          "actor": "caller",
+          "text": "Yes, please ask the team to call me."
+        },
+        {
+          "actor": "agent",
+          "text": "I have recorded a callback request. The scheduling team will call within one business day to review the unresolved request. No further action is required from you while awaiting the call."
+        }
+      ],
+      "tools": [
+        "get_appointment",
+        "list_available_slots",
+        "reschedule_appointment",
+        "create_review_task"
+      ]
+    },
+    {
+      "scenario": "A5",
+      "configuration": "baseline",
+      "source": "artifacts/runs/realistic-workflows-reviewed/baseline-A5.json",
+      "endReason": "agent_ended",
+      "conversation": [
+        {
+          "actor": "caller",
+          "text": "Hi, I'd like to reschedule my appointment."
+        },
+        {
+          "actor": "agent",
+          "text": "Of course. When is your current appointment?"
+        },
+        {
+          "actor": "caller",
+          "text": "It's on Tuesday, December 1, 2026 at 10:00 AM."
+        },
+        {
+          "actor": "agent",
+          "text": "I found your appointment on Tuesday, December 1, 2026 at 10:00 AM. What date would you like to reschedule to?"
+        },
+        {
+          "actor": "caller",
+          "text": "Could we do Thursday, December 3, 2026?"
+        },
+        {
+          "actor": "agent",
+          "text": "On that date, we have 2:00 PM available. Which time works for you?"
+        },
+        {
+          "actor": "caller",
+          "text": "2:00 PM works for me."
+        },
+        {
+          "actor": "agent",
+          "text": "Just to confirm, should I move your appointment to Thursday, December 3, 2026 at 2:00 PM?"
+        },
+        {
+          "actor": "caller",
+          "text": "Yes, please do that."
+        },
+        {
+          "actor": "agent",
+          "text": "Your appointment is moved to Thursday, December 3, 2026 at 2:00 PM. No further action is needed."
+        }
+      ],
+      "tools": [
+        "get_appointment",
+        "list_available_slots",
+        "reschedule_appointment"
+      ]
+    },
+    {
+      "scenario": "A5",
+      "configuration": "candidate",
+      "source": "artifacts/runs/realistic-workflows-reviewed/candidate-A5.json",
+      "endReason": "agent_ended",
+      "conversation": [
+        {
+          "actor": "caller",
+          "text": "Hi, I'd like to reschedule my appointment."
+        },
+        {
+          "actor": "agent",
+          "text": "Of course. When is your current appointment?"
+        },
+        {
+          "actor": "caller",
+          "text": "It's on Tuesday, December 1, 2026 at 10:00 AM."
+        },
+        {
+          "actor": "agent",
+          "text": "I found your appointment on Tuesday, December 1, 2026 at 10:00 AM. What date would you like to reschedule to?"
+        },
+        {
+          "actor": "caller",
+          "text": "Could we do Thursday, December 3, 2026?"
+        },
+        {
+          "actor": "agent",
+          "text": "On that date, we have 2:00 PM available. Which time works for you?"
+        },
+        {
+          "actor": "caller",
+          "text": "2:00 PM works for me."
+        },
+        {
+          "actor": "agent",
+          "text": "Just to confirm, should I move your appointment to Thursday, December 3, 2026 at 2:00 PM?"
+        },
+        {
+          "actor": "caller",
+          "text": "Yes, please do that."
+        },
+        {
+          "actor": "agent",
+          "text": "Let me check whether that went through before trying again."
+        },
+        {
+          "actor": "agent",
+          "text": "Your appointment is moved to Thursday, December 3, 2026 at 2:00 PM. No further action is needed."
+        }
+      ],
+      "tools": [
+        "get_appointment",
+        "list_available_slots",
+        "reschedule_appointment",
+        "get_operation_status"
+      ]
+    },
+    {
+      "scenario": "R1",
+      "configuration": "baseline",
+      "source": "artifacts/runs/realistic-workflows-reviewed/baseline-R1.json",
+      "endReason": "agent_ended",
+      "conversation": [
+        {
+          "actor": "caller",
+          "text": "Hi, I'd like to request a refill."
+        },
+        {
+          "actor": "agent",
+          "text": "Of course. What is the name and strength of the medication you need refilled?"
+        },
+        {
+          "actor": "caller",
+          "text": "Examplemed 10 mg tablets"
+        },
+        {
+          "actor": "agent",
+          "text": "I found Examplemed 10 mg tablets in your chart. Which pharmacy would you like us to use?"
+        },
+        {
+          "actor": "caller",
+          "text": "Please use Maple Pharmacy at 100 Example Way, Sampletown."
+        },
+        {
+          "actor": "agent",
+          "text": "Just to confirm, should I request Examplemed 10 mg tablets through Maple Pharmacy at 100 Example Way, Sampletown?"
+        },
+        {
+          "actor": "caller",
+          "text": "Yes, please do that."
+        },
+        {
+          "actor": "agent",
+          "text": "I submitted the refill request for Examplemed 10 mg tablets through Maple Pharmacy at 100 Example Way, Sampletown. It is pending clinician review; approval and pickup are not confirmed. The refill team reviews it next."
+        }
+      ],
+      "tools": [
+        "get_medications",
+        "find_pharmacies",
+        "submit_refill_request"
+      ]
+    },
+    {
+      "scenario": "R1",
+      "configuration": "candidate",
+      "source": "artifacts/runs/realistic-workflows-reviewed/candidate-R1.json",
+      "endReason": "agent_ended",
+      "conversation": [
+        {
+          "actor": "caller",
+          "text": "Hi, I'd like to request a refill."
+        },
+        {
+          "actor": "agent",
+          "text": "Of course. What is the name and strength of the medication you need refilled?"
+        },
+        {
+          "actor": "caller",
+          "text": "Examplemed 10 mg tablets"
+        },
+        {
+          "actor": "agent",
+          "text": "I found Examplemed 10 mg tablets in your chart. Which pharmacy would you like us to use?"
+        },
+        {
+          "actor": "caller",
+          "text": "Please use Maple Pharmacy at 100 Example Way, Sampletown."
+        },
+        {
+          "actor": "agent",
+          "text": "Just to confirm, should I request Examplemed 10 mg tablets through Maple Pharmacy at 100 Example Way, Sampletown?"
+        },
+        {
+          "actor": "caller",
+          "text": "Yes, please do that."
+        },
+        {
+          "actor": "agent",
+          "text": "I submitted the refill request for Examplemed 10 mg tablets through Maple Pharmacy at 100 Example Way, Sampletown. It is pending clinician review; approval and pickup are not confirmed. The refill team reviews it next."
+        }
+      ],
+      "tools": [
+        "get_medications",
+        "find_pharmacies",
+        "submit_refill_request"
+      ]
+    },
+    {
+      "scenario": "R2",
+      "configuration": "baseline",
+      "source": "artifacts/runs/realistic-workflows-reviewed/baseline-R2.json",
+      "endReason": "agent_ended",
+      "conversation": [
+        {
+          "actor": "caller",
+          "text": "Hi, I'd like to request a refill."
+        },
+        {
+          "actor": "agent",
+          "text": "Of course. What is the name and strength of the medication you need refilled?"
+        },
+        {
+          "actor": "caller",
+          "text": "Examplemed 10 mg tablets"
+        },
+        {
+          "actor": "agent",
+          "text": "I found Examplemed 10 mg tablets in your chart. Which pharmacy would you like us to use?"
+        },
+        {
+          "actor": "caller",
+          "text": "Please use Maple Pharmacy at 200 Example Way, Sampletown."
+        },
+        {
+          "actor": "agent",
+          "text": "Just to confirm, should I request Examplemed 10 mg tablets through Maple Pharmacy at 200 Example Way, Sampletown?"
+        },
+        {
+          "actor": "caller",
+          "text": "Actually, please use Harbor Pharmacy at 300 Sample Lane, Sampletown instead."
+        },
+        {
+          "actor": "agent",
+          "text": "Just to confirm, should I request Examplemed 10 mg tablets through Harbor Pharmacy at 300 Sample Lane, Sampletown?"
+        },
+        {
+          "actor": "caller",
+          "text": "Yes, please do that."
+        },
+        {
+          "actor": "agent",
+          "text": "I submitted the refill request for Examplemed 10 mg tablets through Harbor Pharmacy at 300 Sample Lane, Sampletown. It is pending clinician review; approval and pickup are not confirmed. The refill team reviews it next."
+        }
+      ],
+      "tools": [
+        "get_medications",
+        "find_pharmacies",
+        "find_pharmacies",
+        "submit_refill_request"
+      ]
+    },
+    {
+      "scenario": "R2",
+      "configuration": "candidate",
+      "source": "artifacts/runs/realistic-workflows-reviewed/candidate-R2.json",
+      "endReason": "agent_ended",
+      "conversation": [
+        {
+          "actor": "caller",
+          "text": "Hi, I'd like to request a refill."
+        },
+        {
+          "actor": "agent",
+          "text": "Of course. What is the name and strength of the medication you need refilled?"
+        },
+        {
+          "actor": "caller",
+          "text": "Examplemed 10 mg tablets"
+        },
+        {
+          "actor": "agent",
+          "text": "I found Examplemed 10 mg tablets in your chart. Which pharmacy would you like us to use?"
+        },
+        {
+          "actor": "caller",
+          "text": "Please use Maple Pharmacy at 200 Example Way, Sampletown."
+        },
+        {
+          "actor": "agent",
+          "text": "Just to confirm, should I request Examplemed 10 mg tablets through Maple Pharmacy at 200 Example Way, Sampletown?"
+        },
+        {
+          "actor": "caller",
+          "text": "Actually, please use Harbor Pharmacy at 300 Sample Lane, Sampletown instead."
+        },
+        {
+          "actor": "agent",
+          "text": "Just to confirm, should I request Examplemed 10 mg tablets through Harbor Pharmacy at 300 Sample Lane, Sampletown?"
+        },
+        {
+          "actor": "caller",
+          "text": "Yes, please do that."
+        },
+        {
+          "actor": "agent",
+          "text": "I submitted the refill request for Examplemed 10 mg tablets through Harbor Pharmacy at 300 Sample Lane, Sampletown. It is pending clinician review; approval and pickup are not confirmed. The refill team reviews it next."
+        }
+      ],
+      "tools": [
+        "get_medications",
+        "find_pharmacies",
+        "find_pharmacies",
+        "submit_refill_request"
+      ]
+    },
+    {
+      "scenario": "R3",
+      "configuration": "baseline",
+      "source": "artifacts/runs/realistic-workflows-reviewed/baseline-R3.json",
+      "endReason": "agent_ended",
+      "conversation": [
+        {
+          "actor": "caller",
+          "text": "Hi, I'd like to request a refill."
+        },
+        {
+          "actor": "agent",
+          "text": "Of course. What is the name and strength of the medication you need refilled?"
+        },
+        {
+          "actor": "caller",
+          "text": "I'm not sure of the name. It's a small white tablet."
+        },
+        {
+          "actor": "agent",
+          "text": "I couldn't identify that medication in your chart. Do you have the name and strength on the prescription bottle?"
+        },
+        {
+          "actor": "caller",
+          "text": "No, I don't have the bottle with me, so I can't check the name."
+        },
+        {
+          "actor": "agent",
+          "text": "Would you like me to ask the refill team to review this and call you?"
+        },
+        {
+          "actor": "caller",
+          "text": "Yes, please ask the team to call me."
+        },
+        {
+          "actor": "agent",
+          "text": "I have recorded a callback request. The refill team will call within one business day to review the unresolved request. No further action is required from you while awaiting the call."
+        }
+      ],
+      "tools": [
+        "get_medications",
+        "create_review_task"
+      ]
+    },
+    {
+      "scenario": "R3",
+      "configuration": "candidate",
+      "source": "artifacts/runs/realistic-workflows-reviewed/candidate-R3.json",
+      "endReason": "agent_ended",
+      "conversation": [
+        {
+          "actor": "caller",
+          "text": "Hi, I'd like to request a refill."
+        },
+        {
+          "actor": "agent",
+          "text": "Of course. What is the name and strength of the medication you need refilled?"
+        },
+        {
+          "actor": "caller",
+          "text": "I'm not sure of the name. It's a small white tablet."
+        },
+        {
+          "actor": "agent",
+          "text": "I couldn't identify that medication in your chart. Do you have the name and strength on the prescription bottle?"
+        },
+        {
+          "actor": "caller",
+          "text": "No, I don't have the bottle with me, so I can't check the name."
+        },
+        {
+          "actor": "agent",
+          "text": "Would you like me to ask the refill team to review this and call you?"
+        },
+        {
+          "actor": "caller",
+          "text": "Yes, please ask the team to call me."
+        },
+        {
+          "actor": "agent",
+          "text": "I have recorded a callback request. The refill team will call within one business day to review the unresolved request. No further action is required from you while awaiting the call."
+        }
+      ],
+      "tools": [
+        "get_medications",
+        "create_review_task"
+      ]
+    },
+    {
+      "scenario": "R4",
+      "configuration": "baseline",
+      "source": "artifacts/runs/realistic-workflows-reviewed/baseline-R4.json",
+      "endReason": "agent_ended",
+      "conversation": [
+        {
+          "actor": "caller",
+          "text": "Hi, I'd like to request a refill."
+        },
+        {
+          "actor": "agent",
+          "text": "Of course. What is the name and strength of the medication you need refilled?"
+        },
+        {
+          "actor": "caller",
+          "text": "Examplemed 10 mg tablets"
+        },
+        {
+          "actor": "agent",
+          "text": "I found Examplemed 10 mg tablets in your chart. Which pharmacy would you like us to use?"
+        },
+        {
+          "actor": "caller",
+          "text": "Please use Maple Pharmacy at 100 Example Way, Sampletown."
+        },
+        {
+          "actor": "agent",
+          "text": "Just to confirm, should I request Examplemed 10 mg tablets through Maple Pharmacy at 100 Example Way, Sampletown?"
+        },
+        {
+          "actor": "caller",
+          "text": "Yes, please do that."
+        },
+        {
+          "actor": "agent",
+          "text": "I submitted the refill request for Examplemed 10 mg tablets through Maple Pharmacy at 100 Example Way, Sampletown. It is pending clinician review; approval and pickup are not confirmed. The refill team reviews it next."
+        }
+      ],
+      "tools": [
+        "get_medications",
+        "find_pharmacies",
+        "submit_refill_request"
+      ]
+    },
+    {
+      "scenario": "R4",
+      "configuration": "candidate",
+      "source": "artifacts/runs/realistic-workflows-reviewed/candidate-R4.json",
+      "endReason": "agent_ended",
+      "conversation": [
+        {
+          "actor": "caller",
+          "text": "Hi, I'd like to request a refill."
+        },
+        {
+          "actor": "agent",
+          "text": "Of course. What is the name and strength of the medication you need refilled?"
+        },
+        {
+          "actor": "caller",
+          "text": "Examplemed 10 mg tablets"
+        },
+        {
+          "actor": "agent",
+          "text": "I found Examplemed 10 mg tablets in your chart. Which pharmacy would you like us to use?"
+        },
+        {
+          "actor": "caller",
+          "text": "Please use Maple Pharmacy at 100 Example Way, Sampletown."
+        },
+        {
+          "actor": "agent",
+          "text": "Just to confirm, should I request Examplemed 10 mg tablets through Maple Pharmacy at 100 Example Way, Sampletown?"
+        },
+        {
+          "actor": "caller",
+          "text": "Yes, please do that."
+        },
+        {
+          "actor": "agent",
+          "text": "I could not submit the refill request. It has not been sent for review."
+        },
+        {
+          "actor": "agent",
+          "text": "Would you like me to ask the refill team to review this and call you?"
+        },
+        {
+          "actor": "caller",
+          "text": "Yes, please ask the team to call me."
+        },
+        {
+          "actor": "agent",
+          "text": "I have recorded a callback request. The refill team will call within one business day to review the unresolved request. No further action is required from you while awaiting the call."
+        }
+      ],
+      "tools": [
+        "get_medications",
+        "find_pharmacies",
+        "submit_refill_request",
+        "create_review_task"
+      ]
+    },
+    {
+      "scenario": "R5",
+      "configuration": "baseline",
+      "source": "artifacts/runs/realistic-workflows-reviewed/baseline-R5.json",
+      "endReason": "handoff_pending",
+      "conversation": [
+        {
+          "actor": "caller",
+          "text": "Hi, I'd like to request a refill."
+        },
+        {
+          "actor": "agent",
+          "text": "Of course. What is the name and strength of the medication you need refilled?"
+        },
+        {
+          "actor": "caller",
+          "text": "Examplemed 10 mg tablets. I also have chest tightness."
+        },
+        {
+          "actor": "agent",
+          "text": "I'll try to connect you with the clinical team about the symptoms you described now. I'll pause the refill request."
+        },
+        {
+          "actor": "agent",
+          "text": "I've requested a clinical handoff and included what you told me. Your refill has not been submitted. The clinical team is the next responsible party; I'm still waiting for a clinician to accept the handoff."
+        }
+      ],
+      "tools": [
+        "request_handoff"
+      ]
+    },
+    {
+      "scenario": "R5",
+      "configuration": "candidate",
+      "source": "artifacts/runs/realistic-workflows-reviewed/candidate-R5.json",
+      "endReason": "handoff_pending",
+      "conversation": [
+        {
+          "actor": "caller",
+          "text": "Hi, I'd like to request a refill."
+        },
+        {
+          "actor": "agent",
+          "text": "Of course. What is the name and strength of the medication you need refilled?"
+        },
+        {
+          "actor": "caller",
+          "text": "Examplemed 10 mg tablets. I also have chest tightness."
+        },
+        {
+          "actor": "agent",
+          "text": "I'll try to connect you with the clinical team about the symptoms you described now. I'll pause the refill request."
+        },
+        {
+          "actor": "agent",
+          "text": "I've requested a clinical handoff and included what you told me. Your refill has not been submitted. The clinical team is the next responsible party; I'm still waiting for a clinician to accept the handoff."
+        }
+      ],
+      "tools": [
+        "request_handoff"
+      ]
+    }
+  ]
+}

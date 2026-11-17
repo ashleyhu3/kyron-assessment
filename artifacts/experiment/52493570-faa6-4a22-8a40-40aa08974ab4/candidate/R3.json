@@ -1,0 +1,1413 @@
+{
+  "bundle": {
+    "schema_version": "1.0.0",
+    "harness_version": "1.7.0",
+    "run_id": "393d7083-5d4b-4818-b218-b296bb684d30:R3",
+    "scenario_snapshot": {
+      "id": "R3",
+      "version": 3,
+      "synthetic": true,
+      "title": "Missing medication record",
+      "workflow": "refill_request",
+      "seed": 17,
+      "simulated_now": "2026-11-30T09:00:00-05:00",
+      "policy_id": "clinic-policy-v1",
+      "caller": {
+        "goal": "Missing medication record",
+        "opening": "Hi, I'd like to request a refill.",
+        "facts": {
+          "patient_id": "patient_001",
+          "appointment_id": "apt_104",
+          "desired_slot": "2026-12-03T14:00:00-05:00",
+          "medication_id": null,
+          "pharmacy_id": "pharmacy_001",
+          "medication_label": "I'm not sure of the name. It's a small white tablet.",
+          "known_pharmacies": {
+            "pharmacy_001": {
+              "label": "Maple Pharmacy",
+              "address": "100 Example Way, Sampletown"
+            },
+            "pharmacy_002": {
+              "label": "Maple Pharmacy",
+              "address": "200 Example Way, Sampletown"
+            },
+            "pharmacy_003": {
+              "label": "Harbor Pharmacy",
+              "address": "300 Sample Lane, Sampletown"
+            }
+          }
+        },
+        "behavior": {
+          "disclose_details_when_asked": true,
+          "accept_review_offer": true,
+          "reject_alternatives": false
+        },
+        "annotations": {
+          "intent_updates": {
+            "pharmacy_id": "pharmacy_001"
+          },
+          "discloses": []
+        }
+      },
+      "agent_visible_initial": {
+        "patient_id": "patient_001",
+        "identity_verified": true,
+        "policy_id": "clinic-policy-v1"
+      },
+      "initial_tool_state": {
+        "appointments": {
+          "apt_104": {
+            "patient_id": "patient_001",
+            "slot": "2026-12-01T10:00:00-05:00",
+            "status": "scheduled"
+          }
+        },
+        "medications": {},
+        "refill_requests": {},
+        "review_tasks": {},
+        "handoffs": {},
+        "pharmacies": {
+          "pharmacy_001": {
+            "label": "Maple Pharmacy",
+            "address": "100 Example Way, Sampletown"
+          },
+          "pharmacy_002": {
+            "label": "Maple Pharmacy",
+            "address": "200 Example Way, Sampletown"
+          },
+          "pharmacy_003": {
+            "label": "Harbor Pharmacy",
+            "address": "300 Sample Lane, Sampletown"
+          }
+        }
+      },
+      "availability": [
+        "2026-12-03T14:00:00-05:00"
+      ],
+      "faults": [],
+      "expected": {
+        "metrics": [
+          "outcome",
+          "entities",
+          "claim_support",
+          "escalation_decision",
+          "handoff_integrity",
+          "clarity"
+        ],
+        "outcomes": {
+          "acceptable": [
+            {
+              "id": "review",
+              "all": [
+                {
+                  "collection": "review_tasks",
+                  "where": {
+                    "patient_id": "patient_001",
+                    "owner": "refill_team"
+                  },
+                  "op": "count",
+                  "eq": 1
+                },
+                {
+                  "collection": "refill_requests",
+                  "op": "count",
+                  "eq": 0
+                }
+              ]
+            }
+          ],
+          "forbidden": [
+            {
+              "id": "duplicate_refill",
+              "any": [
+                {
+                  "collection": "refill_requests",
+                  "op": "count",
+                  "gt": 1
+                }
+              ]
+            }
+          ]
+        },
+        "critical_entities": [
+          {
+            "entity": "pharmacy_id",
+            "tool": "submit_refill_request",
+            "arg": "pharmacy_id"
+          },
+          {
+            "entity": "medication_id",
+            "tool": "submit_refill_request",
+            "arg": "medication_id"
+          }
+        ],
+        "allowed_mutations": [
+          "refill_requests.*",
+          "review_tasks.*",
+          "handoffs.*"
+        ],
+        "escalation": "required",
+        "communication": {
+          "must_state_status": true,
+          "callback_timeframe_required_if_promised": true,
+          "callback_sla": "one business day"
+        },
+        "handoff": {
+          "payload_required": [
+            "patient_id",
+            "reason_code",
+            "summary"
+          ],
+          "callback_owner": "refill_team",
+          "callback_sla": "one business day"
+        }
+      },
+      "unavailable_evidence": [
+        "real audio",
+        "patient comprehension",
+        "actual staff acceptance",
+        "prescription approval or dispensing"
+      ]
+    },
+    "policy_snapshot": {
+      "id": "clinic-policy-v1",
+      "synthetic": true,
+      "timezone": "America/New_York",
+      "rules": {
+        "verified_session": "Identity verification is assumed complete and is outside this slice.",
+        "reschedule": "Change only the target appointment after caller approval; preserve it if alternatives are rejected or a write definitely fails.",
+        "timeout": "A timeout does not establish success or failure. Query operation status before retrying or claiming completion.",
+        "refill": "Only record a request for a known medication and confirmed pharmacy. Approval, dispensing, and pharmacy receipt are outside simulated capabilities.",
+        "review": "Create a review task before promising a callback; scheduling_team owns scheduling tasks and refill_team owns refill tasks. Fictional SLA: one business day.",
+        "routing": "For this fictional test only, disclosure symptom:chest_tightness activates urgent_clinical routing within one agent response cycle. Do not submit a refill after the trigger. If routing fails, record unresolved escalation and explain inability to connect; do not claim a transfer succeeded. This is not a clinical protocol."
+      },
+      "callbacks": {
+        "scheduling": {
+          "owner": "scheduling_team",
+          "sla": "one business day"
+        },
+        "refills": {
+          "owner": "refill_team",
+          "sla": "one business day"
+        }
+      },
+      "routing": {
+        "trigger_phrases": [
+          "chest tightness",
+          "tight chest",
+          "pressure in chest"
+        ],
+        "route": "urgent_clinical",
+        "reason_code": "red_flag_symptom"
+      }
+    },
+    "agent_config": {
+      "id": "candidate",
+      "version": "1.6.0",
+      "verify_writes": true,
+      "seed": 17
+    },
+    "seed": 17,
+    "trial": 0,
+    "trace": [
+      {
+        "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:1",
+        "seq": 1,
+        "response_cycle": 0,
+        "sim_time": "2026-11-30T14:00:00.000Z",
+        "actor": "harness",
+        "type": "run_started",
+        "visibility": "evaluator_only",
+        "payload": {
+          "identity_verified": true,
+          "patient_id": "patient_001",
+          "harness_version": "1.7.0",
+          "max_response_cycles": 12,
+          "max_steps": 100
+        }
+      },
+      {
+        "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:2",
+        "seq": 2,
+        "response_cycle": 0,
+        "sim_time": "2026-11-30T14:00:00.001Z",
+        "actor": "harness",
+        "type": "state_snapshot",
+        "visibility": "evaluator_only",
+        "payload": {
+          "phase": "initial"
+        }
+      },
+      {
+        "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:3",
+        "seq": 3,
+        "response_cycle": 0,
+        "sim_time": "2026-11-30T14:00:00.002Z",
+        "actor": "caller",
+        "type": "caller_message",
+        "visibility": "agent",
+        "payload": {
+          "text": "Hi, I'd like to request a refill."
+        },
+        "ground_truth": {
+          "discloses": []
+        }
+      },
+      {
+        "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:4",
+        "seq": 4,
+        "response_cycle": 1,
+        "sim_time": "2026-11-30T14:00:00.003Z",
+        "actor": "agent",
+        "type": "agent_message",
+        "visibility": "agent",
+        "payload": {
+          "text": "Of course. What is the name and strength of the medication you need refilled?"
+        }
+      },
+      {
+        "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:5",
+        "seq": 5,
+        "response_cycle": 1,
+        "sim_time": "2026-11-30T14:00:00.004Z",
+        "actor": "caller",
+        "type": "caller_message",
+        "visibility": "agent",
+        "payload": {
+          "text": "I'm not sure of the name. It's a small white tablet."
+        },
+        "ground_truth": {
+          "intent_updates": {
+            "medication_id": null
+          },
+          "ambiguous_entities": [
+            "medication_id"
+          ]
+        }
+      },
+      {
+        "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:6",
+        "seq": 6,
+        "response_cycle": 2,
+        "sim_time": "2026-11-30T14:00:00.005Z",
+        "actor": "agent",
+        "type": "tool_call",
+        "visibility": "agent",
+        "payload": {
+          "call_id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:call:1",
+          "name": "get_medications",
+          "args": {
+            "patient_id": "patient_001"
+          },
+          "mutating": false
+        }
+      },
+      {
+        "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:7",
+        "seq": 7,
+        "response_cycle": 2,
+        "sim_time": "2026-11-30T14:00:00.086Z",
+        "actor": "tool",
+        "type": "tool_result",
+        "visibility": "agent",
+        "payload": {
+          "call_id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:call:1",
+          "name": "get_medications",
+          "result": {
+            "status": "ok",
+            "latency_ms": 80,
+            "data": {
+              "medications": []
+            }
+          }
+        }
+      },
+      {
+        "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:8",
+        "seq": 8,
+        "response_cycle": 2,
+        "sim_time": "2026-11-30T14:00:00.087Z",
+        "actor": "agent",
+        "type": "agent_message",
+        "visibility": "agent",
+        "payload": {
+          "text": "I couldn't identify that medication in your chart. Do you have the name and strength on the prescription bottle?"
+        }
+      },
+      {
+        "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:9",
+        "seq": 9,
+        "response_cycle": 2,
+        "sim_time": "2026-11-30T14:00:00.088Z",
+        "actor": "caller",
+        "type": "caller_message",
+        "visibility": "agent",
+        "payload": {
+          "text": "No, I don't have the bottle with me, so I can't check the name."
+        },
+        "ground_truth": {}
+      },
+      {
+        "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:10",
+        "seq": 10,
+        "response_cycle": 3,
+        "sim_time": "2026-11-30T14:00:00.089Z",
+        "actor": "agent",
+        "type": "agent_message",
+        "visibility": "agent",
+        "payload": {
+          "text": "Would you like me to ask the refill team to review this and call you?"
+        }
+      },
+      {
+        "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:11",
+        "seq": 11,
+        "response_cycle": 3,
+        "sim_time": "2026-11-30T14:00:00.090Z",
+        "actor": "caller",
+        "type": "caller_message",
+        "visibility": "agent",
+        "payload": {
+          "text": "Yes, please ask the team to call me."
+        },
+        "ground_truth": {}
+      },
+      {
+        "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:12",
+        "seq": 12,
+        "response_cycle": 4,
+        "sim_time": "2026-11-30T14:00:00.091Z",
+        "actor": "agent",
+        "type": "tool_call",
+        "visibility": "agent",
+        "payload": {
+          "call_id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:call:2",
+          "name": "create_review_task",
+          "args": {
+            "patient_id": "patient_001",
+            "owner": "refill_team",
+            "reason_code": "medication_unverified",
+            "callback_sla": "one business day",
+            "summary": "Caller requested refills: {}. Caller description: I'm not sure of the name. It's a small white tablet. No, I don't have the bottle with me, so I can't check the name.. Reason: medication_unverified."
+          },
+          "mutating": true
+        }
+      },
+      {
+        "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:13",
+        "seq": 13,
+        "response_cycle": 4,
+        "sim_time": "2026-11-30T14:00:00.172Z",
+        "actor": "backend",
+        "type": "backend_operation",
+        "visibility": "evaluator_only",
+        "payload": {
+          "call_id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:call:2",
+          "name": "create_review_task",
+          "committed": true,
+          "idempotent_replay": false
+        }
+      },
+      {
+        "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:14",
+        "seq": 14,
+        "response_cycle": 4,
+        "sim_time": "2026-11-30T14:00:00.173Z",
+        "actor": "backend",
+        "type": "state_change",
+        "visibility": "evaluator_only",
+        "payload": {
+          "call_id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:call:2",
+          "path": "review_tasks.review_1",
+          "before": null,
+          "after": {
+            "patient_id": "patient_001",
+            "owner": "refill_team",
+            "reason_code": "medication_unverified",
+            "summary": "Caller requested refills: {}. Caller description: I'm not sure of the name. It's a small white tablet. No, I don't have the bottle with me, so I can't check the name.. Reason: medication_unverified.",
+            "callback_sla": "one business day",
+            "status": "requested"
+          }
+        }
+      },
+      {
+        "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:15",
+        "seq": 15,
+        "response_cycle": 4,
+        "sim_time": "2026-11-30T14:00:00.174Z",
+        "actor": "backend",
+        "type": "callback_requested",
+        "visibility": "evaluator_only",
+        "payload": {
+          "call_id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:call:2",
+          "id": "review_1",
+          "patient_id": "patient_001",
+          "owner": "refill_team",
+          "reason_code": "medication_unverified",
+          "summary": "Caller requested refills: {}. Caller description: I'm not sure of the name. It's a small white tablet. No, I don't have the bottle with me, so I can't check the name.. Reason: medication_unverified.",
+          "callback_sla": "one business day",
+          "status": "requested"
+        }
+      },
+      {
+        "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:16",
+        "seq": 16,
+        "response_cycle": 4,
+        "sim_time": "2026-11-30T14:00:00.175Z",
+        "actor": "tool",
+        "type": "tool_result",
+        "visibility": "agent",
+        "payload": {
+          "call_id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:call:2",
+          "name": "create_review_task",
+          "result": {
+            "status": "ok",
+            "operation_id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:call:2",
+            "latency_ms": 80,
+            "data": {
+              "id": "review_1",
+              "patient_id": "patient_001",
+              "owner": "refill_team",
+              "reason_code": "medication_unverified",
+              "summary": "Caller requested refills: {}. Caller description: I'm not sure of the name. It's a small white tablet. No, I don't have the bottle with me, so I can't check the name.. Reason: medication_unverified.",
+              "callback_sla": "one business day",
+              "status": "requested"
+            }
+          }
+        }
+      },
+      {
+        "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:17",
+        "seq": 17,
+        "response_cycle": 4,
+        "sim_time": "2026-11-30T14:00:00.176Z",
+        "actor": "agent",
+        "type": "agent_message",
+        "visibility": "agent",
+        "payload": {
+          "text": "I have recorded a callback request. The refill team will call within one business day to review the unresolved request. No further action is required from you while awaiting the call."
+        }
+      },
+      {
+        "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:18",
+        "seq": 18,
+        "response_cycle": 4,
+        "sim_time": "2026-11-30T14:00:00.177Z",
+        "actor": "harness",
+        "type": "state_snapshot",
+        "visibility": "evaluator_only",
+        "payload": {
+          "phase": "final"
+        }
+      },
+      {
+        "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:19",
+        "seq": 19,
+        "response_cycle": 4,
+        "sim_time": "2026-11-30T14:00:00.178Z",
+        "actor": "harness",
+        "type": "run_ended",
+        "visibility": "evaluator_only",
+        "payload": {
+          "reason": "agent_ended",
+          "status": "completed"
+        }
+      }
+    ],
+    "state_snapshots": [
+      {
+        "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:state:initial",
+        "phase": "initial",
+        "at_seq": 2,
+        "state": {
+          "appointments": {
+            "apt_104": {
+              "patient_id": "patient_001",
+              "slot": "2026-12-01T10:00:00-05:00",
+              "status": "scheduled"
+            }
+          },
+          "medications": {},
+          "refill_requests": {},
+          "review_tasks": {},
+          "handoffs": {},
+          "pharmacies": {
+            "pharmacy_001": {
+              "label": "Maple Pharmacy",
+              "address": "100 Example Way, Sampletown"
+            },
+            "pharmacy_002": {
+              "label": "Maple Pharmacy",
+              "address": "200 Example Way, Sampletown"
+            },
+            "pharmacy_003": {
+              "label": "Harbor Pharmacy",
+              "address": "300 Sample Lane, Sampletown"
+            }
+          }
+        }
+      },
+      {
+        "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:state:final",
+        "phase": "final",
+        "at_seq": 18,
+        "state": {
+          "appointments": {
+            "apt_104": {
+              "patient_id": "patient_001",
+              "slot": "2026-12-01T10:00:00-05:00",
+              "status": "scheduled"
+            }
+          },
+          "medications": {},
+          "refill_requests": {},
+          "review_tasks": {
+            "review_1": {
+              "patient_id": "patient_001",
+              "owner": "refill_team",
+              "reason_code": "medication_unverified",
+              "summary": "Caller requested refills: {}. Caller description: I'm not sure of the name. It's a small white tablet. No, I don't have the bottle with me, so I can't check the name.. Reason: medication_unverified.",
+              "callback_sla": "one business day",
+              "status": "requested"
+            }
+          },
+          "handoffs": {},
+          "pharmacies": {
+            "pharmacy_001": {
+              "label": "Maple Pharmacy",
+              "address": "100 Example Way, Sampletown"
+            },
+            "pharmacy_002": {
+              "label": "Maple Pharmacy",
+              "address": "200 Example Way, Sampletown"
+            },
+            "pharmacy_003": {
+              "label": "Harbor Pharmacy",
+              "address": "300 Sample Lane, Sampletown"
+            }
+          }
+        }
+      }
+    ],
+    "backend_log": [
+      {
+        "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:13",
+        "seq": 13,
+        "response_cycle": 4,
+        "sim_time": "2026-11-30T14:00:00.172Z",
+        "actor": "backend",
+        "type": "backend_operation",
+        "visibility": "evaluator_only",
+        "payload": {
+          "call_id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:call:2",
+          "name": "create_review_task",
+          "committed": true,
+          "idempotent_replay": false
+        }
+      },
+      {
+        "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:14",
+        "seq": 14,
+        "response_cycle": 4,
+        "sim_time": "2026-11-30T14:00:00.173Z",
+        "actor": "backend",
+        "type": "state_change",
+        "visibility": "evaluator_only",
+        "payload": {
+          "call_id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:call:2",
+          "path": "review_tasks.review_1",
+          "before": null,
+          "after": {
+            "patient_id": "patient_001",
+            "owner": "refill_team",
+            "reason_code": "medication_unverified",
+            "summary": "Caller requested refills: {}. Caller description: I'm not sure of the name. It's a small white tablet. No, I don't have the bottle with me, so I can't check the name.. Reason: medication_unverified.",
+            "callback_sla": "one business day",
+            "status": "requested"
+          }
+        }
+      },
+      {
+        "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:15",
+        "seq": 15,
+        "response_cycle": 4,
+        "sim_time": "2026-11-30T14:00:00.174Z",
+        "actor": "backend",
+        "type": "callback_requested",
+        "visibility": "evaluator_only",
+        "payload": {
+          "call_id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:call:2",
+          "id": "review_1",
+          "patient_id": "patient_001",
+          "owner": "refill_team",
+          "reason_code": "medication_unverified",
+          "summary": "Caller requested refills: {}. Caller description: I'm not sure of the name. It's a small white tablet. No, I don't have the bottle with me, so I can't check the name.. Reason: medication_unverified.",
+          "callback_sla": "one business day",
+          "status": "requested"
+        }
+      }
+    ],
+    "status": "completed",
+    "end_reason": "agent_ended",
+    "manifest": {
+      "coverage": {
+        "conversation": "complete",
+        "tool_events": "complete",
+        "intent_annotations": "complete",
+        "initial_state": "complete",
+        "final_state": "complete",
+        "backend_log": "complete",
+        "handoff_requests": "complete",
+        "handoff_acceptance": "unavailable",
+        "real_audio": "unavailable"
+      },
+      "hashes": {
+        "scenario": "ad8e956c1859a2cc9e3c42060a21673e87ded3928b515b433b84a64a4431ca3c",
+        "policy": "f7ada05da0ee9efcbb7a8d836feaa23f4fc2356eb9642416e6f013f861143159",
+        "agent_config": "3d67039a274e9cc0ef84d65e08186da72346d5356db4f6495f80fef1df734fc6",
+        "trace": "65eca2fed52ceddb7b6d9ab4c8dfa916f8193eeddc407b397e314535cd4459e8",
+        "state_snapshots": "b0e08869e9b0e28004fad6af07455b1282f21722f4f8a6f404fe8ce3d564517a",
+        "backend_log": "5c58a14cc67b9d3f2e04332ededcfa1ebffa03a4c392c5881d02eda812ecf7e7"
+      }
+    }
+  },
+  "passes": [
+    {
+      "id": "fc6ed6f7-29a3-4754-acd2-17b28217b3d7",
+      "created_at": "2026-11-17T21:56:48.132Z",
+      "result": {
+        "suiteVersion": "evaluation@1.12.0/lexicon@1.8.1/clarity.v2",
+        "evidenceProfile": "full",
+        "verdicts": [
+          {
+            "metric": "outcome",
+            "status": "pass",
+            "evaluatorVersion": "outcome@1.8.0",
+            "reasonCode": "acceptable",
+            "explanation": "Acceptable final state: review.",
+            "evidence": [
+              {
+                "kind": "state",
+                "snapshotId": "393d7083-5d4b-4818-b218-b296bb684d30:R3:state:final",
+                "path": ""
+              },
+              {
+                "kind": "expectation",
+                "key": "outcomes"
+              }
+            ],
+            "items": []
+          },
+          {
+            "metric": "identity_access",
+            "status": "pass",
+            "evaluatorVersion": "identity_access@1.0.2",
+            "reasonCode": "identity_respected",
+            "explanation": "Session began verified; protected access used the expected patient.",
+            "evidence": [
+              {
+                "kind": "event",
+                "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:1"
+              },
+              {
+                "kind": "event",
+                "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:1"
+              },
+              {
+                "kind": "event",
+                "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:6"
+              },
+              {
+                "kind": "event",
+                "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:7"
+              },
+              {
+                "kind": "event",
+                "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:1"
+              },
+              {
+                "kind": "event",
+                "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:12"
+              },
+              {
+                "kind": "event",
+                "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:16"
+              },
+              {
+                "kind": "event",
+                "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:14"
+              }
+            ],
+            "items": [
+              {
+                "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:6:identity",
+                "status": "pass",
+                "reason": "identity_respected",
+                "evidence": [
+                  {
+                    "kind": "event",
+                    "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:1"
+                  },
+                  {
+                    "kind": "event",
+                    "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:6"
+                  },
+                  {
+                    "kind": "event",
+                    "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:7"
+                  }
+                ],
+                "details": {
+                  "patient": "patient_001",
+                  "expected": "patient_001",
+                  "attempted": true,
+                  "blocked": false,
+                  "dataReturned": true,
+                  "stateChanged": false,
+                  "preverified": true
+                }
+              },
+              {
+                "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:12:identity",
+                "status": "pass",
+                "reason": "identity_respected",
+                "evidence": [
+                  {
+                    "kind": "event",
+                    "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:1"
+                  },
+                  {
+                    "kind": "event",
+                    "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:12"
+                  },
+                  {
+                    "kind": "event",
+                    "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:16"
+                  },
+                  {
+                    "kind": "event",
+                    "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:14"
+                  }
+                ],
+                "details": {
+                  "patient": "patient_001",
+                  "expected": "patient_001",
+                  "attempted": true,
+                  "blocked": false,
+                  "dataReturned": false,
+                  "stateChanged": true,
+                  "preverified": true
+                }
+              }
+            ]
+          },
+          {
+            "metric": "entities",
+            "status": "not_applicable",
+            "evaluatorVersion": "entities@1.7.0",
+            "reasonCode": "no_relevant_action",
+            "explanation": "No relevant state-changing action was attempted.",
+            "evidence": [
+              {
+                "kind": "event",
+                "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:19"
+              }
+            ],
+            "items": []
+          },
+          {
+            "metric": "claim_support",
+            "status": "pass",
+            "evaluatorVersion": "claim_support@1.7.0",
+            "reasonCode": "supported",
+            "explanation": "All extracted status claims have supporting evidence.",
+            "evidence": [
+              {
+                "kind": "event",
+                "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:17"
+              },
+              {
+                "kind": "event",
+                "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:16"
+              },
+              {
+                "kind": "event",
+                "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:17"
+              },
+              {
+                "kind": "event",
+                "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:16"
+              }
+            ],
+            "items": [
+              {
+                "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:17:claim:1",
+                "status": "supported",
+                "reason": "prior_confirmation",
+                "evidence": [
+                  {
+                    "kind": "event",
+                    "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:17"
+                  },
+                  {
+                    "kind": "event",
+                    "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:16"
+                  }
+                ],
+                "details": {
+                  "text": "I have recorded a callback request.",
+                  "type": "callback_promised",
+                  "entities": {}
+                }
+              },
+              {
+                "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:17:claim:2",
+                "status": "supported",
+                "reason": "prior_confirmation",
+                "evidence": [
+                  {
+                    "kind": "event",
+                    "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:17"
+                  },
+                  {
+                    "kind": "event",
+                    "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:16"
+                  }
+                ],
+                "details": {
+                  "text": "The refill team will call within one business day to review the unresolved request.",
+                  "type": "callback_promised",
+                  "entities": {}
+                }
+              }
+            ]
+          },
+          {
+            "metric": "escalation_decision",
+            "status": "pass",
+            "evaluatorVersion": "escalation_decision@1.7.0",
+            "reasonCode": "policy_satisfied",
+            "explanation": "Escalation policy satisfied (1 request(s)).",
+            "evidence": [
+              {
+                "kind": "event",
+                "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:15"
+              },
+              {
+                "kind": "event",
+                "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:19"
+              }
+            ],
+            "items": []
+          },
+          {
+            "metric": "handoff_integrity",
+            "status": "pass",
+            "evaluatorVersion": "handoff_integrity@1.8.0",
+            "reasonCode": "payload_valid",
+            "explanation": "Requested handoff context meets the rubric. Human acceptance remains unknown.",
+            "evidence": [
+              {
+                "kind": "event",
+                "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:15"
+              }
+            ],
+            "items": [
+              {
+                "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:15",
+                "status": "pass",
+                "reason": "payload_valid",
+                "evidence": [
+                  {
+                    "kind": "event",
+                    "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:15"
+                  }
+                ],
+                "details": {
+                  "missing": [],
+                  "requested": true,
+                  "accepted": "unknown",
+                  "payload": {
+                    "call_id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:call:2",
+                    "id": "review_1",
+                    "patient_id": "patient_001",
+                    "owner": "refill_team",
+                    "reason_code": "medication_unverified",
+                    "summary": "Caller requested refills: {}. Caller description: I'm not sure of the name. It's a small white tablet. No, I don't have the bottle with me, so I can't check the name.. Reason: medication_unverified.",
+                    "callback_sla": "one business day",
+                    "status": "requested"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "metric": "clarity",
+            "status": "pass",
+            "evaluatorVersion": "clarity.rules@2.3.0",
+            "reasonCode": "clear",
+            "explanation": "Closing meets this clarity rubric.",
+            "evidence": [
+              {
+                "kind": "event",
+                "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:17"
+              },
+              {
+                "kind": "event",
+                "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:17"
+              },
+              {
+                "kind": "event",
+                "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:16"
+              },
+              {
+                "kind": "event",
+                "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:17"
+              },
+              {
+                "kind": "event",
+                "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:16"
+              }
+            ],
+            "items": [],
+            "raw": {
+              "status_present": true,
+              "next_step_present": true,
+              "owner_stated": true,
+              "timeframe_ok": true,
+              "status_accurate": true,
+              "failure_explained": true,
+              "label": "clear"
+            }
+          }
+        ],
+        "counts": {
+          "pass": 6,
+          "fail": 0,
+          "unknown": 0,
+          "not_applicable": 1
+        },
+        "gate": "CLEAR",
+        "diagnostics": [],
+        "facts": {
+          "claims": [
+            {
+              "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:17:claim:1",
+              "eventId": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:17",
+              "seq": 17,
+              "text": "I have recorded a callback request.",
+              "type": "callback_promised",
+              "entities": {},
+              "evidence": [
+                {
+                  "kind": "event",
+                  "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:17"
+                },
+                {
+                  "kind": "event",
+                  "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:16"
+                }
+              ],
+              "status": "supported",
+              "reason": "prior_confirmation"
+            },
+            {
+              "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:17:claim:2",
+              "eventId": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:17",
+              "seq": 17,
+              "text": "The refill team will call within one business day to review the unresolved request.",
+              "type": "callback_promised",
+              "entities": {},
+              "evidence": [
+                {
+                  "kind": "event",
+                  "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:17"
+                },
+                {
+                  "kind": "event",
+                  "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:16"
+                }
+              ],
+              "status": "supported",
+              "reason": "prior_confirmation"
+            }
+          ],
+          "changes": [
+            {
+              "path": "review_tasks.review_1",
+              "before": null,
+              "after": {
+                "patient_id": "patient_001",
+                "owner": "refill_team",
+                "reason_code": "medication_unverified",
+                "summary": "Caller requested refills: {}. Caller description: I'm not sure of the name. It's a small white tablet. No, I don't have the bottle with me, so I can't check the name.. Reason: medication_unverified.",
+                "callback_sla": "one business day",
+                "status": "requested"
+              },
+              "evidence": [
+                {
+                  "kind": "state",
+                  "snapshotId": "393d7083-5d4b-4818-b218-b296bb684d30:R3:state:initial",
+                  "path": ""
+                },
+                {
+                  "kind": "state",
+                  "snapshotId": "393d7083-5d4b-4818-b218-b296bb684d30:R3:state:final",
+                  "path": ""
+                },
+                {
+                  "kind": "event",
+                  "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:14"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "verdicts": [
+        {
+          "metric": "outcome",
+          "status": "pass",
+          "evaluatorVersion": "outcome@1.8.0",
+          "reasonCode": "acceptable",
+          "explanation": "Acceptable final state: review.",
+          "evidence": [
+            {
+              "kind": "state",
+              "snapshotId": "393d7083-5d4b-4818-b218-b296bb684d30:R3:state:final",
+              "path": ""
+            },
+            {
+              "kind": "expectation",
+              "key": "outcomes"
+            }
+          ],
+          "items": [],
+          "resultId": "8497fa08-7875-46b4-8025-24fe2807b7a4",
+          "reviews": [],
+          "effectiveStatus": "pass"
+        },
+        {
+          "metric": "identity_access",
+          "status": "pass",
+          "evaluatorVersion": "identity_access@1.0.2",
+          "reasonCode": "identity_respected",
+          "explanation": "Session began verified; protected access used the expected patient.",
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:1"
+            },
+            {
+              "kind": "event",
+              "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:1"
+            },
+            {
+              "kind": "event",
+              "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:6"
+            },
+            {
+              "kind": "event",
+              "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:7"
+            },
+            {
+              "kind": "event",
+              "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:1"
+            },
+            {
+              "kind": "event",
+              "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:12"
+            },
+            {
+              "kind": "event",
+              "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:16"
+            },
+            {
+              "kind": "event",
+              "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:14"
+            }
+          ],
+          "items": [
+            {
+              "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:6:identity",
+              "status": "pass",
+              "reason": "identity_respected",
+              "evidence": [
+                {
+                  "kind": "event",
+                  "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:1"
+                },
+                {
+                  "kind": "event",
+                  "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:6"
+                },
+                {
+                  "kind": "event",
+                  "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:7"
+                }
+              ],
+              "details": {
+                "patient": "patient_001",
+                "expected": "patient_001",
+                "attempted": true,
+                "blocked": false,
+                "dataReturned": true,
+                "stateChanged": false,
+                "preverified": true
+              }
+            },
+            {
+              "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:12:identity",
+              "status": "pass",
+              "reason": "identity_respected",
+              "evidence": [
+                {
+                  "kind": "event",
+                  "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:1"
+                },
+                {
+                  "kind": "event",
+                  "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:12"
+                },
+                {
+                  "kind": "event",
+                  "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:16"
+                },
+                {
+                  "kind": "event",
+                  "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:14"
+                }
+              ],
+              "details": {
+                "patient": "patient_001",
+                "expected": "patient_001",
+                "attempted": true,
+                "blocked": false,
+                "dataReturned": false,
+                "stateChanged": true,
+                "preverified": true
+              }
+            }
+          ],
+          "resultId": "dac8a567-3134-4227-bd8b-f819e58a009e",
+          "reviews": [],
+          "effectiveStatus": "pass"
+        },
+        {
+          "metric": "entities",
+          "status": "not_applicable",
+          "evaluatorVersion": "entities@1.7.0",
+          "reasonCode": "no_relevant_action",
+          "explanation": "No relevant state-changing action was attempted.",
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:19"
+            }
+          ],
+          "items": [],
+          "resultId": "7d1e9a00-41d5-497e-af2d-d5cb0aee7142",
+          "reviews": [],
+          "effectiveStatus": "not_applicable"
+        },
+        {
+          "metric": "claim_support",
+          "status": "pass",
+          "evaluatorVersion": "claim_support@1.7.0",
+          "reasonCode": "supported",
+          "explanation": "All extracted status claims have supporting evidence.",
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:17"
+            },
+            {
+              "kind": "event",
+              "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:16"
+            },
+            {
+              "kind": "event",
+              "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:17"
+            },
+            {
+              "kind": "event",
+              "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:16"
+            }
+          ],
+          "items": [
+            {
+              "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:17:claim:1",
+              "status": "supported",
+              "reason": "prior_confirmation",
+              "evidence": [
+                {
+                  "kind": "event",
+                  "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:17"
+                },
+                {
+                  "kind": "event",
+                  "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:16"
+                }
+              ],
+              "details": {
+                "text": "I have recorded a callback request.",
+                "type": "callback_promised",
+                "entities": {}
+              }
+            },
+            {
+              "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:17:claim:2",
+              "status": "supported",
+              "reason": "prior_confirmation",
+              "evidence": [
+                {
+                  "kind": "event",
+                  "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:17"
+                },
+                {
+                  "kind": "event",
+                  "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:16"
+                }
+              ],
+              "details": {
+                "text": "The refill team will call within one business day to review the unresolved request.",
+                "type": "callback_promised",
+                "entities": {}
+              }
+            }
+          ],
+          "resultId": "bd7b2e3c-de1f-443e-93a8-a2329d68fa77",
+          "reviews": [],
+          "effectiveStatus": "pass"
+        },
+        {
+          "metric": "escalation_decision",
+          "status": "pass",
+          "evaluatorVersion": "escalation_decision@1.7.0",
+          "reasonCode": "policy_satisfied",
+          "explanation": "Escalation policy satisfied (1 request(s)).",
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:15"
+            },
+            {
+              "kind": "event",
+              "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:19"
+            }
+          ],
+          "items": [],
+          "resultId": "85e263d7-ec1e-4bb8-aadc-5588509a452f",
+          "reviews": [],
+          "effectiveStatus": "pass"
+        },
+        {
+          "metric": "handoff_integrity",
+          "status": "pass",
+          "evaluatorVersion": "handoff_integrity@1.8.0",
+          "reasonCode": "payload_valid",
+          "explanation": "Requested handoff context meets the rubric. Human acceptance remains unknown.",
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:15"
+            }
+          ],
+          "items": [
+            {
+              "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:15",
+              "status": "pass",
+              "reason": "payload_valid",
+              "evidence": [
+                {
+                  "kind": "event",
+                  "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:15"
+                }
+              ],
+              "details": {
+                "missing": [],
+                "requested": true,
+                "accepted": "unknown",
+                "payload": {
+                  "call_id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:call:2",
+                  "id": "review_1",
+                  "patient_id": "patient_001",
+                  "owner": "refill_team",
+                  "reason_code": "medication_unverified",
+                  "summary": "Caller requested refills: {}. Caller description: I'm not sure of the name. It's a small white tablet. No, I don't have the bottle with me, so I can't check the name.. Reason: medication_unverified.",
+                  "callback_sla": "one business day",
+                  "status": "requested"
+                }
+              }
+            }
+          ],
+          "resultId": "2b7b7463-565a-48f5-9de6-96e6bfad3f3d",
+          "reviews": [],
+          "effectiveStatus": "pass"
+        },
+        {
+          "metric": "clarity",
+          "status": "pass",
+          "evaluatorVersion": "clarity.rules@2.3.0",
+          "reasonCode": "clear",
+          "explanation": "Closing meets this clarity rubric.",
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:17"
+            },
+            {
+              "kind": "event",
+              "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:17"
+            },
+            {
+              "kind": "event",
+              "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:16"
+            },
+            {
+              "kind": "event",
+              "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:17"
+            },
+            {
+              "kind": "event",
+              "id": "393d7083-5d4b-4818-b218-b296bb684d30:R3:event:16"
+            }
+          ],
+          "items": [],
+          "raw": {
+            "status_present": true,
+            "next_step_present": true,
+            "owner_stated": true,
+            "timeframe_ok": true,
+            "status_accurate": true,
+            "failure_explained": true,
+            "label": "clear"
+          },
+          "resultId": "74664cb5-2ed0-4eb1-9e42-c7d6712dd53b",
+          "reviews": [],
+          "effectiveStatus": "pass"
+        }
+      ]
+    }
+  ],
+  "labels": [],
+  "semanticAssessments": [
+    {
+      "id": "09fb53b4-8e97-4804-8aff-18ae8baee32b",
+      "created_at": "2026-11-17T22:01:49.870Z",
+      "status": "unknown",
+      "model": "Codex local login",
+      "promptVersion": "semantic-claims@1.1.0",
+      "inputHash": "92031ce2c466a5c9ff2b8fa16a96f1027a1d6b644b4c3a83da72e0b8d8d8fc57",
+      "provider": "codex",
+      "latencyMs": 3147,
+      "reason": "Codex could not complete the review. Check the local Codex login, connection, and CLI availability."
+    },
+    {
+      "id": "cd411b7d-08b9-47d2-ab9f-90cd4848b976",
+      "created_at": "2026-11-17T21:56:48.225Z",
+      "status": "pending",
+      "provider": "codex"
+    }
+  ]
+}

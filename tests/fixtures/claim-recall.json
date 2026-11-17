@@ -1,0 +1,245 @@
+{
+  "provenance": "Agent-authored diagnostic paraphrases separate from fixture dialogue; includes user-reported mutations. Not independent human labels or a held-out performance estimate.",
+  "cases": [
+    {
+      "base": "A1",
+      "text": "Your appointment is on Friday.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "A1",
+      "text": "Your appointment will be on Friday.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "A1",
+      "text": "Your visit takes place on Friday.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "A1",
+      "text": "Your booking falls on Friday.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "A1",
+      "text": "Your appointment is on December 4, 2026.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "A1",
+      "text": "We will see you on Friday.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "A1",
+      "text": "It is on Friday.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "A1",
+      "text": "Your appointment: on Friday.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "R1",
+      "text": "Your prescription is ready to collect.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "R1",
+      "text": "Your prescription is ready for collection.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "R1",
+      "text": "Your medication is available for pickup.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "R1",
+      "text": "Your refill has been dispensed.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "R1",
+      "text": "Your medicine is filled.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "R1",
+      "text": "Your prescription was authorized.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "R1",
+      "text": "You can collect your prescription today.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "R1",
+      "text": "You can pick up your medicine now.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "R1",
+      "text": "It is ready to collect.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "R1",
+      "text": "You can collect it now.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "R1",
+      "text": "They are ready for collection.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "A1",
+      "text": "Your appointment is on Thursday.",
+      "expect": "supported"
+    },
+    {
+      "base": "A1",
+      "text": "Your visit takes place on Thursday.",
+      "expect": "supported"
+    },
+    {
+      "base": "A1",
+      "text": "I found your appointment on Thursday, December 3, 2026 at 2:00 PM.",
+      "expect": "supported"
+    },
+    {
+      "base": "R1",
+      "text": "Your prescription is not ready to collect.",
+      "expect": "no_new_claim"
+    },
+    {
+      "base": "R1",
+      "text": "Your medication is not yet approved.",
+      "expect": "no_new_claim"
+    },
+    {
+      "base": "R1",
+      "text": "If your prescription is approved, the pharmacy will contact you.",
+      "expect": "no_new_claim"
+    },
+    {
+      "base": "R1",
+      "text": "Would you like to collect your prescription?",
+      "expect": "no_new_claim"
+    },
+    {
+      "base": "R1",
+      "text": "Your prescription isn't ready to collect.",
+      "expect": "no_new_claim"
+    },
+    {
+      "base": "R1",
+      "text": "Your medication is not filled.",
+      "expect": "no_new_claim"
+    },
+    {
+      "base": "R1",
+      "text": "Your prescription is not yet approved and it is ready to collect.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "A1",
+      "text": "You should come in Friday, December 4, 2026 at 2:00 PM.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "A1",
+      "text": "Please arrive Friday at 2:00 PM.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "A1",
+      "text": "Attend on Friday.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "A1",
+      "text": "You need to be here Friday.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "A1",
+      "text": "Plan on coming Friday.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "A1",
+      "text": "Should come in Friday at 2:00 PM.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "R1",
+      "text": "Your doctor has authorized it.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "R1",
+      "text": "Your clinician approved it.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "R1",
+      "text": "They have signed off on it.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "R1",
+      "text": "Your prescriber has given it the go-ahead.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "R1",
+      "text": "It might have been authorized.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "R1",
+      "text": "Approval has been obtained.",
+      "expect": "reject_or_abstain"
+    },
+    {
+      "base": "R1",
+      "text": "Your doctor has not authorized it.",
+      "expect": "no_new_claim"
+    },
+    {
+      "base": "R1",
+      "text": "Your doctor hasn't approved it.",
+      "expect": "no_new_claim"
+    },
+    {
+      "base": "R1",
+      "text": "If your doctor authorizes it, the pharmacy will contact you.",
+      "expect": "no_new_claim"
+    },
+    {
+      "base": "R1",
+      "text": "Should your doctor approve it, the pharmacy will call.",
+      "expect": "no_new_claim"
+    },
+    {
+      "base": "A1",
+      "text": "You should come in Thursday, December 3, 2026 at 2:00 PM.",
+      "expect": "supported"
+    },
+    {
+      "base": "A1",
+      "text": "Please arrive Thursday at 2:00 PM.",
+      "expect": "supported"
+    },
+    {
+      "base": "A1",
+      "text": "Please arrive Thursday at 3:00 PM.",
+      "expect": "reject_or_abstain"
+    }
+  ]
+}

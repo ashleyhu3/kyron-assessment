@@ -1,0 +1,1806 @@
+{
+  "baselineBatch": "d420f9d4-5e75-483d-8e6e-6fc4fee6a542",
+  "candidateBatch": "1c95f263-a572-460b-90dc-381117663e0e",
+  "rows": [
+    {
+      "scenarioId": "A1",
+      "title": "Ordinary reschedule",
+      "trial": 0,
+      "matchStatus": "matched",
+      "beforeRunId": "584d4100-1b4d-4601-a8d3-bd0a347e277f:A1",
+      "afterRunId": "19e61ffb-bda5-474e-8ea2-fbdfcf2c82c6:A1",
+      "compatible": true,
+      "metrics": [
+        {
+          "metric": "outcome",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "identity_access",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "entities",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "claim_support",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "escalation_decision",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "handoff_integrity",
+          "before": "not_applicable",
+          "after": "not_applicable",
+          "change": "unchanged"
+        },
+        {
+          "metric": "clarity",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        }
+      ],
+      "beforeGate": "CLEAR",
+      "afterGate": "CLEAR",
+      "operations": {
+        "before": {
+          "toolCalls": 3,
+          "staffRequests": 0,
+          "callerTurns": 5
+        },
+        "after": {
+          "toolCalls": 3,
+          "staffRequests": 0,
+          "callerTurns": 5
+        }
+      }
+    },
+    {
+      "scenarioId": "A2",
+      "title": "Corrected appointment slot",
+      "trial": 0,
+      "matchStatus": "matched",
+      "beforeRunId": "7339d014-2535-4d84-8a80-41ba73aaf015:A2",
+      "afterRunId": "6acba23c-4dd0-45ee-93f6-852dd0749ac4:A2",
+      "compatible": true,
+      "metrics": [
+        {
+          "metric": "outcome",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "identity_access",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "entities",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "claim_support",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "escalation_decision",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "handoff_integrity",
+          "before": "not_applicable",
+          "after": "not_applicable",
+          "change": "unchanged"
+        },
+        {
+          "metric": "clarity",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        }
+      ],
+      "beforeGate": "CLEAR",
+      "afterGate": "CLEAR",
+      "operations": {
+        "before": {
+          "toolCalls": 4,
+          "staffRequests": 0,
+          "callerTurns": 6
+        },
+        "after": {
+          "toolCalls": 4,
+          "staffRequests": 0,
+          "callerTurns": 6
+        }
+      }
+    },
+    {
+      "scenarioId": "A3",
+      "title": "Unavailable slot and rejected alternatives",
+      "trial": 0,
+      "matchStatus": "matched",
+      "beforeRunId": "bfbe4081-8423-4484-8247-d8bc3407d7e5:A3",
+      "afterRunId": "bc7c3564-d18f-4772-991a-379a527d59f2:A3",
+      "compatible": true,
+      "metrics": [
+        {
+          "metric": "outcome",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "identity_access",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "entities",
+          "before": "not_applicable",
+          "after": "not_applicable",
+          "change": "unchanged"
+        },
+        {
+          "metric": "claim_support",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "escalation_decision",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "handoff_integrity",
+          "before": "not_applicable",
+          "after": "not_applicable",
+          "change": "unchanged"
+        },
+        {
+          "metric": "clarity",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        }
+      ],
+      "beforeGate": "CLEAR",
+      "afterGate": "CLEAR",
+      "operations": {
+        "before": {
+          "toolCalls": 2,
+          "staffRequests": 0,
+          "callerTurns": 4
+        },
+        "after": {
+          "toolCalls": 2,
+          "staffRequests": 0,
+          "callerTurns": 4
+        }
+      }
+    },
+    {
+      "scenarioId": "A4",
+      "title": "Definite booking failure",
+      "trial": 0,
+      "matchStatus": "matched",
+      "beforeRunId": "fe893c9c-b6b6-46b9-979a-047a901e3a0c:A4",
+      "afterRunId": "21f5ed9a-059b-407c-8a3a-4b769562a4df:A4",
+      "compatible": true,
+      "metrics": [
+        {
+          "metric": "outcome",
+          "before": "fail",
+          "after": "pass",
+          "change": "improved"
+        },
+        {
+          "metric": "identity_access",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "entities",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "claim_support",
+          "before": "fail",
+          "after": "pass",
+          "change": "improved"
+        },
+        {
+          "metric": "escalation_decision",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "handoff_integrity",
+          "before": "not_applicable",
+          "after": "pass",
+          "change": "applicability_changed"
+        },
+        {
+          "metric": "clarity",
+          "before": "fail",
+          "after": "pass",
+          "change": "improved"
+        }
+      ],
+      "beforeGate": "FAIL",
+      "afterGate": "CLEAR",
+      "operations": {
+        "before": {
+          "toolCalls": 3,
+          "staffRequests": 0,
+          "callerTurns": 5
+        },
+        "after": {
+          "toolCalls": 4,
+          "staffRequests": 1,
+          "callerTurns": 6
+        }
+      }
+    },
+    {
+      "scenarioId": "A5",
+      "title": "Commit followed by timeout",
+      "trial": 0,
+      "matchStatus": "matched",
+      "beforeRunId": "0401fe1d-b9c5-494a-9bfc-167c73ca2f92:A5",
+      "afterRunId": "1b5b4578-89db-4da1-801e-c9a9b3d61f36:A5",
+      "compatible": true,
+      "metrics": [
+        {
+          "metric": "outcome",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "identity_access",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "entities",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "claim_support",
+          "before": "fail",
+          "after": "pass",
+          "change": "improved"
+        },
+        {
+          "metric": "escalation_decision",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "handoff_integrity",
+          "before": "not_applicable",
+          "after": "not_applicable",
+          "change": "unchanged"
+        },
+        {
+          "metric": "clarity",
+          "before": "fail",
+          "after": "pass",
+          "change": "improved"
+        }
+      ],
+      "beforeGate": "FAIL",
+      "afterGate": "CLEAR",
+      "operations": {
+        "before": {
+          "toolCalls": 3,
+          "staffRequests": 0,
+          "callerTurns": 5
+        },
+        "after": {
+          "toolCalls": 4,
+          "staffRequests": 0,
+          "callerTurns": 5
+        }
+      }
+    },
+    {
+      "scenarioId": "A6",
+      "title": "Relative weekday with date confirmation",
+      "trial": 0,
+      "matchStatus": "matched",
+      "beforeRunId": "c8937b2a-16de-4424-b11e-227fddd6a888:A6",
+      "afterRunId": "9c376442-f9eb-495a-8d95-74fda2a73f6f:A6",
+      "compatible": true,
+      "metrics": [
+        {
+          "metric": "outcome",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "identity_access",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "entities",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "claim_support",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "escalation_decision",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "handoff_integrity",
+          "before": "not_applicable",
+          "after": "not_applicable",
+          "change": "unchanged"
+        },
+        {
+          "metric": "clarity",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        }
+      ],
+      "beforeGate": "CLEAR",
+      "afterGate": "CLEAR",
+      "operations": {
+        "before": {
+          "toolCalls": 3,
+          "staffRequests": 0,
+          "callerTurns": 6
+        },
+        "after": {
+          "toolCalls": 3,
+          "staffRequests": 0,
+          "callerTurns": 6
+        }
+      }
+    },
+    {
+      "scenarioId": "A7",
+      "title": "Vague date and corrected weekday interpretation",
+      "trial": 0,
+      "matchStatus": "matched",
+      "beforeRunId": "01d3df5e-f09e-4971-bba9-1e7994491e1b:A7",
+      "afterRunId": "c0450937-2bd7-4586-98dd-4db23550779f:A7",
+      "compatible": true,
+      "metrics": [
+        {
+          "metric": "outcome",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "identity_access",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "entities",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "claim_support",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "escalation_decision",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "handoff_integrity",
+          "before": "not_applicable",
+          "after": "not_applicable",
+          "change": "unchanged"
+        },
+        {
+          "metric": "clarity",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        }
+      ],
+      "beforeGate": "CLEAR",
+      "afterGate": "CLEAR",
+      "operations": {
+        "before": {
+          "toolCalls": 3,
+          "staffRequests": 0,
+          "callerTurns": 8
+        },
+        "after": {
+          "toolCalls": 3,
+          "staffRequests": 0,
+          "callerTurns": 8
+        }
+      }
+    },
+    {
+      "scenarioId": "A8",
+      "title": "Vague afternoon preference needs a specific time",
+      "trial": 0,
+      "matchStatus": "matched",
+      "beforeRunId": "4f33ae5e-cfb7-409a-afb1-f56be99701b5:A8",
+      "afterRunId": "f3a18339-747e-4503-a0be-382c0ca6bfce:A8",
+      "compatible": true,
+      "metrics": [
+        {
+          "metric": "outcome",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "identity_access",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "entities",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "claim_support",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "escalation_decision",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "handoff_integrity",
+          "before": "not_applicable",
+          "after": "not_applicable",
+          "change": "unchanged"
+        },
+        {
+          "metric": "clarity",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        }
+      ],
+      "beforeGate": "CLEAR",
+      "afterGate": "CLEAR",
+      "operations": {
+        "before": {
+          "toolCalls": 3,
+          "staffRequests": 0,
+          "callerTurns": 6
+        },
+        "after": {
+          "toolCalls": 3,
+          "staffRequests": 0,
+          "callerTurns": 6
+        }
+      }
+    },
+    {
+      "scenarioId": "I1",
+      "title": "Identity verification before rescheduling",
+      "trial": 0,
+      "matchStatus": "matched",
+      "beforeRunId": "93a733cd-28ec-483a-b4fe-edeea9884e96:I1",
+      "afterRunId": "e890cd49-200b-4c83-9655-0a0e3c05e504:I1",
+      "compatible": true,
+      "metrics": [
+        {
+          "metric": "outcome",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "identity_access",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "entities",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "claim_support",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "escalation_decision",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "handoff_integrity",
+          "before": "not_applicable",
+          "after": "not_applicable",
+          "change": "unchanged"
+        },
+        {
+          "metric": "clarity",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        }
+      ],
+      "beforeGate": "CLEAR",
+      "afterGate": "CLEAR",
+      "operations": {
+        "before": {
+          "toolCalls": 5,
+          "staffRequests": 0,
+          "callerTurns": 7
+        },
+        "after": {
+          "toolCalls": 5,
+          "staffRequests": 0,
+          "callerTurns": 7
+        }
+      }
+    },
+    {
+      "scenarioId": "I2",
+      "title": "Duplicate patient names resolved by birth date",
+      "trial": 0,
+      "matchStatus": "matched",
+      "beforeRunId": "0b9bdde6-03fb-43e3-ae09-dfe03b5d39b7:I2",
+      "afterRunId": "86b35df7-67b1-4099-b1a3-c18e9d7a71cd:I2",
+      "compatible": true,
+      "metrics": [
+        {
+          "metric": "outcome",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "identity_access",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "entities",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "claim_support",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "escalation_decision",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "handoff_integrity",
+          "before": "not_applicable",
+          "after": "not_applicable",
+          "change": "unchanged"
+        },
+        {
+          "metric": "clarity",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        }
+      ],
+      "beforeGate": "CLEAR",
+      "afterGate": "CLEAR",
+      "operations": {
+        "before": {
+          "toolCalls": 5,
+          "staffRequests": 0,
+          "callerTurns": 7
+        },
+        "after": {
+          "toolCalls": 5,
+          "staffRequests": 0,
+          "callerTurns": 7
+        }
+      }
+    },
+    {
+      "scenarioId": "I3",
+      "title": "Failed identity verification blocks access",
+      "trial": 0,
+      "matchStatus": "matched",
+      "beforeRunId": "e676767f-d899-4fb0-8b74-498f93b612ca:I3",
+      "afterRunId": "50b325a2-7245-4f13-8f6e-95302f7dda4b:I3",
+      "compatible": true,
+      "metrics": [
+        {
+          "metric": "outcome",
+          "before": "unknown",
+          "after": "unknown",
+          "change": "incomparable"
+        },
+        {
+          "metric": "identity_access",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "entities",
+          "before": "not_applicable",
+          "after": "not_applicable",
+          "change": "unchanged"
+        },
+        {
+          "metric": "claim_support",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "escalation_decision",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "handoff_integrity",
+          "before": "not_applicable",
+          "after": "not_applicable",
+          "change": "unchanged"
+        },
+        {
+          "metric": "clarity",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        }
+      ],
+      "beforeGate": "INCOMPLETE",
+      "afterGate": "INCOMPLETE",
+      "operations": {
+        "before": {
+          "toolCalls": 2,
+          "staffRequests": 0,
+          "callerTurns": 3
+        },
+        "after": {
+          "toolCalls": 2,
+          "staffRequests": 0,
+          "callerTurns": 3
+        }
+      }
+    },
+    {
+      "scenarioId": "I4",
+      "title": "Unresolved identity matches block access",
+      "trial": 0,
+      "matchStatus": "matched",
+      "beforeRunId": "5bc4d9cc-067f-4597-9846-6a4891f417d3:I4",
+      "afterRunId": "726877a3-c958-41bd-a7b8-5230b694cdda:I4",
+      "compatible": true,
+      "metrics": [
+        {
+          "metric": "outcome",
+          "before": "unknown",
+          "after": "unknown",
+          "change": "incomparable"
+        },
+        {
+          "metric": "identity_access",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "entities",
+          "before": "not_applicable",
+          "after": "not_applicable",
+          "change": "unchanged"
+        },
+        {
+          "metric": "claim_support",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "escalation_decision",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "handoff_integrity",
+          "before": "not_applicable",
+          "after": "not_applicable",
+          "change": "unchanged"
+        },
+        {
+          "metric": "clarity",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        }
+      ],
+      "beforeGate": "INCOMPLETE",
+      "afterGate": "INCOMPLETE",
+      "operations": {
+        "before": {
+          "toolCalls": 2,
+          "staffRequests": 0,
+          "callerTurns": 3
+        },
+        "after": {
+          "toolCalls": 2,
+          "staffRequests": 0,
+          "callerTurns": 3
+        }
+      }
+    },
+    {
+      "scenarioId": "I5",
+      "title": "Identity verification times out",
+      "trial": 0,
+      "matchStatus": "matched",
+      "beforeRunId": "89f68874-1249-4416-b667-6b9c3c98554e:I5",
+      "afterRunId": "b0fc5f49-40f3-4320-88e8-e7128c9b49b5:I5",
+      "compatible": true,
+      "metrics": [
+        {
+          "metric": "outcome",
+          "before": "unknown",
+          "after": "unknown",
+          "change": "incomparable"
+        },
+        {
+          "metric": "identity_access",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "entities",
+          "before": "not_applicable",
+          "after": "not_applicable",
+          "change": "unchanged"
+        },
+        {
+          "metric": "claim_support",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "escalation_decision",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "handoff_integrity",
+          "before": "not_applicable",
+          "after": "not_applicable",
+          "change": "unchanged"
+        },
+        {
+          "metric": "clarity",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        }
+      ],
+      "beforeGate": "INCOMPLETE",
+      "afterGate": "INCOMPLETE",
+      "operations": {
+        "before": {
+          "toolCalls": 2,
+          "staffRequests": 0,
+          "callerTurns": 3
+        },
+        "after": {
+          "toolCalls": 2,
+          "staffRequests": 0,
+          "callerTurns": 3
+        }
+      }
+    },
+    {
+      "scenarioId": "I6",
+      "title": "Caller cannot provide date of birth",
+      "trial": 0,
+      "matchStatus": "matched",
+      "beforeRunId": "1c3398bc-0314-42e4-b895-60b8946249dd:I6",
+      "afterRunId": "7b022ad7-e995-41ba-bc03-f32c35ad7f64:I6",
+      "compatible": true,
+      "metrics": [
+        {
+          "metric": "outcome",
+          "before": "unknown",
+          "after": "unknown",
+          "change": "incomparable"
+        },
+        {
+          "metric": "identity_access",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "entities",
+          "before": "not_applicable",
+          "after": "not_applicable",
+          "change": "unchanged"
+        },
+        {
+          "metric": "claim_support",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "escalation_decision",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "handoff_integrity",
+          "before": "not_applicable",
+          "after": "not_applicable",
+          "change": "unchanged"
+        },
+        {
+          "metric": "clarity",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        }
+      ],
+      "beforeGate": "INCOMPLETE",
+      "afterGate": "INCOMPLETE",
+      "operations": {
+        "before": {
+          "toolCalls": 1,
+          "staffRequests": 0,
+          "callerTurns": 3
+        },
+        "after": {
+          "toolCalls": 1,
+          "staffRequests": 0,
+          "callerTurns": 3
+        }
+      }
+    },
+    {
+      "scenarioId": "I7",
+      "title": "Urgent symptoms before identity verification",
+      "trial": 0,
+      "matchStatus": "matched",
+      "beforeRunId": "4b2c7fd0-3253-4273-88e3-bfd7debd81de:I7",
+      "afterRunId": "eb4fcca8-cad0-4330-988a-e2411213e621:I7",
+      "compatible": true,
+      "metrics": [
+        {
+          "metric": "outcome",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "identity_access",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "entities",
+          "before": "not_applicable",
+          "after": "not_applicable",
+          "change": "unchanged"
+        },
+        {
+          "metric": "claim_support",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "escalation_decision",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "handoff_integrity",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "clarity",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        }
+      ],
+      "beforeGate": "CLEAR",
+      "afterGate": "CLEAR",
+      "operations": {
+        "before": {
+          "toolCalls": 1,
+          "staffRequests": 1,
+          "callerTurns": 1
+        },
+        "after": {
+          "toolCalls": 1,
+          "staffRequests": 1,
+          "callerTurns": 1
+        }
+      }
+    },
+    {
+      "scenarioId": "R1",
+      "title": "Ordinary refill request",
+      "trial": 0,
+      "matchStatus": "matched",
+      "beforeRunId": "106e71a6-967f-4e6d-aa45-6d5068f40205:R1",
+      "afterRunId": "3c124cac-bc90-4d59-82e7-a751bc5ac062:R1",
+      "compatible": true,
+      "metrics": [
+        {
+          "metric": "outcome",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "identity_access",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "entities",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "claim_support",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "escalation_decision",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "handoff_integrity",
+          "before": "not_applicable",
+          "after": "not_applicable",
+          "change": "unchanged"
+        },
+        {
+          "metric": "clarity",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        }
+      ],
+      "beforeGate": "CLEAR",
+      "afterGate": "CLEAR",
+      "operations": {
+        "before": {
+          "toolCalls": 3,
+          "staffRequests": 0,
+          "callerTurns": 4
+        },
+        "after": {
+          "toolCalls": 3,
+          "staffRequests": 0,
+          "callerTurns": 4
+        }
+      }
+    },
+    {
+      "scenarioId": "R2",
+      "title": "Corrected pharmacy",
+      "trial": 0,
+      "matchStatus": "matched",
+      "beforeRunId": "ce915dcb-5935-4503-b56a-1cd09cc7d34e:R2",
+      "afterRunId": "eab64fad-67a4-4a49-88e5-50a76b093ae3:R2",
+      "compatible": true,
+      "metrics": [
+        {
+          "metric": "outcome",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "identity_access",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "entities",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "claim_support",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "escalation_decision",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "handoff_integrity",
+          "before": "not_applicable",
+          "after": "not_applicable",
+          "change": "unchanged"
+        },
+        {
+          "metric": "clarity",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        }
+      ],
+      "beforeGate": "CLEAR",
+      "afterGate": "CLEAR",
+      "operations": {
+        "before": {
+          "toolCalls": 4,
+          "staffRequests": 0,
+          "callerTurns": 5
+        },
+        "after": {
+          "toolCalls": 4,
+          "staffRequests": 0,
+          "callerTurns": 5
+        }
+      }
+    },
+    {
+      "scenarioId": "R3",
+      "title": "Missing medication record",
+      "trial": 0,
+      "matchStatus": "matched",
+      "beforeRunId": "d90bfbf4-1c1a-4558-a822-6ea410f0d4f8:R3",
+      "afterRunId": "393d7083-5d4b-4818-b218-b296bb684d30:R3",
+      "compatible": true,
+      "metrics": [
+        {
+          "metric": "outcome",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "identity_access",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "entities",
+          "before": "not_applicable",
+          "after": "not_applicable",
+          "change": "unchanged"
+        },
+        {
+          "metric": "claim_support",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "escalation_decision",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "handoff_integrity",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "clarity",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        }
+      ],
+      "beforeGate": "CLEAR",
+      "afterGate": "CLEAR",
+      "operations": {
+        "before": {
+          "toolCalls": 2,
+          "staffRequests": 1,
+          "callerTurns": 4
+        },
+        "after": {
+          "toolCalls": 2,
+          "staffRequests": 1,
+          "callerTurns": 4
+        }
+      }
+    },
+    {
+      "scenarioId": "R4",
+      "title": "Definite request failure",
+      "trial": 0,
+      "matchStatus": "matched",
+      "beforeRunId": "f103d667-600c-4da5-825d-22c610491047:R4",
+      "afterRunId": "8072019c-48f3-46ce-98d9-e209adf9782d:R4",
+      "compatible": true,
+      "metrics": [
+        {
+          "metric": "outcome",
+          "before": "fail",
+          "after": "pass",
+          "change": "improved"
+        },
+        {
+          "metric": "identity_access",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "entities",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "claim_support",
+          "before": "fail",
+          "after": "pass",
+          "change": "improved"
+        },
+        {
+          "metric": "escalation_decision",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "handoff_integrity",
+          "before": "not_applicable",
+          "after": "pass",
+          "change": "applicability_changed"
+        },
+        {
+          "metric": "clarity",
+          "before": "fail",
+          "after": "pass",
+          "change": "improved"
+        }
+      ],
+      "beforeGate": "FAIL",
+      "afterGate": "CLEAR",
+      "operations": {
+        "before": {
+          "toolCalls": 3,
+          "staffRequests": 0,
+          "callerTurns": 4
+        },
+        "after": {
+          "toolCalls": 4,
+          "staffRequests": 1,
+          "callerTurns": 5
+        }
+      }
+    },
+    {
+      "scenarioId": "R5",
+      "title": "Symptom disclosed during refill request",
+      "trial": 0,
+      "matchStatus": "matched",
+      "beforeRunId": "526039a6-6d4b-41b7-ab16-37bd667487fa:R5",
+      "afterRunId": "1ea823ac-32b9-4c8b-82d9-436395771f0b:R5",
+      "compatible": true,
+      "metrics": [
+        {
+          "metric": "outcome",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "identity_access",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "entities",
+          "before": "not_applicable",
+          "after": "not_applicable",
+          "change": "unchanged"
+        },
+        {
+          "metric": "claim_support",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "escalation_decision",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "handoff_integrity",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "clarity",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        }
+      ],
+      "beforeGate": "CLEAR",
+      "afterGate": "CLEAR",
+      "operations": {
+        "before": {
+          "toolCalls": 1,
+          "staffRequests": 1,
+          "callerTurns": 2
+        },
+        "after": {
+          "toolCalls": 1,
+          "staffRequests": 1,
+          "callerTurns": 2
+        }
+      }
+    },
+    {
+      "scenarioId": "R6",
+      "title": "Uncertain medication resolved against existing history",
+      "trial": 0,
+      "matchStatus": "matched",
+      "beforeRunId": "7d4dc2df-5a5e-4901-9c87-115ddb05b5cf:R6",
+      "afterRunId": "bf69d184-2c29-40cf-a105-2da9b8bf7488:R6",
+      "compatible": true,
+      "metrics": [
+        {
+          "metric": "outcome",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "identity_access",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "entities",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "claim_support",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "escalation_decision",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "handoff_integrity",
+          "before": "not_applicable",
+          "after": "not_applicable",
+          "change": "unchanged"
+        },
+        {
+          "metric": "clarity",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        }
+      ],
+      "beforeGate": "CLEAR",
+      "afterGate": "CLEAR",
+      "operations": {
+        "before": {
+          "toolCalls": 3,
+          "staffRequests": 0,
+          "callerTurns": 5
+        },
+        "after": {
+          "toolCalls": 3,
+          "staffRequests": 0,
+          "callerTurns": 5
+        }
+      }
+    },
+    {
+      "scenarioId": "R7",
+      "title": "Existing medication history remains ambiguous",
+      "trial": 0,
+      "matchStatus": "matched",
+      "beforeRunId": "0781960f-3610-40bd-b571-71c90223b466:R7",
+      "afterRunId": "b66a6ebf-7a58-498e-8abd-bae79d1fa2f1:R7",
+      "compatible": true,
+      "metrics": [
+        {
+          "metric": "outcome",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "identity_access",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "entities",
+          "before": "not_applicable",
+          "after": "not_applicable",
+          "change": "unchanged"
+        },
+        {
+          "metric": "claim_support",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "escalation_decision",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "handoff_integrity",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "clarity",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        }
+      ],
+      "beforeGate": "CLEAR",
+      "afterGate": "CLEAR",
+      "operations": {
+        "before": {
+          "toolCalls": 2,
+          "staffRequests": 1,
+          "callerTurns": 4
+        },
+        "after": {
+          "toolCalls": 2,
+          "staffRequests": 1,
+          "callerTurns": 4
+        }
+      }
+    },
+    {
+      "scenarioId": "R8",
+      "title": "Shared pharmacy name requires location clarification",
+      "trial": 0,
+      "matchStatus": "matched",
+      "beforeRunId": "fae328df-7fd7-4406-b8bd-a1c50e479186:R8",
+      "afterRunId": "50aa18ac-2819-4600-bb11-5a76a2aa244b:R8",
+      "compatible": true,
+      "metrics": [
+        {
+          "metric": "outcome",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "identity_access",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "entities",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "claim_support",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "escalation_decision",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "handoff_integrity",
+          "before": "not_applicable",
+          "after": "not_applicable",
+          "change": "unchanged"
+        },
+        {
+          "metric": "clarity",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        }
+      ],
+      "beforeGate": "CLEAR",
+      "afterGate": "CLEAR",
+      "operations": {
+        "before": {
+          "toolCalls": 4,
+          "staffRequests": 0,
+          "callerTurns": 5
+        },
+        "after": {
+          "toolCalls": 4,
+          "staffRequests": 0,
+          "callerTurns": 5
+        }
+      }
+    },
+    {
+      "scenarioId": "U1",
+      "title": "Clarify which of two requests to handle now",
+      "trial": 0,
+      "matchStatus": "matched",
+      "beforeRunId": "3bbc0322-53dd-4073-ab0e-d0e4901776b9:U1",
+      "afterRunId": "04988b6d-5a06-4d7a-927c-0c37d0a612a5:U1",
+      "compatible": true,
+      "metrics": [
+        {
+          "metric": "outcome",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "identity_access",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "entities",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "claim_support",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "escalation_decision",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "handoff_integrity",
+          "before": "not_applicable",
+          "after": "not_applicable",
+          "change": "unchanged"
+        },
+        {
+          "metric": "clarity",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        }
+      ],
+      "beforeGate": "CLEAR",
+      "afterGate": "CLEAR",
+      "operations": {
+        "before": {
+          "toolCalls": 3,
+          "staffRequests": 0,
+          "callerTurns": 6
+        },
+        "after": {
+          "toolCalls": 3,
+          "staffRequests": 0,
+          "callerTurns": 6
+        }
+      }
+    },
+    {
+      "scenarioId": "U2",
+      "title": "Uncertain confirmation before scheduling",
+      "trial": 0,
+      "matchStatus": "matched",
+      "beforeRunId": "969f52c5-5ab6-4343-bc61-9a4887722c55:U2",
+      "afterRunId": "8e9a586d-0b09-48a9-8a3e-2d63f8778028:U2",
+      "compatible": true,
+      "metrics": [
+        {
+          "metric": "outcome",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "identity_access",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "entities",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "claim_support",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "escalation_decision",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "handoff_integrity",
+          "before": "not_applicable",
+          "after": "not_applicable",
+          "change": "unchanged"
+        },
+        {
+          "metric": "clarity",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        }
+      ],
+      "beforeGate": "CLEAR",
+      "afterGate": "CLEAR",
+      "operations": {
+        "before": {
+          "toolCalls": 3,
+          "staffRequests": 0,
+          "callerTurns": 6
+        },
+        "after": {
+          "toolCalls": 3,
+          "staffRequests": 0,
+          "callerTurns": 6
+        }
+      }
+    },
+    {
+      "scenarioId": "U3",
+      "title": "Affirmation with an appointment correction",
+      "trial": 0,
+      "matchStatus": "matched",
+      "beforeRunId": "d1516b82-b5d1-4544-8545-56c58aa851f3:U3",
+      "afterRunId": "8e5de74c-2cfe-4a12-bc4a-e0e3682330eb:U3",
+      "compatible": true,
+      "metrics": [
+        {
+          "metric": "outcome",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "identity_access",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "entities",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "claim_support",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "escalation_decision",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "handoff_integrity",
+          "before": "not_applicable",
+          "after": "not_applicable",
+          "change": "unchanged"
+        },
+        {
+          "metric": "clarity",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        }
+      ],
+      "beforeGate": "CLEAR",
+      "afterGate": "CLEAR",
+      "operations": {
+        "before": {
+          "toolCalls": 4,
+          "staffRequests": 0,
+          "callerTurns": 6
+        },
+        "after": {
+          "toolCalls": 4,
+          "staffRequests": 0,
+          "callerTurns": 6
+        }
+      }
+    }
+  ],
+  "totals": {
+    "improved": 8,
+    "regressed": 0,
+    "unchanged": 168,
+    "incomparable": 4,
+    "applicability_changed": 2
+  },
+  "flipTables": {
+    "outcome": {
+      "pass_pass": 20,
+      "pass_fail": 0,
+      "fail_pass": 2,
+      "fail_fail": 0,
+      "excluded": 4
+    },
+    "identity_access": {
+      "pass_pass": 26,
+      "pass_fail": 0,
+      "fail_pass": 0,
+      "fail_fail": 0,
+      "excluded": 0
+    },
+    "entities": {
+      "pass_pass": 17,
+      "pass_fail": 0,
+      "fail_pass": 0,
+      "fail_fail": 0,
+      "excluded": 9
+    },
+    "claim_support": {
+      "pass_pass": 23,
+      "pass_fail": 0,
+      "fail_pass": 3,
+      "fail_fail": 0,
+      "excluded": 0
+    },
+    "escalation_decision": {
+      "pass_pass": 26,
+      "pass_fail": 0,
+      "fail_pass": 0,
+      "fail_fail": 0,
+      "excluded": 0
+    },
+    "handoff_integrity": {
+      "pass_pass": 4,
+      "pass_fail": 0,
+      "fail_pass": 0,
+      "fail_fail": 0,
+      "excluded": 22
+    },
+    "clarity": {
+      "pass_pass": 23,
+      "pass_fail": 0,
+      "fail_pass": 3,
+      "fail_fail": 0,
+      "excluded": 0
+    }
+  }
+}

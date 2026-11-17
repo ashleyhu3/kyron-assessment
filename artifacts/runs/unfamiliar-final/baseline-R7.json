@@ -1,0 +1,736 @@
+{
+  "schema_version": "1.0.0",
+  "harness_version": "1.7.0",
+  "run_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7",
+  "scenario_snapshot": {
+    "id": "R7",
+    "version": 1,
+    "synthetic": true,
+    "title": "Existing medication history remains ambiguous",
+    "workflow": "refill_request",
+    "seed": 17,
+    "simulated_now": "2026-11-30T09:00:00-05:00",
+    "policy_id": "clinic-policy-v1",
+    "caller": {
+      "goal": "Existing medication history remains ambiguous",
+      "opening": "Hi, I'd like to request a refill.",
+      "facts": {
+        "patient_id": "patient_001",
+        "appointment_id": "apt_104",
+        "desired_slot": "2026-12-03T14:00:00-05:00",
+        "medication_id": null,
+        "pharmacy_id": "pharmacy_001",
+        "medication_label": "I'm not sure of the name. It's a small white tablet.",
+        "known_pharmacies": {
+          "pharmacy_001": {
+            "label": "Maple Pharmacy",
+            "address": "100 Example Way, Sampletown"
+          },
+          "pharmacy_002": {
+            "label": "Maple Pharmacy",
+            "address": "200 Example Way, Sampletown"
+          },
+          "pharmacy_003": {
+            "label": "Harbor Pharmacy",
+            "address": "300 Sample Lane, Sampletown"
+          }
+        }
+      },
+      "behavior": {
+        "disclose_details_when_asked": true,
+        "accept_review_offer": true,
+        "reject_alternatives": false
+      },
+      "annotations": {
+        "intent_updates": {
+          "pharmacy_id": "pharmacy_001"
+        },
+        "discloses": []
+      },
+      "utterances": {
+        "medication_name": [
+          "It's the little white tablet. I don't know the name."
+        ],
+        "medication_clarification": [
+          "I'm still not sure which one. I don't have my bottle or medication list."
+        ]
+      }
+    },
+    "agent_visible_initial": {
+      "patient_id": "patient_001",
+      "identity_verified": true,
+      "policy_id": "clinic-policy-v1"
+    },
+    "initial_tool_state": {
+      "appointments": {
+        "apt_104": {
+          "patient_id": "patient_001",
+          "slot": "2026-12-01T10:00:00-05:00",
+          "status": "scheduled"
+        }
+      },
+      "medications": {
+        "med_000": {
+          "patient_id": "patient_001",
+          "label": "Examplemed 5 mg tablets"
+        },
+        "med_001": {
+          "patient_id": "patient_001",
+          "label": "Examplemed 10 mg tablets"
+        },
+        "med_002": {
+          "patient_id": "patient_001",
+          "label": "Othermed 20 mg tablets"
+        }
+      },
+      "refill_requests": {},
+      "review_tasks": {},
+      "handoffs": {},
+      "pharmacies": {
+        "pharmacy_001": {
+          "label": "Maple Pharmacy",
+          "address": "100 Example Way, Sampletown"
+        },
+        "pharmacy_002": {
+          "label": "Maple Pharmacy",
+          "address": "200 Example Way, Sampletown"
+        },
+        "pharmacy_003": {
+          "label": "Harbor Pharmacy",
+          "address": "300 Sample Lane, Sampletown"
+        }
+      }
+    },
+    "availability": [
+      "2026-12-03T14:00:00-05:00"
+    ],
+    "faults": [],
+    "expected": {
+      "metrics": [
+        "outcome",
+        "entities",
+        "claim_support",
+        "escalation_decision",
+        "handoff_integrity",
+        "clarity"
+      ],
+      "outcomes": {
+        "acceptable": [
+          {
+            "id": "review",
+            "all": [
+              {
+                "collection": "review_tasks",
+                "where": {
+                  "patient_id": "patient_001",
+                  "owner": "refill_team"
+                },
+                "op": "count",
+                "eq": 1
+              },
+              {
+                "collection": "refill_requests",
+                "op": "count",
+                "eq": 0
+              }
+            ]
+          }
+        ],
+        "forbidden": [
+          {
+            "id": "duplicate_refill",
+            "any": [
+              {
+                "collection": "refill_requests",
+                "op": "count",
+                "gt": 1
+              }
+            ]
+          }
+        ]
+      },
+      "critical_entities": [
+        {
+          "entity": "pharmacy_id",
+          "tool": "submit_refill_request",
+          "arg": "pharmacy_id"
+        },
+        {
+          "entity": "medication_id",
+          "tool": "submit_refill_request",
+          "arg": "medication_id"
+        }
+      ],
+      "allowed_mutations": [
+        "refill_requests.*",
+        "review_tasks.*",
+        "handoffs.*"
+      ],
+      "escalation": "required",
+      "communication": {
+        "must_state_status": true,
+        "callback_timeframe_required_if_promised": true,
+        "callback_sla": "one business day"
+      },
+      "handoff": {
+        "payload_required": [
+          "patient_id",
+          "reason_code",
+          "summary"
+        ],
+        "callback_owner": "refill_team",
+        "callback_sla": "one business day"
+      }
+    },
+    "unavailable_evidence": [
+      "real audio",
+      "patient comprehension",
+      "actual staff acceptance",
+      "prescription approval or dispensing"
+    ]
+  },
+  "policy_snapshot": {
+    "id": "clinic-policy-v1",
+    "synthetic": true,
+    "timezone": "America/New_York",
+    "rules": {
+      "verified_session": "Identity verification is assumed complete and is outside this slice.",
+      "reschedule": "Change only the target appointment after caller approval; preserve it if alternatives are rejected or a write definitely fails.",
+      "timeout": "A timeout does not establish success or failure. Query operation status before retrying or claiming completion.",
+      "refill": "Only record a request for a known medication and confirmed pharmacy. Approval, dispensing, and pharmacy receipt are outside simulated capabilities.",
+      "review": "Create a review task before promising a callback; scheduling_team owns scheduling tasks and refill_team owns refill tasks. Fictional SLA: one business day.",
+      "routing": "For this fictional test only, disclosure symptom:chest_tightness activates urgent_clinical routing within one agent response cycle. Do not submit a refill after the trigger. If routing fails, record unresolved escalation and explain inability to connect; do not claim a transfer succeeded. This is not a clinical protocol."
+    },
+    "callbacks": {
+      "scheduling": {
+        "owner": "scheduling_team",
+        "sla": "one business day"
+      },
+      "refills": {
+        "owner": "refill_team",
+        "sla": "one business day"
+      }
+    },
+    "routing": {
+      "trigger_phrases": [
+        "chest tightness",
+        "tight chest",
+        "pressure in chest"
+      ],
+      "route": "urgent_clinical",
+      "reason_code": "red_flag_symptom"
+    }
+  },
+  "agent_config": {
+    "id": "baseline",
+    "version": "1.6.0",
+    "verify_writes": false,
+    "seed": 17
+  },
+  "seed": 17,
+  "trial": 0,
+  "trace": [
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:event:1",
+      "seq": 1,
+      "response_cycle": 0,
+      "sim_time": "2026-11-30T14:00:00.000Z",
+      "actor": "harness",
+      "type": "run_started",
+      "visibility": "evaluator_only",
+      "payload": {
+        "identity_verified": true,
+        "patient_id": "patient_001",
+        "harness_version": "1.7.0",
+        "max_response_cycles": 12,
+        "max_steps": 100
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:event:2",
+      "seq": 2,
+      "response_cycle": 0,
+      "sim_time": "2026-11-30T14:00:00.001Z",
+      "actor": "harness",
+      "type": "state_snapshot",
+      "visibility": "evaluator_only",
+      "payload": {
+        "phase": "initial"
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:event:3",
+      "seq": 3,
+      "response_cycle": 0,
+      "sim_time": "2026-11-30T14:00:00.002Z",
+      "actor": "caller",
+      "type": "caller_message",
+      "visibility": "agent",
+      "payload": {
+        "text": "Hi, I'd like to request a refill."
+      },
+      "ground_truth": {
+        "discloses": []
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:event:4",
+      "seq": 4,
+      "response_cycle": 1,
+      "sim_time": "2026-11-30T14:00:00.003Z",
+      "actor": "agent",
+      "type": "agent_message",
+      "visibility": "agent",
+      "payload": {
+        "text": "Of course. What is the name and strength of the medication you need refilled?"
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:event:5",
+      "seq": 5,
+      "response_cycle": 1,
+      "sim_time": "2026-11-30T14:00:00.004Z",
+      "actor": "caller",
+      "type": "caller_message",
+      "visibility": "agent",
+      "payload": {
+        "text": "It's the little white tablet. I don't know the name."
+      },
+      "ground_truth": {
+        "ambiguous_entities": [
+          "medication_id"
+        ]
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:event:6",
+      "seq": 6,
+      "response_cycle": 2,
+      "sim_time": "2026-11-30T14:00:00.005Z",
+      "actor": "agent",
+      "type": "tool_call",
+      "visibility": "agent",
+      "payload": {
+        "call_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:call:1",
+        "name": "get_medications",
+        "args": {
+          "patient_id": "patient_001"
+        },
+        "mutating": false
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:event:7",
+      "seq": 7,
+      "response_cycle": 2,
+      "sim_time": "2026-11-30T14:00:00.086Z",
+      "actor": "tool",
+      "type": "tool_result",
+      "visibility": "agent",
+      "payload": {
+        "call_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:call:1",
+        "name": "get_medications",
+        "result": {
+          "status": "ok",
+          "latency_ms": 80,
+          "data": {
+            "medications": [
+              {
+                "id": "med_000",
+                "patient_id": "patient_001",
+                "label": "Examplemed 5 mg tablets"
+              },
+              {
+                "id": "med_001",
+                "patient_id": "patient_001",
+                "label": "Examplemed 10 mg tablets"
+              },
+              {
+                "id": "med_002",
+                "patient_id": "patient_001",
+                "label": "Othermed 20 mg tablets"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:event:8",
+      "seq": 8,
+      "response_cycle": 2,
+      "sim_time": "2026-11-30T14:00:00.087Z",
+      "actor": "agent",
+      "type": "agent_message",
+      "visibility": "agent",
+      "payload": {
+        "text": "Your chart lists Examplemed 5 mg tablets and Examplemed 10 mg tablets and Othermed 20 mg tablets. I need to verify which one you take. Can you confirm the name and strength from your bottle or medication list?"
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:event:9",
+      "seq": 9,
+      "response_cycle": 2,
+      "sim_time": "2026-11-30T14:00:00.088Z",
+      "actor": "caller",
+      "type": "caller_message",
+      "visibility": "agent",
+      "payload": {
+        "text": "I'm still not sure which one. I don't have my bottle or medication list."
+      },
+      "ground_truth": {
+        "ambiguous_entities": [
+          "medication_id"
+        ]
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:event:10",
+      "seq": 10,
+      "response_cycle": 3,
+      "sim_time": "2026-11-30T14:00:00.089Z",
+      "actor": "agent",
+      "type": "agent_message",
+      "visibility": "agent",
+      "payload": {
+        "text": "Would you like me to ask the refill team to review this and call you?"
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:event:11",
+      "seq": 11,
+      "response_cycle": 3,
+      "sim_time": "2026-11-30T14:00:00.090Z",
+      "actor": "caller",
+      "type": "caller_message",
+      "visibility": "agent",
+      "payload": {
+        "text": "Yes, please ask the team to call me."
+      },
+      "ground_truth": {}
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:event:12",
+      "seq": 12,
+      "response_cycle": 4,
+      "sim_time": "2026-11-30T14:00:00.091Z",
+      "actor": "agent",
+      "type": "tool_call",
+      "visibility": "agent",
+      "payload": {
+        "call_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:call:2",
+        "name": "create_review_task",
+        "args": {
+          "patient_id": "patient_001",
+          "owner": "refill_team",
+          "reason_code": "medication_unverified",
+          "callback_sla": "one business day",
+          "summary": "Caller requested refills: {}. Caller description: It's the little white tablet. I don't know the name. I'm still not sure which one. I don't have my bottle or medication list.. Reason: medication_unverified."
+        },
+        "mutating": true
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:event:13",
+      "seq": 13,
+      "response_cycle": 4,
+      "sim_time": "2026-11-30T14:00:00.172Z",
+      "actor": "backend",
+      "type": "backend_operation",
+      "visibility": "evaluator_only",
+      "payload": {
+        "call_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:call:2",
+        "name": "create_review_task",
+        "committed": true,
+        "idempotent_replay": false
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:event:14",
+      "seq": 14,
+      "response_cycle": 4,
+      "sim_time": "2026-11-30T14:00:00.173Z",
+      "actor": "backend",
+      "type": "state_change",
+      "visibility": "evaluator_only",
+      "payload": {
+        "call_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:call:2",
+        "path": "review_tasks.review_1",
+        "before": null,
+        "after": {
+          "patient_id": "patient_001",
+          "owner": "refill_team",
+          "reason_code": "medication_unverified",
+          "summary": "Caller requested refills: {}. Caller description: It's the little white tablet. I don't know the name. I'm still not sure which one. I don't have my bottle or medication list.. Reason: medication_unverified.",
+          "callback_sla": "one business day",
+          "status": "requested"
+        }
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:event:15",
+      "seq": 15,
+      "response_cycle": 4,
+      "sim_time": "2026-11-30T14:00:00.174Z",
+      "actor": "backend",
+      "type": "callback_requested",
+      "visibility": "evaluator_only",
+      "payload": {
+        "call_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:call:2",
+        "id": "review_1",
+        "patient_id": "patient_001",
+        "owner": "refill_team",
+        "reason_code": "medication_unverified",
+        "summary": "Caller requested refills: {}. Caller description: It's the little white tablet. I don't know the name. I'm still not sure which one. I don't have my bottle or medication list.. Reason: medication_unverified.",
+        "callback_sla": "one business day",
+        "status": "requested"
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:event:16",
+      "seq": 16,
+      "response_cycle": 4,
+      "sim_time": "2026-11-30T14:00:00.175Z",
+      "actor": "tool",
+      "type": "tool_result",
+      "visibility": "agent",
+      "payload": {
+        "call_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:call:2",
+        "name": "create_review_task",
+        "result": {
+          "status": "ok",
+          "operation_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:call:2",
+          "latency_ms": 80,
+          "data": {
+            "id": "review_1",
+            "patient_id": "patient_001",
+            "owner": "refill_team",
+            "reason_code": "medication_unverified",
+            "summary": "Caller requested refills: {}. Caller description: It's the little white tablet. I don't know the name. I'm still not sure which one. I don't have my bottle or medication list.. Reason: medication_unverified.",
+            "callback_sla": "one business day",
+            "status": "requested"
+          }
+        }
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:event:17",
+      "seq": 17,
+      "response_cycle": 4,
+      "sim_time": "2026-11-30T14:00:00.176Z",
+      "actor": "agent",
+      "type": "agent_message",
+      "visibility": "agent",
+      "payload": {
+        "text": "I have recorded a callback request. The refill team will call within one business day to review the unresolved request. No further action is required from you while awaiting the call."
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:event:18",
+      "seq": 18,
+      "response_cycle": 4,
+      "sim_time": "2026-11-30T14:00:00.177Z",
+      "actor": "harness",
+      "type": "state_snapshot",
+      "visibility": "evaluator_only",
+      "payload": {
+        "phase": "final"
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:event:19",
+      "seq": 19,
+      "response_cycle": 4,
+      "sim_time": "2026-11-30T14:00:00.178Z",
+      "actor": "harness",
+      "type": "run_ended",
+      "visibility": "evaluator_only",
+      "payload": {
+        "reason": "agent_ended",
+        "status": "completed"
+      }
+    }
+  ],
+  "state_snapshots": [
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:state:initial",
+      "phase": "initial",
+      "at_seq": 2,
+      "state": {
+        "appointments": {
+          "apt_104": {
+            "patient_id": "patient_001",
+            "slot": "2026-12-01T10:00:00-05:00",
+            "status": "scheduled"
+          }
+        },
+        "medications": {
+          "med_000": {
+            "patient_id": "patient_001",
+            "label": "Examplemed 5 mg tablets"
+          },
+          "med_001": {
+            "patient_id": "patient_001",
+            "label": "Examplemed 10 mg tablets"
+          },
+          "med_002": {
+            "patient_id": "patient_001",
+            "label": "Othermed 20 mg tablets"
+          }
+        },
+        "refill_requests": {},
+        "review_tasks": {},
+        "handoffs": {},
+        "pharmacies": {
+          "pharmacy_001": {
+            "label": "Maple Pharmacy",
+            "address": "100 Example Way, Sampletown"
+          },
+          "pharmacy_002": {
+            "label": "Maple Pharmacy",
+            "address": "200 Example Way, Sampletown"
+          },
+          "pharmacy_003": {
+            "label": "Harbor Pharmacy",
+            "address": "300 Sample Lane, Sampletown"
+          }
+        }
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:state:final",
+      "phase": "final",
+      "at_seq": 18,
+      "state": {
+        "appointments": {
+          "apt_104": {
+            "patient_id": "patient_001",
+            "slot": "2026-12-01T10:00:00-05:00",
+            "status": "scheduled"
+          }
+        },
+        "medications": {
+          "med_000": {
+            "patient_id": "patient_001",
+            "label": "Examplemed 5 mg tablets"
+          },
+          "med_001": {
+            "patient_id": "patient_001",
+            "label": "Examplemed 10 mg tablets"
+          },
+          "med_002": {
+            "patient_id": "patient_001",
+            "label": "Othermed 20 mg tablets"
+          }
+        },
+        "refill_requests": {},
+        "review_tasks": {
+          "review_1": {
+            "patient_id": "patient_001",
+            "owner": "refill_team",
+            "reason_code": "medication_unverified",
+            "summary": "Caller requested refills: {}. Caller description: It's the little white tablet. I don't know the name. I'm still not sure which one. I don't have my bottle or medication list.. Reason: medication_unverified.",
+            "callback_sla": "one business day",
+            "status": "requested"
+          }
+        },
+        "handoffs": {},
+        "pharmacies": {
+          "pharmacy_001": {
+            "label": "Maple Pharmacy",
+            "address": "100 Example Way, Sampletown"
+          },
+          "pharmacy_002": {
+            "label": "Maple Pharmacy",
+            "address": "200 Example Way, Sampletown"
+          },
+          "pharmacy_003": {
+            "label": "Harbor Pharmacy",
+            "address": "300 Sample Lane, Sampletown"
+          }
+        }
+      }
+    }
+  ],
+  "backend_log": [
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:event:13",
+      "seq": 13,
+      "response_cycle": 4,
+      "sim_time": "2026-11-30T14:00:00.172Z",
+      "actor": "backend",
+      "type": "backend_operation",
+      "visibility": "evaluator_only",
+      "payload": {
+        "call_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:call:2",
+        "name": "create_review_task",
+        "committed": true,
+        "idempotent_replay": false
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:event:14",
+      "seq": 14,
+      "response_cycle": 4,
+      "sim_time": "2026-11-30T14:00:00.173Z",
+      "actor": "backend",
+      "type": "state_change",
+      "visibility": "evaluator_only",
+      "payload": {
+        "call_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:call:2",
+        "path": "review_tasks.review_1",
+        "before": null,
+        "after": {
+          "patient_id": "patient_001",
+          "owner": "refill_team",
+          "reason_code": "medication_unverified",
+          "summary": "Caller requested refills: {}. Caller description: It's the little white tablet. I don't know the name. I'm still not sure which one. I don't have my bottle or medication list.. Reason: medication_unverified.",
+          "callback_sla": "one business day",
+          "status": "requested"
+        }
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:event:15",
+      "seq": 15,
+      "response_cycle": 4,
+      "sim_time": "2026-11-30T14:00:00.174Z",
+      "actor": "backend",
+      "type": "callback_requested",
+      "visibility": "evaluator_only",
+      "payload": {
+        "call_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:baseline-R7:call:2",
+        "id": "review_1",
+        "patient_id": "patient_001",
+        "owner": "refill_team",
+        "reason_code": "medication_unverified",
+        "summary": "Caller requested refills: {}. Caller description: It's the little white tablet. I don't know the name. I'm still not sure which one. I don't have my bottle or medication list.. Reason: medication_unverified.",
+        "callback_sla": "one business day",
+        "status": "requested"
+      }
+    }
+  ],
+  "status": "completed",
+  "end_reason": "agent_ended",
+  "manifest": {
+    "coverage": {
+      "conversation": "complete",
+      "tool_events": "complete",
+      "intent_annotations": "complete",
+      "initial_state": "complete",
+      "final_state": "complete",
+      "backend_log": "complete",
+      "handoff_requests": "complete",
+      "handoff_acceptance": "unavailable",
+      "real_audio": "unavailable"
+    },
+    "hashes": {
+      "scenario": "40ade230b51682e4f3ae88621cf06377a5e9b147170ec27677917d86dff5da3f",
+      "policy": "f7ada05da0ee9efcbb7a8d836feaa23f4fc2356eb9642416e6f013f861143159",
+      "agent_config": "2314e4252e0f275f043b2a497d314f4095e5832e618036c424582c92a593abf9",
+      "trace": "11cbdd5ab3555ef342bf82012d097f8f3f8cf7d65b49fedc2b41d6388aa1aacd",
+      "state_snapshots": "0b381bda82015ec86e17f1a31734e618896c07362a6c59cde4d4787b7d06ad61",
+      "backend_log": "8b46c768ea16c93d638bf321a9cf9564692fee850c2ef8910adc5ad9327bade9"
+    }
+  }
+}

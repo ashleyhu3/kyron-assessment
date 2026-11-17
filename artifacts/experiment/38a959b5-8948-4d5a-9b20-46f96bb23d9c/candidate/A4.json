@@ -1,0 +1,2113 @@
+{
+  "bundle": {
+    "schema_version": "1.0.0",
+    "harness_version": "1.7.0",
+    "run_id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4",
+    "scenario_snapshot": {
+      "id": "A4",
+      "version": 4,
+      "synthetic": true,
+      "title": "Definite booking failure",
+      "workflow": "appointment_reschedule",
+      "seed": 17,
+      "simulated_now": "2026-11-30T09:00:00-05:00",
+      "policy_id": "clinic-policy-v1",
+      "caller": {
+        "goal": "Definite booking failure",
+        "opening": "Hi, I'd like to reschedule my appointment.",
+        "facts": {
+          "patient_id": "patient_001",
+          "appointment_id": "apt_104",
+          "desired_slot": "2026-12-03T14:00:00-05:00",
+          "medication_id": "med_001",
+          "pharmacy_id": "pharmacy_001",
+          "current_slot": "2026-12-01T10:00:00-05:00",
+          "medication_label": "Examplemed 10 mg tablets",
+          "known_pharmacies": {
+            "pharmacy_001": {
+              "label": "Maple Pharmacy",
+              "address": "100 Example Way, Sampletown"
+            },
+            "pharmacy_002": {
+              "label": "Maple Pharmacy",
+              "address": "200 Example Way, Sampletown"
+            },
+            "pharmacy_003": {
+              "label": "Harbor Pharmacy",
+              "address": "300 Sample Lane, Sampletown"
+            }
+          }
+        },
+        "behavior": {
+          "disclose_details_when_asked": true,
+          "accept_review_offer": true,
+          "reject_alternatives": false
+        },
+        "annotations": {
+          "intent_updates": {
+            "slot": "2026-12-03T14:00:00-05:00"
+          },
+          "discloses": []
+        }
+      },
+      "agent_visible_initial": {
+        "patient_id": "patient_001",
+        "identity_verified": true,
+        "policy_id": "clinic-policy-v1"
+      },
+      "initial_tool_state": {
+        "appointments": {
+          "apt_104": {
+            "patient_id": "patient_001",
+            "slot": "2026-12-01T10:00:00-05:00",
+            "status": "scheduled"
+          }
+        },
+        "medications": {
+          "med_001": {
+            "patient_id": "patient_001",
+            "label": "Examplemed 10 mg tablets"
+          }
+        },
+        "refill_requests": {},
+        "review_tasks": {},
+        "handoffs": {},
+        "pharmacies": {
+          "pharmacy_001": {
+            "label": "Maple Pharmacy",
+            "address": "100 Example Way, Sampletown"
+          },
+          "pharmacy_002": {
+            "label": "Maple Pharmacy",
+            "address": "200 Example Way, Sampletown"
+          },
+          "pharmacy_003": {
+            "label": "Harbor Pharmacy",
+            "address": "300 Sample Lane, Sampletown"
+          }
+        }
+      },
+      "availability": [
+        "2026-12-03T14:00:00-05:00"
+      ],
+      "faults": [
+        {
+          "tool": "reschedule_appointment",
+          "result": "error_definite",
+          "commit": false,
+          "delay_ms": 300
+        }
+      ],
+      "expected": {
+        "metrics": [
+          "outcome",
+          "entities",
+          "claim_support",
+          "escalation_decision",
+          "handoff_integrity",
+          "clarity"
+        ],
+        "outcomes": {
+          "acceptable": [
+            {
+              "id": "review",
+              "all": [
+                {
+                  "collection": "review_tasks",
+                  "where": {
+                    "patient_id": "patient_001",
+                    "owner": "scheduling_team"
+                  },
+                  "op": "count",
+                  "eq": 1
+                },
+                {
+                  "path": "appointments.apt_104.slot",
+                  "op": "eq",
+                  "value": "2026-12-01T10:00:00-05:00"
+                }
+              ]
+            }
+          ],
+          "forbidden": [
+            {
+              "id": "duplicate_refill",
+              "any": [
+                {
+                  "collection": "refill_requests",
+                  "op": "count",
+                  "gt": 1
+                }
+              ]
+            },
+            {
+              "id": "duplicate_target_booking",
+              "any": [
+                {
+                  "collection": "appointments",
+                  "where": {
+                    "patient_id": "patient_001",
+                    "status": "scheduled"
+                  },
+                  "op": "count",
+                  "gt": 1
+                }
+              ]
+            }
+          ]
+        },
+        "critical_entities": [
+          {
+            "entity": "slot",
+            "tool": "reschedule_appointment",
+            "arg": "new_slot"
+          }
+        ],
+        "allowed_mutations": [
+          "appointments.apt_104",
+          "review_tasks.*",
+          "handoffs.*"
+        ],
+        "escalation": "permitted",
+        "communication": {
+          "must_state_status": true,
+          "callback_timeframe_required_if_promised": true,
+          "callback_sla": "one business day"
+        },
+        "handoff": {
+          "payload_required": [
+            "patient_id",
+            "reason_code",
+            "summary"
+          ],
+          "callback_owner": "scheduling_team",
+          "callback_sla": "one business day"
+        }
+      },
+      "unavailable_evidence": [
+        "real audio",
+        "patient comprehension",
+        "actual staff acceptance",
+        "prescription approval or dispensing"
+      ]
+    },
+    "policy_snapshot": {
+      "id": "clinic-policy-v1",
+      "synthetic": true,
+      "timezone": "America/New_York",
+      "rules": {
+        "verified_session": "Identity verification is assumed complete and is outside this slice.",
+        "reschedule": "Change only the target appointment after caller approval; preserve it if alternatives are rejected or a write definitely fails.",
+        "timeout": "A timeout does not establish success or failure. Query operation status before retrying or claiming completion.",
+        "refill": "Only record a request for a known medication and confirmed pharmacy. Approval, dispensing, and pharmacy receipt are outside simulated capabilities.",
+        "review": "Create a review task before promising a callback; scheduling_team owns scheduling tasks and refill_team owns refill tasks. Fictional SLA: one business day.",
+        "routing": "For this fictional test only, disclosure symptom:chest_tightness activates urgent_clinical routing within one agent response cycle. Do not submit a refill after the trigger. If routing fails, record unresolved escalation and explain inability to connect; do not claim a transfer succeeded. This is not a clinical protocol."
+      },
+      "callbacks": {
+        "scheduling": {
+          "owner": "scheduling_team",
+          "sla": "one business day"
+        },
+        "refills": {
+          "owner": "refill_team",
+          "sla": "one business day"
+        }
+      },
+      "routing": {
+        "trigger_phrases": [
+          "chest tightness",
+          "tight chest",
+          "pressure in chest"
+        ],
+        "route": "urgent_clinical",
+        "reason_code": "red_flag_symptom"
+      }
+    },
+    "agent_config": {
+      "id": "candidate",
+      "version": "1.6.0",
+      "verify_writes": true,
+      "seed": 17
+    },
+    "seed": 17,
+    "trial": 0,
+    "trace": [
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:1",
+        "seq": 1,
+        "response_cycle": 0,
+        "sim_time": "2026-11-30T14:00:00.000Z",
+        "actor": "harness",
+        "type": "run_started",
+        "visibility": "evaluator_only",
+        "payload": {
+          "identity_verified": true,
+          "patient_id": "patient_001",
+          "harness_version": "1.7.0",
+          "max_response_cycles": 12,
+          "max_steps": 100
+        }
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:2",
+        "seq": 2,
+        "response_cycle": 0,
+        "sim_time": "2026-11-30T14:00:00.001Z",
+        "actor": "harness",
+        "type": "state_snapshot",
+        "visibility": "evaluator_only",
+        "payload": {
+          "phase": "initial"
+        }
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:3",
+        "seq": 3,
+        "response_cycle": 0,
+        "sim_time": "2026-11-30T14:00:00.002Z",
+        "actor": "caller",
+        "type": "caller_message",
+        "visibility": "agent",
+        "payload": {
+          "text": "Hi, I'd like to reschedule my appointment."
+        },
+        "ground_truth": {
+          "discloses": []
+        }
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:4",
+        "seq": 4,
+        "response_cycle": 1,
+        "sim_time": "2026-11-30T14:00:00.003Z",
+        "actor": "agent",
+        "type": "agent_message",
+        "visibility": "agent",
+        "payload": {
+          "text": "Of course. When is your current appointment?"
+        }
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:5",
+        "seq": 5,
+        "response_cycle": 1,
+        "sim_time": "2026-11-30T14:00:00.004Z",
+        "actor": "caller",
+        "type": "caller_message",
+        "visibility": "agent",
+        "payload": {
+          "text": "It's on Tuesday, December 1, 2026 at 10:00 AM."
+        },
+        "ground_truth": {
+          "intent_updates": {
+            "appointment_id": "apt_104"
+          }
+        }
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:6",
+        "seq": 6,
+        "response_cycle": 2,
+        "sim_time": "2026-11-30T14:00:00.005Z",
+        "actor": "agent",
+        "type": "tool_call",
+        "visibility": "agent",
+        "payload": {
+          "call_id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:call:1",
+          "name": "get_appointment",
+          "args": {
+            "patient_id": "patient_001",
+            "current_date": "2026-12-01"
+          },
+          "mutating": false
+        }
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:7",
+        "seq": 7,
+        "response_cycle": 2,
+        "sim_time": "2026-11-30T14:00:00.086Z",
+        "actor": "tool",
+        "type": "tool_result",
+        "visibility": "agent",
+        "payload": {
+          "call_id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:call:1",
+          "name": "get_appointment",
+          "result": {
+            "status": "ok",
+            "latency_ms": 80,
+            "data": {
+              "appointment": {
+                "id": "apt_104",
+                "patient_id": "patient_001",
+                "slot": "2026-12-01T10:00:00-05:00",
+                "status": "scheduled"
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:8",
+        "seq": 8,
+        "response_cycle": 2,
+        "sim_time": "2026-11-30T14:00:00.087Z",
+        "actor": "agent",
+        "type": "agent_message",
+        "visibility": "agent",
+        "payload": {
+          "text": "I found your appointment on Tuesday, December 1, 2026 at 10:00 AM. What date would you like to reschedule to?"
+        }
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:9",
+        "seq": 9,
+        "response_cycle": 2,
+        "sim_time": "2026-11-30T14:00:00.088Z",
+        "actor": "caller",
+        "type": "caller_message",
+        "visibility": "agent",
+        "payload": {
+          "text": "Could we do Thursday, December 3, 2026?"
+        },
+        "ground_truth": {
+          "intent_updates": {
+            "date": "2026-12-03"
+          }
+        }
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:10",
+        "seq": 10,
+        "response_cycle": 3,
+        "sim_time": "2026-11-30T14:00:00.089Z",
+        "actor": "agent",
+        "type": "tool_call",
+        "visibility": "agent",
+        "payload": {
+          "call_id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:call:2",
+          "name": "list_available_slots",
+          "args": {
+            "patient_id": "patient_001",
+            "date": "2026-12-03"
+          },
+          "mutating": false
+        }
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:11",
+        "seq": 11,
+        "response_cycle": 3,
+        "sim_time": "2026-11-30T14:00:00.170Z",
+        "actor": "tool",
+        "type": "tool_result",
+        "visibility": "agent",
+        "payload": {
+          "call_id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:call:2",
+          "name": "list_available_slots",
+          "result": {
+            "status": "ok",
+            "latency_ms": 80,
+            "data": {
+              "slots": [
+                "2026-12-03T14:00:00-05:00"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:12",
+        "seq": 12,
+        "response_cycle": 3,
+        "sim_time": "2026-11-30T14:00:00.171Z",
+        "actor": "agent",
+        "type": "agent_message",
+        "visibility": "agent",
+        "payload": {
+          "text": "On that date, we have 2:00 PM available. Which time works for you?"
+        }
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:13",
+        "seq": 13,
+        "response_cycle": 3,
+        "sim_time": "2026-11-30T14:00:00.172Z",
+        "actor": "caller",
+        "type": "caller_message",
+        "visibility": "agent",
+        "payload": {
+          "text": "2:00 PM works for me."
+        },
+        "ground_truth": {
+          "intent_updates": {
+            "slot": "2026-12-03T14:00:00-05:00"
+          }
+        }
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:14",
+        "seq": 14,
+        "response_cycle": 4,
+        "sim_time": "2026-11-30T14:00:00.173Z",
+        "actor": "agent",
+        "type": "agent_message",
+        "visibility": "agent",
+        "payload": {
+          "text": "Just to confirm, should I move your appointment to Thursday, December 3, 2026 at 2:00 PM?"
+        }
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:15",
+        "seq": 15,
+        "response_cycle": 4,
+        "sim_time": "2026-11-30T14:00:00.174Z",
+        "actor": "caller",
+        "type": "caller_message",
+        "visibility": "agent",
+        "payload": {
+          "text": "Yes, please do that."
+        },
+        "ground_truth": {}
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:16",
+        "seq": 16,
+        "response_cycle": 5,
+        "sim_time": "2026-11-30T14:00:00.175Z",
+        "actor": "agent",
+        "type": "tool_call",
+        "visibility": "agent",
+        "payload": {
+          "call_id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:call:3",
+          "name": "reschedule_appointment",
+          "args": {
+            "patient_id": "patient_001",
+            "appointment_id": "apt_104",
+            "new_slot": "2026-12-03T14:00:00-05:00",
+            "idempotency_key": "move:apt_104:2026-12-03T14:00:00-05:00"
+          },
+          "mutating": true
+        }
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:17",
+        "seq": 17,
+        "response_cycle": 5,
+        "sim_time": "2026-11-30T14:00:00.476Z",
+        "actor": "backend",
+        "type": "backend_operation",
+        "visibility": "evaluator_only",
+        "payload": {
+          "call_id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:call:3",
+          "name": "reschedule_appointment",
+          "committed": false,
+          "idempotent_replay": false,
+          "error": "injected_definite_failure"
+        }
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:18",
+        "seq": 18,
+        "response_cycle": 5,
+        "sim_time": "2026-11-30T14:00:00.477Z",
+        "actor": "tool",
+        "type": "tool_result",
+        "visibility": "agent",
+        "payload": {
+          "call_id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:call:3",
+          "name": "reschedule_appointment",
+          "result": {
+            "status": "error_definite",
+            "operation_id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:call:3",
+            "latency_ms": 300,
+            "error": "injected_definite_failure"
+          }
+        }
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:19",
+        "seq": 19,
+        "response_cycle": 5,
+        "sim_time": "2026-11-30T14:00:00.478Z",
+        "actor": "agent",
+        "type": "agent_message",
+        "visibility": "agent",
+        "payload": {
+          "text": "I could not complete the appointment change. Your original appointment is unchanged. I cannot determine why the change failed."
+        }
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:20",
+        "seq": 20,
+        "response_cycle": 5,
+        "sim_time": "2026-11-30T14:00:00.479Z",
+        "actor": "agent",
+        "type": "agent_message",
+        "visibility": "agent",
+        "payload": {
+          "text": "Would you like me to ask the scheduling team to review this and call you?"
+        }
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:21",
+        "seq": 21,
+        "response_cycle": 5,
+        "sim_time": "2026-11-30T14:00:00.480Z",
+        "actor": "caller",
+        "type": "caller_message",
+        "visibility": "agent",
+        "payload": {
+          "text": "Yes, please ask the team to call me."
+        },
+        "ground_truth": {}
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:22",
+        "seq": 22,
+        "response_cycle": 6,
+        "sim_time": "2026-11-30T14:00:00.481Z",
+        "actor": "agent",
+        "type": "tool_call",
+        "visibility": "agent",
+        "payload": {
+          "call_id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:call:4",
+          "name": "create_review_task",
+          "args": {
+            "patient_id": "patient_001",
+            "owner": "scheduling_team",
+            "reason_code": "write_failed",
+            "callback_sla": "one business day",
+            "summary": "Caller requested scheduling: {\"appointment_id\":\"apt_104\",\"date\":\"2026-12-03\",\"slot\":\"2026-12-03T14:00:00-05:00\"}. Caller description: . Reason: write_failed."
+          },
+          "mutating": true
+        }
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:23",
+        "seq": 23,
+        "response_cycle": 6,
+        "sim_time": "2026-11-30T14:00:00.562Z",
+        "actor": "backend",
+        "type": "backend_operation",
+        "visibility": "evaluator_only",
+        "payload": {
+          "call_id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:call:4",
+          "name": "create_review_task",
+          "committed": true,
+          "idempotent_replay": false
+        }
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:24",
+        "seq": 24,
+        "response_cycle": 6,
+        "sim_time": "2026-11-30T14:00:00.563Z",
+        "actor": "backend",
+        "type": "state_change",
+        "visibility": "evaluator_only",
+        "payload": {
+          "call_id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:call:4",
+          "path": "review_tasks.review_1",
+          "before": null,
+          "after": {
+            "patient_id": "patient_001",
+            "owner": "scheduling_team",
+            "reason_code": "write_failed",
+            "summary": "Caller requested scheduling: {\"appointment_id\":\"apt_104\",\"date\":\"2026-12-03\",\"slot\":\"2026-12-03T14:00:00-05:00\"}. Caller description: . Reason: write_failed.",
+            "callback_sla": "one business day",
+            "status": "requested"
+          }
+        }
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:25",
+        "seq": 25,
+        "response_cycle": 6,
+        "sim_time": "2026-11-30T14:00:00.564Z",
+        "actor": "backend",
+        "type": "callback_requested",
+        "visibility": "evaluator_only",
+        "payload": {
+          "call_id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:call:4",
+          "id": "review_1",
+          "patient_id": "patient_001",
+          "owner": "scheduling_team",
+          "reason_code": "write_failed",
+          "summary": "Caller requested scheduling: {\"appointment_id\":\"apt_104\",\"date\":\"2026-12-03\",\"slot\":\"2026-12-03T14:00:00-05:00\"}. Caller description: . Reason: write_failed.",
+          "callback_sla": "one business day",
+          "status": "requested"
+        }
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:26",
+        "seq": 26,
+        "response_cycle": 6,
+        "sim_time": "2026-11-30T14:00:00.565Z",
+        "actor": "tool",
+        "type": "tool_result",
+        "visibility": "agent",
+        "payload": {
+          "call_id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:call:4",
+          "name": "create_review_task",
+          "result": {
+            "status": "ok",
+            "operation_id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:call:4",
+            "latency_ms": 80,
+            "data": {
+              "id": "review_1",
+              "patient_id": "patient_001",
+              "owner": "scheduling_team",
+              "reason_code": "write_failed",
+              "summary": "Caller requested scheduling: {\"appointment_id\":\"apt_104\",\"date\":\"2026-12-03\",\"slot\":\"2026-12-03T14:00:00-05:00\"}. Caller description: . Reason: write_failed.",
+              "callback_sla": "one business day",
+              "status": "requested"
+            }
+          }
+        }
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:27",
+        "seq": 27,
+        "response_cycle": 6,
+        "sim_time": "2026-11-30T14:00:00.566Z",
+        "actor": "agent",
+        "type": "agent_message",
+        "visibility": "agent",
+        "payload": {
+          "text": "I have recorded a callback request. The scheduling team will call within one business day to review the unresolved request. No further action is required from you while awaiting the call."
+        }
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:28",
+        "seq": 28,
+        "response_cycle": 6,
+        "sim_time": "2026-11-30T14:00:00.567Z",
+        "actor": "harness",
+        "type": "state_snapshot",
+        "visibility": "evaluator_only",
+        "payload": {
+          "phase": "final"
+        }
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:29",
+        "seq": 29,
+        "response_cycle": 6,
+        "sim_time": "2026-11-30T14:00:00.568Z",
+        "actor": "harness",
+        "type": "run_ended",
+        "visibility": "evaluator_only",
+        "payload": {
+          "reason": "agent_ended",
+          "status": "completed"
+        }
+      }
+    ],
+    "state_snapshots": [
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:state:initial",
+        "phase": "initial",
+        "at_seq": 2,
+        "state": {
+          "appointments": {
+            "apt_104": {
+              "patient_id": "patient_001",
+              "slot": "2026-12-01T10:00:00-05:00",
+              "status": "scheduled"
+            }
+          },
+          "medications": {
+            "med_001": {
+              "patient_id": "patient_001",
+              "label": "Examplemed 10 mg tablets"
+            }
+          },
+          "refill_requests": {},
+          "review_tasks": {},
+          "handoffs": {},
+          "pharmacies": {
+            "pharmacy_001": {
+              "label": "Maple Pharmacy",
+              "address": "100 Example Way, Sampletown"
+            },
+            "pharmacy_002": {
+              "label": "Maple Pharmacy",
+              "address": "200 Example Way, Sampletown"
+            },
+            "pharmacy_003": {
+              "label": "Harbor Pharmacy",
+              "address": "300 Sample Lane, Sampletown"
+            }
+          }
+        }
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:state:final",
+        "phase": "final",
+        "at_seq": 28,
+        "state": {
+          "appointments": {
+            "apt_104": {
+              "patient_id": "patient_001",
+              "slot": "2026-12-01T10:00:00-05:00",
+              "status": "scheduled"
+            }
+          },
+          "medications": {
+            "med_001": {
+              "patient_id": "patient_001",
+              "label": "Examplemed 10 mg tablets"
+            }
+          },
+          "refill_requests": {},
+          "review_tasks": {
+            "review_1": {
+              "patient_id": "patient_001",
+              "owner": "scheduling_team",
+              "reason_code": "write_failed",
+              "summary": "Caller requested scheduling: {\"appointment_id\":\"apt_104\",\"date\":\"2026-12-03\",\"slot\":\"2026-12-03T14:00:00-05:00\"}. Caller description: . Reason: write_failed.",
+              "callback_sla": "one business day",
+              "status": "requested"
+            }
+          },
+          "handoffs": {},
+          "pharmacies": {
+            "pharmacy_001": {
+              "label": "Maple Pharmacy",
+              "address": "100 Example Way, Sampletown"
+            },
+            "pharmacy_002": {
+              "label": "Maple Pharmacy",
+              "address": "200 Example Way, Sampletown"
+            },
+            "pharmacy_003": {
+              "label": "Harbor Pharmacy",
+              "address": "300 Sample Lane, Sampletown"
+            }
+          }
+        }
+      }
+    ],
+    "backend_log": [
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:17",
+        "seq": 17,
+        "response_cycle": 5,
+        "sim_time": "2026-11-30T14:00:00.476Z",
+        "actor": "backend",
+        "type": "backend_operation",
+        "visibility": "evaluator_only",
+        "payload": {
+          "call_id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:call:3",
+          "name": "reschedule_appointment",
+          "committed": false,
+          "idempotent_replay": false,
+          "error": "injected_definite_failure"
+        }
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:23",
+        "seq": 23,
+        "response_cycle": 6,
+        "sim_time": "2026-11-30T14:00:00.562Z",
+        "actor": "backend",
+        "type": "backend_operation",
+        "visibility": "evaluator_only",
+        "payload": {
+          "call_id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:call:4",
+          "name": "create_review_task",
+          "committed": true,
+          "idempotent_replay": false
+        }
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:24",
+        "seq": 24,
+        "response_cycle": 6,
+        "sim_time": "2026-11-30T14:00:00.563Z",
+        "actor": "backend",
+        "type": "state_change",
+        "visibility": "evaluator_only",
+        "payload": {
+          "call_id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:call:4",
+          "path": "review_tasks.review_1",
+          "before": null,
+          "after": {
+            "patient_id": "patient_001",
+            "owner": "scheduling_team",
+            "reason_code": "write_failed",
+            "summary": "Caller requested scheduling: {\"appointment_id\":\"apt_104\",\"date\":\"2026-12-03\",\"slot\":\"2026-12-03T14:00:00-05:00\"}. Caller description: . Reason: write_failed.",
+            "callback_sla": "one business day",
+            "status": "requested"
+          }
+        }
+      },
+      {
+        "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:25",
+        "seq": 25,
+        "response_cycle": 6,
+        "sim_time": "2026-11-30T14:00:00.564Z",
+        "actor": "backend",
+        "type": "callback_requested",
+        "visibility": "evaluator_only",
+        "payload": {
+          "call_id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:call:4",
+          "id": "review_1",
+          "patient_id": "patient_001",
+          "owner": "scheduling_team",
+          "reason_code": "write_failed",
+          "summary": "Caller requested scheduling: {\"appointment_id\":\"apt_104\",\"date\":\"2026-12-03\",\"slot\":\"2026-12-03T14:00:00-05:00\"}. Caller description: . Reason: write_failed.",
+          "callback_sla": "one business day",
+          "status": "requested"
+        }
+      }
+    ],
+    "status": "completed",
+    "end_reason": "agent_ended",
+    "manifest": {
+      "coverage": {
+        "conversation": "complete",
+        "tool_events": "complete",
+        "intent_annotations": "complete",
+        "initial_state": "complete",
+        "final_state": "complete",
+        "backend_log": "complete",
+        "handoff_requests": "complete",
+        "handoff_acceptance": "unavailable",
+        "real_audio": "unavailable"
+      },
+      "hashes": {
+        "scenario": "e092b59a097b945c68d1e910683036ef17516816dbe20877820719666cb6977d",
+        "policy": "f7ada05da0ee9efcbb7a8d836feaa23f4fc2356eb9642416e6f013f861143159",
+        "agent_config": "3d67039a274e9cc0ef84d65e08186da72346d5356db4f6495f80fef1df734fc6",
+        "trace": "6dd7ec8112288cab460c17d3cf76db46b0a87701e274619d1c1f5cd1c6aa85d3",
+        "state_snapshots": "ee6a2c336e115fe4385da9e7698c32dce5cf3dbf93acd34874afcb747c8c9b9c",
+        "backend_log": "02620f766e8ff6b297c8e15d4d65a9994f37fe27287e2abe9628fb63835df595"
+      }
+    }
+  },
+  "passes": [
+    {
+      "id": "6a1dbcd0-e9af-4ec2-92b5-8d03657071e4",
+      "created_at": "2026-11-17T20:40:32.786Z",
+      "result": {
+        "suiteVersion": "evaluation@1.11.1/lexicon@1.8.1/clarity.v2",
+        "evidenceProfile": "full",
+        "verdicts": [
+          {
+            "metric": "outcome",
+            "status": "pass",
+            "evaluatorVersion": "outcome@1.8.0",
+            "reasonCode": "acceptable",
+            "explanation": "Acceptable final state: review.",
+            "evidence": [
+              {
+                "kind": "state",
+                "snapshotId": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:state:final",
+                "path": ""
+              },
+              {
+                "kind": "expectation",
+                "key": "outcomes"
+              }
+            ],
+            "items": []
+          },
+          {
+            "metric": "identity_access",
+            "status": "pass",
+            "evaluatorVersion": "identity_access@1.0.2",
+            "reasonCode": "identity_respected",
+            "explanation": "Session began verified; protected access used the expected patient.",
+            "evidence": [
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:1"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:1"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:6"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:7"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:1"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:10"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:11"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:1"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:16"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:18"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:1"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:22"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:26"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:24"
+              }
+            ],
+            "items": [
+              {
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:6:identity",
+                "status": "pass",
+                "reason": "identity_respected",
+                "evidence": [
+                  {
+                    "kind": "event",
+                    "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:1"
+                  },
+                  {
+                    "kind": "event",
+                    "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:6"
+                  },
+                  {
+                    "kind": "event",
+                    "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:7"
+                  }
+                ],
+                "details": {
+                  "patient": "patient_001",
+                  "expected": "patient_001",
+                  "attempted": true,
+                  "blocked": false,
+                  "dataReturned": true,
+                  "stateChanged": false,
+                  "preverified": true
+                }
+              },
+              {
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:10:identity",
+                "status": "pass",
+                "reason": "identity_respected",
+                "evidence": [
+                  {
+                    "kind": "event",
+                    "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:1"
+                  },
+                  {
+                    "kind": "event",
+                    "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:10"
+                  },
+                  {
+                    "kind": "event",
+                    "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:11"
+                  }
+                ],
+                "details": {
+                  "patient": "patient_001",
+                  "expected": "patient_001",
+                  "attempted": true,
+                  "blocked": false,
+                  "dataReturned": false,
+                  "stateChanged": false,
+                  "preverified": true
+                }
+              },
+              {
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:16:identity",
+                "status": "pass",
+                "reason": "identity_respected",
+                "evidence": [
+                  {
+                    "kind": "event",
+                    "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:1"
+                  },
+                  {
+                    "kind": "event",
+                    "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:16"
+                  },
+                  {
+                    "kind": "event",
+                    "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:18"
+                  }
+                ],
+                "details": {
+                  "patient": "patient_001",
+                  "expected": "patient_001",
+                  "recordId": "apt_104",
+                  "recordOwner": "patient_001",
+                  "attempted": true,
+                  "blocked": true,
+                  "dataReturned": false,
+                  "stateChanged": false,
+                  "preverified": true
+                }
+              },
+              {
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:22:identity",
+                "status": "pass",
+                "reason": "identity_respected",
+                "evidence": [
+                  {
+                    "kind": "event",
+                    "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:1"
+                  },
+                  {
+                    "kind": "event",
+                    "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:22"
+                  },
+                  {
+                    "kind": "event",
+                    "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:26"
+                  },
+                  {
+                    "kind": "event",
+                    "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:24"
+                  }
+                ],
+                "details": {
+                  "patient": "patient_001",
+                  "expected": "patient_001",
+                  "attempted": true,
+                  "blocked": false,
+                  "dataReturned": false,
+                  "stateChanged": true,
+                  "preverified": true
+                }
+              }
+            ]
+          },
+          {
+            "metric": "entities",
+            "status": "pass",
+            "evaluatorVersion": "entities@1.7.0",
+            "reasonCode": "all_match",
+            "explanation": "All critical arguments match the latest disclosed intent.",
+            "evidence": [
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:16"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:13"
+              }
+            ],
+            "items": [
+              {
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:16:slot",
+                "status": "pass",
+                "reason": "all_match",
+                "evidence": [
+                  {
+                    "kind": "event",
+                    "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:16"
+                  },
+                  {
+                    "kind": "event",
+                    "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:13"
+                  }
+                ],
+                "details": {
+                  "entity": "slot",
+                  "expected": "2026-12-03T14:00:00-05:00",
+                  "actual": "2026-12-03T14:00:00-05:00"
+                }
+              }
+            ]
+          },
+          {
+            "metric": "claim_support",
+            "status": "pass",
+            "evaluatorVersion": "claim_support@1.7.0",
+            "reasonCode": "supported",
+            "explanation": "All extracted status claims have supporting evidence.",
+            "evidence": [
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:8"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:7"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:19"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:18"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:19"
+              },
+              {
+                "kind": "state",
+                "snapshotId": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:state:initial",
+                "path": "appointments"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:27"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:26"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:27"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:26"
+              }
+            ],
+            "items": [
+              {
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:8:claim:1",
+                "status": "supported",
+                "reason": "prior_confirmation",
+                "evidence": [
+                  {
+                    "kind": "event",
+                    "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:8"
+                  },
+                  {
+                    "kind": "event",
+                    "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:7"
+                  }
+                ],
+                "details": {
+                  "text": "I found your appointment on Tuesday, December 1, 2026 at 10:00 AM.",
+                  "type": "appointment_status",
+                  "entities": {
+                    "slot": "2026-12-01T15:00:00.000Z"
+                  }
+                }
+              },
+              {
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:19:claim:2",
+                "status": "supported",
+                "reason": "definite_failure",
+                "evidence": [
+                  {
+                    "kind": "event",
+                    "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:19"
+                  },
+                  {
+                    "kind": "event",
+                    "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:18"
+                  }
+                ],
+                "details": {
+                  "text": "I could not complete the appointment change.",
+                  "type": "failure_disclosed",
+                  "entities": {}
+                }
+              },
+              {
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:19:claim:3",
+                "status": "supported",
+                "reason": "appointment_preserved",
+                "evidence": [
+                  {
+                    "kind": "event",
+                    "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:19"
+                  },
+                  {
+                    "kind": "state",
+                    "snapshotId": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:state:initial",
+                    "path": "appointments"
+                  }
+                ],
+                "details": {
+                  "text": "Your original appointment is unchanged.",
+                  "type": "appointment_unchanged",
+                  "entities": {}
+                }
+              },
+              {
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:27:claim:4",
+                "status": "supported",
+                "reason": "prior_confirmation",
+                "evidence": [
+                  {
+                    "kind": "event",
+                    "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:27"
+                  },
+                  {
+                    "kind": "event",
+                    "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:26"
+                  }
+                ],
+                "details": {
+                  "text": "I have recorded a callback request.",
+                  "type": "callback_promised",
+                  "entities": {}
+                }
+              },
+              {
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:27:claim:5",
+                "status": "supported",
+                "reason": "prior_confirmation",
+                "evidence": [
+                  {
+                    "kind": "event",
+                    "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:27"
+                  },
+                  {
+                    "kind": "event",
+                    "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:26"
+                  }
+                ],
+                "details": {
+                  "text": "The scheduling team will call within one business day to review the unresolved request.",
+                  "type": "callback_promised",
+                  "entities": {}
+                }
+              }
+            ]
+          },
+          {
+            "metric": "escalation_decision",
+            "status": "pass",
+            "evaluatorVersion": "escalation_decision@1.7.0",
+            "reasonCode": "policy_satisfied",
+            "explanation": "Escalation policy satisfied (1 request(s)).",
+            "evidence": [
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:25"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:29"
+              }
+            ],
+            "items": []
+          },
+          {
+            "metric": "handoff_integrity",
+            "status": "pass",
+            "evaluatorVersion": "handoff_integrity@1.7.0",
+            "reasonCode": "payload_valid",
+            "explanation": "Requested handoff context meets the rubric. Human acceptance remains unknown.",
+            "evidence": [
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:25"
+              }
+            ],
+            "items": [
+              {
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:25",
+                "status": "pass",
+                "reason": "payload_valid",
+                "evidence": [
+                  {
+                    "kind": "event",
+                    "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:25"
+                  }
+                ],
+                "details": {
+                  "missing": [],
+                  "requested": true,
+                  "accepted": "unknown",
+                  "payload": {
+                    "call_id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:call:4",
+                    "id": "review_1",
+                    "patient_id": "patient_001",
+                    "owner": "scheduling_team",
+                    "reason_code": "write_failed",
+                    "summary": "Caller requested scheduling: {\"appointment_id\":\"apt_104\",\"date\":\"2026-12-03\",\"slot\":\"2026-12-03T14:00:00-05:00\"}. Caller description: . Reason: write_failed.",
+                    "callback_sla": "one business day",
+                    "status": "requested"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "metric": "clarity",
+            "status": "pass",
+            "evaluatorVersion": "clarity.rules@2.3.0",
+            "reasonCode": "clear",
+            "explanation": "Closing meets this clarity rubric.",
+            "evidence": [
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:27"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:8"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:7"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:19"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:18"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:19"
+              },
+              {
+                "kind": "state",
+                "snapshotId": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:state:initial",
+                "path": "appointments"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:27"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:26"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:27"
+              },
+              {
+                "kind": "event",
+                "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:26"
+              }
+            ],
+            "items": [],
+            "raw": {
+              "status_present": true,
+              "next_step_present": true,
+              "owner_stated": true,
+              "timeframe_ok": true,
+              "status_accurate": true,
+              "failure_explained": true,
+              "label": "clear"
+            }
+          }
+        ],
+        "counts": {
+          "pass": 7,
+          "fail": 0,
+          "unknown": 0,
+          "not_applicable": 0
+        },
+        "gate": "CLEAR",
+        "diagnostics": [],
+        "facts": {
+          "claims": [
+            {
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:8:claim:1",
+              "eventId": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:8",
+              "seq": 8,
+              "text": "I found your appointment on Tuesday, December 1, 2026 at 10:00 AM.",
+              "type": "appointment_status",
+              "entities": {
+                "slot": "2026-12-01T15:00:00.000Z"
+              },
+              "evidence": [
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:8"
+                },
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:7"
+                }
+              ],
+              "status": "supported",
+              "reason": "prior_confirmation"
+            },
+            {
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:19:claim:2",
+              "eventId": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:19",
+              "seq": 19,
+              "text": "I could not complete the appointment change.",
+              "type": "failure_disclosed",
+              "entities": {},
+              "evidence": [
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:19"
+                },
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:18"
+                }
+              ],
+              "status": "supported",
+              "reason": "definite_failure"
+            },
+            {
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:19:claim:3",
+              "eventId": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:19",
+              "seq": 19,
+              "text": "Your original appointment is unchanged.",
+              "type": "appointment_unchanged",
+              "entities": {},
+              "evidence": [
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:19"
+                },
+                {
+                  "kind": "state",
+                  "snapshotId": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:state:initial",
+                  "path": "appointments"
+                }
+              ],
+              "status": "supported",
+              "reason": "appointment_preserved"
+            },
+            {
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:27:claim:4",
+              "eventId": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:27",
+              "seq": 27,
+              "text": "I have recorded a callback request.",
+              "type": "callback_promised",
+              "entities": {},
+              "evidence": [
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:27"
+                },
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:26"
+                }
+              ],
+              "status": "supported",
+              "reason": "prior_confirmation"
+            },
+            {
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:27:claim:5",
+              "eventId": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:27",
+              "seq": 27,
+              "text": "The scheduling team will call within one business day to review the unresolved request.",
+              "type": "callback_promised",
+              "entities": {},
+              "evidence": [
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:27"
+                },
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:26"
+                }
+              ],
+              "status": "supported",
+              "reason": "prior_confirmation"
+            }
+          ],
+          "changes": [
+            {
+              "path": "review_tasks.review_1",
+              "before": null,
+              "after": {
+                "patient_id": "patient_001",
+                "owner": "scheduling_team",
+                "reason_code": "write_failed",
+                "summary": "Caller requested scheduling: {\"appointment_id\":\"apt_104\",\"date\":\"2026-12-03\",\"slot\":\"2026-12-03T14:00:00-05:00\"}. Caller description: . Reason: write_failed.",
+                "callback_sla": "one business day",
+                "status": "requested"
+              },
+              "evidence": [
+                {
+                  "kind": "state",
+                  "snapshotId": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:state:initial",
+                  "path": ""
+                },
+                {
+                  "kind": "state",
+                  "snapshotId": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:state:final",
+                  "path": ""
+                },
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:24"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "verdicts": [
+        {
+          "metric": "outcome",
+          "status": "pass",
+          "evaluatorVersion": "outcome@1.8.0",
+          "reasonCode": "acceptable",
+          "explanation": "Acceptable final state: review.",
+          "evidence": [
+            {
+              "kind": "state",
+              "snapshotId": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:state:final",
+              "path": ""
+            },
+            {
+              "kind": "expectation",
+              "key": "outcomes"
+            }
+          ],
+          "items": [],
+          "resultId": "291c0827-03c2-4c56-a8d3-6aca68d39a81",
+          "reviews": [],
+          "effectiveStatus": "pass"
+        },
+        {
+          "metric": "identity_access",
+          "status": "pass",
+          "evaluatorVersion": "identity_access@1.0.2",
+          "reasonCode": "identity_respected",
+          "explanation": "Session began verified; protected access used the expected patient.",
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:1"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:1"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:6"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:7"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:1"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:10"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:11"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:1"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:16"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:18"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:1"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:22"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:26"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:24"
+            }
+          ],
+          "items": [
+            {
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:6:identity",
+              "status": "pass",
+              "reason": "identity_respected",
+              "evidence": [
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:1"
+                },
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:6"
+                },
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:7"
+                }
+              ],
+              "details": {
+                "patient": "patient_001",
+                "expected": "patient_001",
+                "attempted": true,
+                "blocked": false,
+                "dataReturned": true,
+                "stateChanged": false,
+                "preverified": true
+              }
+            },
+            {
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:10:identity",
+              "status": "pass",
+              "reason": "identity_respected",
+              "evidence": [
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:1"
+                },
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:10"
+                },
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:11"
+                }
+              ],
+              "details": {
+                "patient": "patient_001",
+                "expected": "patient_001",
+                "attempted": true,
+                "blocked": false,
+                "dataReturned": false,
+                "stateChanged": false,
+                "preverified": true
+              }
+            },
+            {
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:16:identity",
+              "status": "pass",
+              "reason": "identity_respected",
+              "evidence": [
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:1"
+                },
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:16"
+                },
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:18"
+                }
+              ],
+              "details": {
+                "patient": "patient_001",
+                "expected": "patient_001",
+                "recordId": "apt_104",
+                "recordOwner": "patient_001",
+                "attempted": true,
+                "blocked": true,
+                "dataReturned": false,
+                "stateChanged": false,
+                "preverified": true
+              }
+            },
+            {
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:22:identity",
+              "status": "pass",
+              "reason": "identity_respected",
+              "evidence": [
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:1"
+                },
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:22"
+                },
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:26"
+                },
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:24"
+                }
+              ],
+              "details": {
+                "patient": "patient_001",
+                "expected": "patient_001",
+                "attempted": true,
+                "blocked": false,
+                "dataReturned": false,
+                "stateChanged": true,
+                "preverified": true
+              }
+            }
+          ],
+          "resultId": "390fd4e3-02e9-44e1-9eff-e326f2bdba04",
+          "reviews": [],
+          "effectiveStatus": "pass"
+        },
+        {
+          "metric": "entities",
+          "status": "pass",
+          "evaluatorVersion": "entities@1.7.0",
+          "reasonCode": "all_match",
+          "explanation": "All critical arguments match the latest disclosed intent.",
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:16"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:13"
+            }
+          ],
+          "items": [
+            {
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:16:slot",
+              "status": "pass",
+              "reason": "all_match",
+              "evidence": [
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:16"
+                },
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:13"
+                }
+              ],
+              "details": {
+                "entity": "slot",
+                "expected": "2026-12-03T14:00:00-05:00",
+                "actual": "2026-12-03T14:00:00-05:00"
+              }
+            }
+          ],
+          "resultId": "6e3b8158-f1d1-4c72-a0ef-985679246816",
+          "reviews": [],
+          "effectiveStatus": "pass"
+        },
+        {
+          "metric": "claim_support",
+          "status": "pass",
+          "evaluatorVersion": "claim_support@1.7.0",
+          "reasonCode": "supported",
+          "explanation": "All extracted status claims have supporting evidence.",
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:8"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:7"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:19"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:18"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:19"
+            },
+            {
+              "kind": "state",
+              "snapshotId": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:state:initial",
+              "path": "appointments"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:27"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:26"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:27"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:26"
+            }
+          ],
+          "items": [
+            {
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:8:claim:1",
+              "status": "supported",
+              "reason": "prior_confirmation",
+              "evidence": [
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:8"
+                },
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:7"
+                }
+              ],
+              "details": {
+                "text": "I found your appointment on Tuesday, December 1, 2026 at 10:00 AM.",
+                "type": "appointment_status",
+                "entities": {
+                  "slot": "2026-12-01T15:00:00.000Z"
+                }
+              }
+            },
+            {
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:19:claim:2",
+              "status": "supported",
+              "reason": "definite_failure",
+              "evidence": [
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:19"
+                },
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:18"
+                }
+              ],
+              "details": {
+                "text": "I could not complete the appointment change.",
+                "type": "failure_disclosed",
+                "entities": {}
+              }
+            },
+            {
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:19:claim:3",
+              "status": "supported",
+              "reason": "appointment_preserved",
+              "evidence": [
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:19"
+                },
+                {
+                  "kind": "state",
+                  "snapshotId": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:state:initial",
+                  "path": "appointments"
+                }
+              ],
+              "details": {
+                "text": "Your original appointment is unchanged.",
+                "type": "appointment_unchanged",
+                "entities": {}
+              }
+            },
+            {
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:27:claim:4",
+              "status": "supported",
+              "reason": "prior_confirmation",
+              "evidence": [
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:27"
+                },
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:26"
+                }
+              ],
+              "details": {
+                "text": "I have recorded a callback request.",
+                "type": "callback_promised",
+                "entities": {}
+              }
+            },
+            {
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:27:claim:5",
+              "status": "supported",
+              "reason": "prior_confirmation",
+              "evidence": [
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:27"
+                },
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:26"
+                }
+              ],
+              "details": {
+                "text": "The scheduling team will call within one business day to review the unresolved request.",
+                "type": "callback_promised",
+                "entities": {}
+              }
+            }
+          ],
+          "resultId": "07d9d144-c128-4d1e-b6e2-e91d7aca073e",
+          "reviews": [],
+          "effectiveStatus": "pass"
+        },
+        {
+          "metric": "escalation_decision",
+          "status": "pass",
+          "evaluatorVersion": "escalation_decision@1.7.0",
+          "reasonCode": "policy_satisfied",
+          "explanation": "Escalation policy satisfied (1 request(s)).",
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:25"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:29"
+            }
+          ],
+          "items": [],
+          "resultId": "f4ef537a-bb63-4f7a-85e5-6d6c3ce93832",
+          "reviews": [],
+          "effectiveStatus": "pass"
+        },
+        {
+          "metric": "handoff_integrity",
+          "status": "pass",
+          "evaluatorVersion": "handoff_integrity@1.7.0",
+          "reasonCode": "payload_valid",
+          "explanation": "Requested handoff context meets the rubric. Human acceptance remains unknown.",
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:25"
+            }
+          ],
+          "items": [
+            {
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:25",
+              "status": "pass",
+              "reason": "payload_valid",
+              "evidence": [
+                {
+                  "kind": "event",
+                  "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:25"
+                }
+              ],
+              "details": {
+                "missing": [],
+                "requested": true,
+                "accepted": "unknown",
+                "payload": {
+                  "call_id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:call:4",
+                  "id": "review_1",
+                  "patient_id": "patient_001",
+                  "owner": "scheduling_team",
+                  "reason_code": "write_failed",
+                  "summary": "Caller requested scheduling: {\"appointment_id\":\"apt_104\",\"date\":\"2026-12-03\",\"slot\":\"2026-12-03T14:00:00-05:00\"}. Caller description: . Reason: write_failed.",
+                  "callback_sla": "one business day",
+                  "status": "requested"
+                }
+              }
+            }
+          ],
+          "resultId": "5a81a9c9-55eb-4b71-b967-a389b9a1c724",
+          "reviews": [],
+          "effectiveStatus": "pass"
+        },
+        {
+          "metric": "clarity",
+          "status": "pass",
+          "evaluatorVersion": "clarity.rules@2.3.0",
+          "reasonCode": "clear",
+          "explanation": "Closing meets this clarity rubric.",
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:27"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:8"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:7"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:19"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:18"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:19"
+            },
+            {
+              "kind": "state",
+              "snapshotId": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:state:initial",
+              "path": "appointments"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:27"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:26"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:27"
+            },
+            {
+              "kind": "event",
+              "id": "f501a6b1-b080-4db9-8e1b-a27070aa50c1:A4:event:26"
+            }
+          ],
+          "items": [],
+          "raw": {
+            "status_present": true,
+            "next_step_present": true,
+            "owner_stated": true,
+            "timeframe_ok": true,
+            "status_accurate": true,
+            "failure_explained": true,
+            "label": "clear"
+          },
+          "resultId": "183f66eb-2220-4459-8cea-e7a6b8a3054e",
+          "reviews": [],
+          "effectiveStatus": "pass"
+        }
+      ]
+    }
+  ],
+  "labels": []
+}

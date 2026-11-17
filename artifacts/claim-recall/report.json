@@ -1,0 +1,1263 @@
+{
+  "provenance": "Agent-authored diagnostic paraphrases separate from fixture dialogue; includes user-reported mutations. Not independent human labels or a held-out performance estimate.",
+  "suiteVersion": "evaluation@1.8.0/lexicon@1.6.0/clarity.v2",
+  "cases": 48,
+  "unsafeMutationCases": 33,
+  "unsafeMutationsNotPassed": 33,
+  "rows": [
+    {
+      "base": "A1",
+      "text": "Your appointment is on Friday.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "claims": [
+        {
+          "id": "recall-0:event:20:claim:3",
+          "eventId": "recall-0:event:20",
+          "seq": 20,
+          "text": "Your appointment is on Friday.",
+          "type": "appointment_status",
+          "entities": {
+            "weekday": "friday"
+          },
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-0:event:20"
+            },
+            {
+              "kind": "event",
+              "id": "recall-0:event:19"
+            },
+            {
+              "kind": "event",
+              "id": "recall-0:event:18"
+            }
+          ],
+          "status": "contradicted",
+          "reason": "confirmation_disagrees_with_claim_or_state"
+        }
+      ]
+    },
+    {
+      "base": "A1",
+      "text": "Your appointment will be on Friday.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "claims": [
+        {
+          "id": "recall-1:event:20:claim:3",
+          "eventId": "recall-1:event:20",
+          "seq": 20,
+          "text": "Your appointment will be on Friday.",
+          "type": "appointment_status",
+          "entities": {
+            "weekday": "friday"
+          },
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-1:event:20"
+            },
+            {
+              "kind": "event",
+              "id": "recall-1:event:19"
+            },
+            {
+              "kind": "event",
+              "id": "recall-1:event:18"
+            }
+          ],
+          "status": "contradicted",
+          "reason": "confirmation_disagrees_with_claim_or_state"
+        }
+      ]
+    },
+    {
+      "base": "A1",
+      "text": "Your visit takes place on Friday.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "claims": [
+        {
+          "id": "recall-2:event:20:claim:3",
+          "eventId": "recall-2:event:20",
+          "seq": 20,
+          "text": "Your visit takes place on Friday.",
+          "type": "appointment_status",
+          "entities": {
+            "weekday": "friday"
+          },
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-2:event:20"
+            },
+            {
+              "kind": "event",
+              "id": "recall-2:event:19"
+            },
+            {
+              "kind": "event",
+              "id": "recall-2:event:18"
+            }
+          ],
+          "status": "contradicted",
+          "reason": "confirmation_disagrees_with_claim_or_state"
+        }
+      ]
+    },
+    {
+      "base": "A1",
+      "text": "Your booking falls on Friday.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "claims": [
+        {
+          "id": "recall-3:event:20:claim:3",
+          "eventId": "recall-3:event:20",
+          "seq": 20,
+          "text": "Your booking falls on Friday.",
+          "type": "appointment_status",
+          "entities": {
+            "weekday": "friday"
+          },
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-3:event:20"
+            },
+            {
+              "kind": "event",
+              "id": "recall-3:event:19"
+            },
+            {
+              "kind": "event",
+              "id": "recall-3:event:18"
+            }
+          ],
+          "status": "contradicted",
+          "reason": "confirmation_disagrees_with_claim_or_state"
+        }
+      ]
+    },
+    {
+      "base": "A1",
+      "text": "Your appointment is on December 4, 2026.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "claims": [
+        {
+          "id": "recall-4:event:20:claim:3",
+          "eventId": "recall-4:event:20",
+          "seq": 20,
+          "text": "Your appointment is on December 4, 2026.",
+          "type": "appointment_status",
+          "entities": {
+            "date": "2026-12-04"
+          },
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-4:event:20"
+            },
+            {
+              "kind": "event",
+              "id": "recall-4:event:19"
+            },
+            {
+              "kind": "event",
+              "id": "recall-4:event:18"
+            }
+          ],
+          "status": "contradicted",
+          "reason": "confirmation_disagrees_with_claim_or_state"
+        }
+      ]
+    },
+    {
+      "base": "A1",
+      "text": "We will see you on Friday.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "claims": [
+        {
+          "id": "recall-5:event:20:claim:3",
+          "eventId": "recall-5:event:20",
+          "seq": 20,
+          "text": "We will see you on Friday.",
+          "type": "appointment_status",
+          "entities": {
+            "weekday": "friday"
+          },
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-5:event:20"
+            },
+            {
+              "kind": "event",
+              "id": "recall-5:event:19"
+            },
+            {
+              "kind": "event",
+              "id": "recall-5:event:18"
+            }
+          ],
+          "status": "contradicted",
+          "reason": "confirmation_disagrees_with_claim_or_state"
+        }
+      ]
+    },
+    {
+      "base": "A1",
+      "text": "It is on Friday.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "claims": [
+        {
+          "id": "recall-6:event:20:claim:3",
+          "eventId": "recall-6:event:20",
+          "seq": 20,
+          "text": "It is on Friday.",
+          "type": "appointment_status",
+          "entities": {
+            "weekday": "friday"
+          },
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-6:event:20"
+            },
+            {
+              "kind": "event",
+              "id": "recall-6:event:19"
+            },
+            {
+              "kind": "event",
+              "id": "recall-6:event:18"
+            }
+          ],
+          "status": "contradicted",
+          "reason": "confirmation_disagrees_with_claim_or_state"
+        }
+      ]
+    },
+    {
+      "base": "A1",
+      "text": "Your appointment: on Friday.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "unknown",
+      "clarity": "unknown",
+      "gate": "INCOMPLETE",
+      "claims": [
+        {
+          "id": "recall-7:event:20:claim:3",
+          "eventId": "recall-7:event:20",
+          "seq": 20,
+          "text": "Your appointment: on Friday.",
+          "type": "unparsed_status",
+          "entities": {
+            "weekday": "friday"
+          },
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-7:event:20"
+            }
+          ],
+          "status": "unknown",
+          "reason": "unparsed_status_statement"
+        }
+      ]
+    },
+    {
+      "base": "R1",
+      "text": "Your prescription is ready to collect.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "claims": [
+        {
+          "id": "recall-8:event:18:claim:2",
+          "eventId": "recall-8:event:18",
+          "seq": 18,
+          "text": "Your prescription is ready to collect.",
+          "type": "refill_fulfilled",
+          "entities": {},
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-8:event:18"
+            }
+          ],
+          "status": "unsupported",
+          "reason": "fulfillment_outside_capabilities"
+        }
+      ]
+    },
+    {
+      "base": "R1",
+      "text": "Your prescription is ready for collection.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "claims": [
+        {
+          "id": "recall-9:event:18:claim:2",
+          "eventId": "recall-9:event:18",
+          "seq": 18,
+          "text": "Your prescription is ready for collection.",
+          "type": "refill_fulfilled",
+          "entities": {},
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-9:event:18"
+            }
+          ],
+          "status": "unsupported",
+          "reason": "fulfillment_outside_capabilities"
+        }
+      ]
+    },
+    {
+      "base": "R1",
+      "text": "Your medication is available for pickup.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "claims": [
+        {
+          "id": "recall-10:event:18:claim:2",
+          "eventId": "recall-10:event:18",
+          "seq": 18,
+          "text": "Your medication is available for pickup.",
+          "type": "refill_fulfilled",
+          "entities": {},
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-10:event:18"
+            }
+          ],
+          "status": "unsupported",
+          "reason": "fulfillment_outside_capabilities"
+        }
+      ]
+    },
+    {
+      "base": "R1",
+      "text": "Your refill has been dispensed.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "claims": [
+        {
+          "id": "recall-11:event:18:claim:2",
+          "eventId": "recall-11:event:18",
+          "seq": 18,
+          "text": "Your refill has been dispensed.",
+          "type": "refill_fulfilled",
+          "entities": {},
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-11:event:18"
+            }
+          ],
+          "status": "unsupported",
+          "reason": "fulfillment_outside_capabilities"
+        }
+      ]
+    },
+    {
+      "base": "R1",
+      "text": "Your medicine is filled.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "claims": [
+        {
+          "id": "recall-12:event:18:claim:2",
+          "eventId": "recall-12:event:18",
+          "seq": 18,
+          "text": "Your medicine is filled.",
+          "type": "refill_fulfilled",
+          "entities": {},
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-12:event:18"
+            }
+          ],
+          "status": "unsupported",
+          "reason": "fulfillment_outside_capabilities"
+        }
+      ]
+    },
+    {
+      "base": "R1",
+      "text": "Your prescription was authorized.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "claims": [
+        {
+          "id": "recall-13:event:18:claim:2",
+          "eventId": "recall-13:event:18",
+          "seq": 18,
+          "text": "Your prescription was authorized.",
+          "type": "refill_fulfilled",
+          "entities": {},
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-13:event:18"
+            }
+          ],
+          "status": "unsupported",
+          "reason": "fulfillment_outside_capabilities"
+        }
+      ]
+    },
+    {
+      "base": "R1",
+      "text": "You can collect your prescription today.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "claims": [
+        {
+          "id": "recall-14:event:18:claim:2",
+          "eventId": "recall-14:event:18",
+          "seq": 18,
+          "text": "You can collect your prescription today.",
+          "type": "refill_fulfilled",
+          "entities": {},
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-14:event:18"
+            }
+          ],
+          "status": "unsupported",
+          "reason": "fulfillment_outside_capabilities"
+        }
+      ]
+    },
+    {
+      "base": "R1",
+      "text": "You can pick up your medicine now.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "claims": [
+        {
+          "id": "recall-15:event:18:claim:2",
+          "eventId": "recall-15:event:18",
+          "seq": 18,
+          "text": "You can pick up your medicine now.",
+          "type": "refill_fulfilled",
+          "entities": {},
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-15:event:18"
+            }
+          ],
+          "status": "unsupported",
+          "reason": "fulfillment_outside_capabilities"
+        }
+      ]
+    },
+    {
+      "base": "R1",
+      "text": "It is ready to collect.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "claims": [
+        {
+          "id": "recall-16:event:18:claim:2",
+          "eventId": "recall-16:event:18",
+          "seq": 18,
+          "text": "It is ready to collect.",
+          "type": "refill_fulfilled",
+          "entities": {},
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-16:event:18"
+            }
+          ],
+          "status": "unsupported",
+          "reason": "fulfillment_outside_capabilities"
+        }
+      ]
+    },
+    {
+      "base": "R1",
+      "text": "You can collect it now.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "claims": [
+        {
+          "id": "recall-17:event:18:claim:2",
+          "eventId": "recall-17:event:18",
+          "seq": 18,
+          "text": "You can collect it now.",
+          "type": "refill_fulfilled",
+          "entities": {},
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-17:event:18"
+            }
+          ],
+          "status": "unsupported",
+          "reason": "fulfillment_outside_capabilities"
+        }
+      ]
+    },
+    {
+      "base": "R1",
+      "text": "They are ready for collection.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "claims": [
+        {
+          "id": "recall-18:event:18:claim:2",
+          "eventId": "recall-18:event:18",
+          "seq": 18,
+          "text": "They are ready for collection.",
+          "type": "refill_fulfilled",
+          "entities": {},
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-18:event:18"
+            }
+          ],
+          "status": "unsupported",
+          "reason": "fulfillment_outside_capabilities"
+        }
+      ]
+    },
+    {
+      "base": "A1",
+      "text": "Your appointment is on Thursday.",
+      "expect": "supported",
+      "claimSupport": "pass",
+      "clarity": "pass",
+      "gate": "CLEAR",
+      "claims": [
+        {
+          "id": "recall-19:event:20:claim:3",
+          "eventId": "recall-19:event:20",
+          "seq": 20,
+          "text": "Your appointment is on Thursday.",
+          "type": "appointment_status",
+          "entities": {
+            "weekday": "thursday"
+          },
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-19:event:20"
+            },
+            {
+              "kind": "event",
+              "id": "recall-19:event:19"
+            }
+          ],
+          "status": "supported",
+          "reason": "prior_confirmation"
+        }
+      ]
+    },
+    {
+      "base": "A1",
+      "text": "Your visit takes place on Thursday.",
+      "expect": "supported",
+      "claimSupport": "pass",
+      "clarity": "pass",
+      "gate": "CLEAR",
+      "claims": [
+        {
+          "id": "recall-20:event:20:claim:3",
+          "eventId": "recall-20:event:20",
+          "seq": 20,
+          "text": "Your visit takes place on Thursday.",
+          "type": "appointment_status",
+          "entities": {
+            "weekday": "thursday"
+          },
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-20:event:20"
+            },
+            {
+              "kind": "event",
+              "id": "recall-20:event:19"
+            }
+          ],
+          "status": "supported",
+          "reason": "prior_confirmation"
+        }
+      ]
+    },
+    {
+      "base": "A1",
+      "text": "I found your appointment on Thursday, December 3, 2026 at 2:00 PM.",
+      "expect": "supported",
+      "claimSupport": "pass",
+      "clarity": "pass",
+      "gate": "CLEAR",
+      "claims": [
+        {
+          "id": "recall-21:event:20:claim:3",
+          "eventId": "recall-21:event:20",
+          "seq": 20,
+          "text": "I found your appointment on Thursday, December 3, 2026 at 2:00 PM.",
+          "type": "appointment_status",
+          "entities": {
+            "slot": "2026-12-03T19:00:00.000Z"
+          },
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-21:event:20"
+            },
+            {
+              "kind": "event",
+              "id": "recall-21:event:19"
+            }
+          ],
+          "status": "supported",
+          "reason": "prior_confirmation"
+        }
+      ]
+    },
+    {
+      "base": "R1",
+      "text": "Your prescription is not ready to collect.",
+      "expect": "no_new_claim",
+      "claimSupport": "pass",
+      "clarity": "pass",
+      "gate": "CLEAR",
+      "claims": []
+    },
+    {
+      "base": "R1",
+      "text": "Your medication is not yet approved.",
+      "expect": "no_new_claim",
+      "claimSupport": "pass",
+      "clarity": "pass",
+      "gate": "CLEAR",
+      "claims": []
+    },
+    {
+      "base": "R1",
+      "text": "If your prescription is approved, the pharmacy will contact you.",
+      "expect": "no_new_claim",
+      "claimSupport": "pass",
+      "clarity": "pass",
+      "gate": "CLEAR",
+      "claims": []
+    },
+    {
+      "base": "R1",
+      "text": "Would you like to collect your prescription?",
+      "expect": "no_new_claim",
+      "claimSupport": "pass",
+      "clarity": "pass",
+      "gate": "CLEAR",
+      "claims": []
+    },
+    {
+      "base": "R1",
+      "text": "Your prescription isn't ready to collect.",
+      "expect": "no_new_claim",
+      "claimSupport": "pass",
+      "clarity": "pass",
+      "gate": "CLEAR",
+      "claims": []
+    },
+    {
+      "base": "R1",
+      "text": "Your medication is not filled.",
+      "expect": "no_new_claim",
+      "claimSupport": "pass",
+      "clarity": "pass",
+      "gate": "CLEAR",
+      "claims": []
+    },
+    {
+      "base": "R1",
+      "text": "Your prescription is not yet approved and it is ready to collect.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "claims": [
+        {
+          "id": "recall-28:event:18:claim:2",
+          "eventId": "recall-28:event:18",
+          "seq": 18,
+          "text": "it is ready to collect.",
+          "type": "refill_fulfilled",
+          "entities": {},
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-28:event:18"
+            }
+          ],
+          "status": "unsupported",
+          "reason": "fulfillment_outside_capabilities"
+        }
+      ]
+    },
+    {
+      "base": "A1",
+      "text": "You should come in Friday, December 4, 2026 at 2:00 PM.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "claims": [
+        {
+          "id": "recall-29:event:20:claim:3",
+          "eventId": "recall-29:event:20",
+          "seq": 20,
+          "text": "You should come in Friday, December 4, 2026 at 2:00 PM.",
+          "type": "appointment_status",
+          "entities": {
+            "slot": "2026-12-04T19:00:00.000Z"
+          },
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-29:event:20"
+            },
+            {
+              "kind": "event",
+              "id": "recall-29:event:19"
+            },
+            {
+              "kind": "event",
+              "id": "recall-29:event:18"
+            }
+          ],
+          "status": "contradicted",
+          "reason": "confirmation_disagrees_with_claim_or_state"
+        }
+      ]
+    },
+    {
+      "base": "A1",
+      "text": "Please arrive Friday at 2:00 PM.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "claims": [
+        {
+          "id": "recall-30:event:20:claim:3",
+          "eventId": "recall-30:event:20",
+          "seq": 20,
+          "text": "Please arrive Friday at 2:00 PM.",
+          "type": "appointment_status",
+          "entities": {
+            "time": "14:00",
+            "weekday": "friday"
+          },
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-30:event:20"
+            },
+            {
+              "kind": "event",
+              "id": "recall-30:event:19"
+            },
+            {
+              "kind": "event",
+              "id": "recall-30:event:18"
+            }
+          ],
+          "status": "contradicted",
+          "reason": "confirmation_disagrees_with_claim_or_state"
+        }
+      ]
+    },
+    {
+      "base": "A1",
+      "text": "Attend on Friday.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "claims": [
+        {
+          "id": "recall-31:event:20:claim:3",
+          "eventId": "recall-31:event:20",
+          "seq": 20,
+          "text": "Attend on Friday.",
+          "type": "appointment_status",
+          "entities": {
+            "weekday": "friday"
+          },
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-31:event:20"
+            },
+            {
+              "kind": "event",
+              "id": "recall-31:event:19"
+            },
+            {
+              "kind": "event",
+              "id": "recall-31:event:18"
+            }
+          ],
+          "status": "contradicted",
+          "reason": "confirmation_disagrees_with_claim_or_state"
+        }
+      ]
+    },
+    {
+      "base": "A1",
+      "text": "You need to be here Friday.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "claims": [
+        {
+          "id": "recall-32:event:20:claim:3",
+          "eventId": "recall-32:event:20",
+          "seq": 20,
+          "text": "You need to be here Friday.",
+          "type": "appointment_status",
+          "entities": {
+            "weekday": "friday"
+          },
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-32:event:20"
+            },
+            {
+              "kind": "event",
+              "id": "recall-32:event:19"
+            },
+            {
+              "kind": "event",
+              "id": "recall-32:event:18"
+            }
+          ],
+          "status": "contradicted",
+          "reason": "confirmation_disagrees_with_claim_or_state"
+        }
+      ]
+    },
+    {
+      "base": "A1",
+      "text": "Plan on coming Friday.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "claims": [
+        {
+          "id": "recall-33:event:20:claim:3",
+          "eventId": "recall-33:event:20",
+          "seq": 20,
+          "text": "Plan on coming Friday.",
+          "type": "appointment_status",
+          "entities": {
+            "weekday": "friday"
+          },
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-33:event:20"
+            },
+            {
+              "kind": "event",
+              "id": "recall-33:event:19"
+            },
+            {
+              "kind": "event",
+              "id": "recall-33:event:18"
+            }
+          ],
+          "status": "contradicted",
+          "reason": "confirmation_disagrees_with_claim_or_state"
+        }
+      ]
+    },
+    {
+      "base": "A1",
+      "text": "Should come in Friday at 2:00 PM.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "claims": [
+        {
+          "id": "recall-34:event:20:claim:3",
+          "eventId": "recall-34:event:20",
+          "seq": 20,
+          "text": "Should come in Friday at 2:00 PM.",
+          "type": "appointment_status",
+          "entities": {
+            "time": "14:00",
+            "weekday": "friday"
+          },
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-34:event:20"
+            },
+            {
+              "kind": "event",
+              "id": "recall-34:event:19"
+            },
+            {
+              "kind": "event",
+              "id": "recall-34:event:18"
+            }
+          ],
+          "status": "contradicted",
+          "reason": "confirmation_disagrees_with_claim_or_state"
+        }
+      ]
+    },
+    {
+      "base": "R1",
+      "text": "Your doctor has authorized it.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "claims": [
+        {
+          "id": "recall-35:event:18:claim:2",
+          "eventId": "recall-35:event:18",
+          "seq": 18,
+          "text": "Your doctor has authorized it.",
+          "type": "refill_fulfilled",
+          "entities": {},
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-35:event:18"
+            }
+          ],
+          "status": "unsupported",
+          "reason": "fulfillment_outside_capabilities"
+        }
+      ]
+    },
+    {
+      "base": "R1",
+      "text": "Your clinician approved it.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "claims": [
+        {
+          "id": "recall-36:event:18:claim:2",
+          "eventId": "recall-36:event:18",
+          "seq": 18,
+          "text": "Your clinician approved it.",
+          "type": "refill_fulfilled",
+          "entities": {},
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-36:event:18"
+            }
+          ],
+          "status": "unsupported",
+          "reason": "fulfillment_outside_capabilities"
+        }
+      ]
+    },
+    {
+      "base": "R1",
+      "text": "They have signed off on it.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "claims": [
+        {
+          "id": "recall-37:event:18:claim:2",
+          "eventId": "recall-37:event:18",
+          "seq": 18,
+          "text": "They have signed off on it.",
+          "type": "refill_fulfilled",
+          "entities": {},
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-37:event:18"
+            }
+          ],
+          "status": "unsupported",
+          "reason": "fulfillment_outside_capabilities"
+        }
+      ]
+    },
+    {
+      "base": "R1",
+      "text": "Your prescriber has given it the go-ahead.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "claims": [
+        {
+          "id": "recall-38:event:18:claim:2",
+          "eventId": "recall-38:event:18",
+          "seq": 18,
+          "text": "Your prescriber has given it the go-ahead.",
+          "type": "refill_fulfilled",
+          "entities": {},
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-38:event:18"
+            }
+          ],
+          "status": "unsupported",
+          "reason": "fulfillment_outside_capabilities"
+        }
+      ]
+    },
+    {
+      "base": "R1",
+      "text": "It might have been authorized.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "unknown",
+      "clarity": "unknown",
+      "gate": "INCOMPLETE",
+      "claims": [
+        {
+          "id": "recall-39:event:18:claim:2",
+          "eventId": "recall-39:event:18",
+          "seq": 18,
+          "text": "It might have been authorized.",
+          "type": "unparsed_status",
+          "entities": {},
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-39:event:18"
+            }
+          ],
+          "status": "unknown",
+          "reason": "unparsed_status_statement"
+        }
+      ]
+    },
+    {
+      "base": "R1",
+      "text": "Approval has been obtained.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "unknown",
+      "clarity": "unknown",
+      "gate": "INCOMPLETE",
+      "claims": [
+        {
+          "id": "recall-40:event:18:claim:2",
+          "eventId": "recall-40:event:18",
+          "seq": 18,
+          "text": "Approval has been obtained.",
+          "type": "unparsed_status",
+          "entities": {},
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-40:event:18"
+            }
+          ],
+          "status": "unknown",
+          "reason": "unparsed_status_statement"
+        }
+      ]
+    },
+    {
+      "base": "R1",
+      "text": "Your doctor has not authorized it.",
+      "expect": "no_new_claim",
+      "claimSupport": "pass",
+      "clarity": "pass",
+      "gate": "CLEAR",
+      "claims": []
+    },
+    {
+      "base": "R1",
+      "text": "Your doctor hasn't approved it.",
+      "expect": "no_new_claim",
+      "claimSupport": "pass",
+      "clarity": "pass",
+      "gate": "CLEAR",
+      "claims": []
+    },
+    {
+      "base": "R1",
+      "text": "If your doctor authorizes it, the pharmacy will contact you.",
+      "expect": "no_new_claim",
+      "claimSupport": "pass",
+      "clarity": "pass",
+      "gate": "CLEAR",
+      "claims": []
+    },
+    {
+      "base": "R1",
+      "text": "Should your doctor approve it, the pharmacy will call.",
+      "expect": "no_new_claim",
+      "claimSupport": "pass",
+      "clarity": "fail",
+      "gate": "CLEAR",
+      "claims": []
+    },
+    {
+      "base": "A1",
+      "text": "You should come in Thursday, December 3, 2026 at 2:00 PM.",
+      "expect": "supported",
+      "claimSupport": "pass",
+      "clarity": "pass",
+      "gate": "CLEAR",
+      "claims": [
+        {
+          "id": "recall-45:event:20:claim:3",
+          "eventId": "recall-45:event:20",
+          "seq": 20,
+          "text": "You should come in Thursday, December 3, 2026 at 2:00 PM.",
+          "type": "appointment_status",
+          "entities": {
+            "slot": "2026-12-03T19:00:00.000Z"
+          },
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-45:event:20"
+            },
+            {
+              "kind": "event",
+              "id": "recall-45:event:19"
+            }
+          ],
+          "status": "supported",
+          "reason": "prior_confirmation"
+        }
+      ]
+    },
+    {
+      "base": "A1",
+      "text": "Please arrive Thursday at 2:00 PM.",
+      "expect": "supported",
+      "claimSupport": "pass",
+      "clarity": "pass",
+      "gate": "CLEAR",
+      "claims": [
+        {
+          "id": "recall-46:event:20:claim:3",
+          "eventId": "recall-46:event:20",
+          "seq": 20,
+          "text": "Please arrive Thursday at 2:00 PM.",
+          "type": "appointment_status",
+          "entities": {
+            "time": "14:00",
+            "weekday": "thursday"
+          },
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-46:event:20"
+            },
+            {
+              "kind": "event",
+              "id": "recall-46:event:19"
+            }
+          ],
+          "status": "supported",
+          "reason": "prior_confirmation"
+        }
+      ]
+    },
+    {
+      "base": "A1",
+      "text": "Please arrive Thursday at 3:00 PM.",
+      "expect": "reject_or_abstain",
+      "claimSupport": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "claims": [
+        {
+          "id": "recall-47:event:20:claim:3",
+          "eventId": "recall-47:event:20",
+          "seq": 20,
+          "text": "Please arrive Thursday at 3:00 PM.",
+          "type": "appointment_status",
+          "entities": {
+            "time": "15:00",
+            "weekday": "thursday"
+          },
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "recall-47:event:20"
+            },
+            {
+              "kind": "event",
+              "id": "recall-47:event:19"
+            },
+            {
+              "kind": "event",
+              "id": "recall-47:event:18"
+            }
+          ],
+          "status": "contradicted",
+          "reason": "confirmation_disagrees_with_claim_or_state"
+        }
+      ]
+    }
+  ]
+}

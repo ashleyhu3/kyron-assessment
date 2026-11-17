@@ -1,0 +1,120 @@
+{
+  "description": "Two user-reported controlled claim mutations",
+  "provenance": "Statements and adverse expectations supplied in user assessment; evaluator changes were tuned on them, so these are development examples, not held-out validation.",
+  "manifest_hash": "9526addc05b717762f4e90cc1d57e496911c4f7c56b2a818ffb149d2d896150a",
+  "interpretation": "Reference authorship and label independence are user-supplied. Empty denominators are not performance estimates. Unknown is not a pass.",
+  "summaries": {
+    "development": {
+      "references": 2,
+      "unsupported": 2,
+      "unsupported_detected": 2,
+      "unsupported_unrecognized": 0,
+      "unsupported_correctly_flagged": 1,
+      "unsafe_false_clears": 0,
+      "unsupported_abstained": 1,
+      "controls": 0,
+      "supported_total": 0,
+      "supported_omitted": 0,
+      "nonclaims_total": 0,
+      "control_false_alarms": 0,
+      "control_abstained": 0
+    },
+    "held_out": {
+      "references": 0,
+      "unsupported": 0,
+      "unsupported_detected": 0,
+      "unsupported_unrecognized": 0,
+      "unsupported_correctly_flagged": 0,
+      "unsafe_false_clears": 0,
+      "unsupported_abstained": 0,
+      "controls": 0,
+      "supported_total": 0,
+      "supported_omitted": 0,
+      "nonclaims_total": 0,
+      "control_false_alarms": 0,
+      "control_abstained": 0
+    }
+  },
+  "rows": [
+    {
+      "source_group": "A1",
+      "split": "development",
+      "run_id": "user-reported-A1",
+      "reference": {
+        "event_id": "user-reported-A1:event:20",
+        "exact_statement": "We have you down for Friday, December 4, 2026 at 2:00 PM.",
+        "expected": "unsupported"
+      },
+      "detected": true,
+      "observed": [
+        "contradicted"
+      ],
+      "unsafeFalseClear": false,
+      "falseAlarm": false,
+      "abstained": false,
+      "matches": [
+        {
+          "id": "user-reported-A1:event:20:claim:3",
+          "eventId": "user-reported-A1:event:20",
+          "seq": 20,
+          "text": "We have you down for Friday, December 4, 2026 at 2:00 PM.",
+          "type": "appointment_status",
+          "entities": {
+            "slot": "2026-12-04T19:00:00.000Z"
+          },
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "user-reported-A1:event:20"
+            },
+            {
+              "kind": "event",
+              "id": "user-reported-A1:event:19"
+            },
+            {
+              "kind": "event",
+              "id": "user-reported-A1:event:18"
+            }
+          ],
+          "status": "contradicted",
+          "reason": "confirmation_disagrees_with_claim_or_state"
+        }
+      ]
+    },
+    {
+      "source_group": "R1",
+      "split": "development",
+      "run_id": "user-reported-R1",
+      "reference": {
+        "event_id": "user-reported-R1:event:18",
+        "exact_statement": "The refill is waiting at the pharmacy.",
+        "expected": "unsupported"
+      },
+      "detected": true,
+      "observed": [
+        "unknown"
+      ],
+      "unsafeFalseClear": false,
+      "falseAlarm": false,
+      "abstained": true,
+      "matches": [
+        {
+          "id": "user-reported-R1:event:18:claim:2",
+          "eventId": "user-reported-R1:event:18",
+          "seq": 18,
+          "text": "The refill is waiting at the pharmacy.",
+          "type": "unparsed_status",
+          "entities": {},
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "user-reported-R1:event:18"
+            }
+          ],
+          "status": "unknown",
+          "reason": "unparsed_status_statement"
+        }
+      ]
+    }
+  ]
+}

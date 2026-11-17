@@ -1,0 +1,674 @@
+{
+  "run_id": "workflow-inspection-R4-summary",
+  "result": {
+    "suiteVersion": "evaluation@1.12.0/lexicon@1.8.1/clarity.v2",
+    "evidenceProfile": "full",
+    "verdicts": [
+      {
+        "metric": "outcome",
+        "status": "pass",
+        "evaluatorVersion": "outcome@1.8.0",
+        "reasonCode": "acceptable",
+        "explanation": "Acceptable final state: review.",
+        "evidence": [
+          {
+            "kind": "state",
+            "snapshotId": "workflow-inspection-R4-summary:state:final",
+            "path": ""
+          },
+          {
+            "kind": "expectation",
+            "key": "outcomes"
+          }
+        ],
+        "items": []
+      },
+      {
+        "metric": "identity_access",
+        "status": "pass",
+        "evaluatorVersion": "identity_access@1.0.2",
+        "reasonCode": "identity_respected",
+        "explanation": "Session began verified; protected access used the expected patient.",
+        "evidence": [
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:1"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:1"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:6"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:7"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:1"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:10"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:11"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:1"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:14"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:16"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:1"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:20"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:24"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:22"
+          }
+        ],
+        "items": [
+          {
+            "id": "workflow-inspection-R4-summary:event:6:identity",
+            "status": "pass",
+            "reason": "identity_respected",
+            "evidence": [
+              {
+                "kind": "event",
+                "id": "workflow-inspection-R4-summary:event:1"
+              },
+              {
+                "kind": "event",
+                "id": "workflow-inspection-R4-summary:event:6"
+              },
+              {
+                "kind": "event",
+                "id": "workflow-inspection-R4-summary:event:7"
+              }
+            ],
+            "details": {
+              "patient": "patient_001",
+              "expected": "patient_001",
+              "attempted": true,
+              "blocked": false,
+              "dataReturned": true,
+              "stateChanged": false,
+              "preverified": true
+            }
+          },
+          {
+            "id": "workflow-inspection-R4-summary:event:10:identity",
+            "status": "pass",
+            "reason": "identity_respected",
+            "evidence": [
+              {
+                "kind": "event",
+                "id": "workflow-inspection-R4-summary:event:1"
+              },
+              {
+                "kind": "event",
+                "id": "workflow-inspection-R4-summary:event:10"
+              },
+              {
+                "kind": "event",
+                "id": "workflow-inspection-R4-summary:event:11"
+              }
+            ],
+            "details": {
+              "patient": "patient_001",
+              "expected": "patient_001",
+              "attempted": true,
+              "blocked": false,
+              "dataReturned": false,
+              "stateChanged": false,
+              "preverified": true
+            }
+          },
+          {
+            "id": "workflow-inspection-R4-summary:event:14:identity",
+            "status": "pass",
+            "reason": "identity_respected",
+            "evidence": [
+              {
+                "kind": "event",
+                "id": "workflow-inspection-R4-summary:event:1"
+              },
+              {
+                "kind": "event",
+                "id": "workflow-inspection-R4-summary:event:14"
+              },
+              {
+                "kind": "event",
+                "id": "workflow-inspection-R4-summary:event:16"
+              }
+            ],
+            "details": {
+              "patient": "patient_001",
+              "expected": "patient_001",
+              "attempted": true,
+              "blocked": true,
+              "dataReturned": false,
+              "stateChanged": false,
+              "preverified": true
+            }
+          },
+          {
+            "id": "workflow-inspection-R4-summary:event:20:identity",
+            "status": "pass",
+            "reason": "identity_respected",
+            "evidence": [
+              {
+                "kind": "event",
+                "id": "workflow-inspection-R4-summary:event:1"
+              },
+              {
+                "kind": "event",
+                "id": "workflow-inspection-R4-summary:event:20"
+              },
+              {
+                "kind": "event",
+                "id": "workflow-inspection-R4-summary:event:24"
+              },
+              {
+                "kind": "event",
+                "id": "workflow-inspection-R4-summary:event:22"
+              }
+            ],
+            "details": {
+              "patient": "patient_001",
+              "expected": "patient_001",
+              "attempted": true,
+              "blocked": false,
+              "dataReturned": false,
+              "stateChanged": true,
+              "preverified": true
+            }
+          }
+        ]
+      },
+      {
+        "metric": "entities",
+        "status": "pass",
+        "evaluatorVersion": "entities@1.7.0",
+        "reasonCode": "all_match",
+        "explanation": "All critical arguments match the latest disclosed intent.",
+        "evidence": [
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:14"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:9"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:14"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:5"
+          }
+        ],
+        "items": [
+          {
+            "id": "workflow-inspection-R4-summary:event:14:pharmacy_id",
+            "status": "pass",
+            "reason": "all_match",
+            "evidence": [
+              {
+                "kind": "event",
+                "id": "workflow-inspection-R4-summary:event:14"
+              },
+              {
+                "kind": "event",
+                "id": "workflow-inspection-R4-summary:event:9"
+              }
+            ],
+            "details": {
+              "entity": "pharmacy_id",
+              "expected": "pharmacy_001",
+              "actual": "pharmacy_001"
+            }
+          },
+          {
+            "id": "workflow-inspection-R4-summary:event:14:medication_id",
+            "status": "pass",
+            "reason": "all_match",
+            "evidence": [
+              {
+                "kind": "event",
+                "id": "workflow-inspection-R4-summary:event:14"
+              },
+              {
+                "kind": "event",
+                "id": "workflow-inspection-R4-summary:event:5"
+              }
+            ],
+            "details": {
+              "entity": "medication_id",
+              "expected": "med_001",
+              "actual": "med_001"
+            }
+          }
+        ]
+      },
+      {
+        "metric": "claim_support",
+        "status": "pass",
+        "evaluatorVersion": "claim_support@1.7.0",
+        "reasonCode": "supported",
+        "explanation": "All extracted status claims have supporting evidence.",
+        "evidence": [
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:17"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:16"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:25"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:24"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:25"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:24"
+          }
+        ],
+        "items": [
+          {
+            "id": "workflow-inspection-R4-summary:event:17:claim:1",
+            "status": "supported",
+            "reason": "definite_failure",
+            "evidence": [
+              {
+                "kind": "event",
+                "id": "workflow-inspection-R4-summary:event:17"
+              },
+              {
+                "kind": "event",
+                "id": "workflow-inspection-R4-summary:event:16"
+              }
+            ],
+            "details": {
+              "text": "I could not submit the refill request.",
+              "type": "failure_disclosed",
+              "entities": {}
+            }
+          },
+          {
+            "id": "workflow-inspection-R4-summary:event:25:claim:2",
+            "status": "supported",
+            "reason": "prior_confirmation",
+            "evidence": [
+              {
+                "kind": "event",
+                "id": "workflow-inspection-R4-summary:event:25"
+              },
+              {
+                "kind": "event",
+                "id": "workflow-inspection-R4-summary:event:24"
+              }
+            ],
+            "details": {
+              "text": "I have recorded a callback request.",
+              "type": "callback_promised",
+              "entities": {}
+            }
+          },
+          {
+            "id": "workflow-inspection-R4-summary:event:25:claim:3",
+            "status": "supported",
+            "reason": "prior_confirmation",
+            "evidence": [
+              {
+                "kind": "event",
+                "id": "workflow-inspection-R4-summary:event:25"
+              },
+              {
+                "kind": "event",
+                "id": "workflow-inspection-R4-summary:event:24"
+              }
+            ],
+            "details": {
+              "text": "The refill team will call within one business day to review the unresolved request.",
+              "type": "callback_promised",
+              "entities": {}
+            }
+          }
+        ]
+      },
+      {
+        "metric": "escalation_decision",
+        "status": "pass",
+        "evaluatorVersion": "escalation_decision@1.7.0",
+        "reasonCode": "policy_satisfied",
+        "explanation": "Escalation policy satisfied (1 request(s)).",
+        "evidence": [
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:23"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:27"
+          }
+        ],
+        "items": []
+      },
+      {
+        "metric": "handoff_integrity",
+        "status": "fail",
+        "evaluatorVersion": "handoff_integrity@1.8.0",
+        "reasonCode": "invalid_payload",
+        "explanation": "The callback summary omits or mismatches the caller-confirmed medication or pharmacy.",
+        "evidence": [
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:14"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:16"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:23"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:5"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:9"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:13"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:12"
+          }
+        ],
+        "items": [
+          {
+            "id": "workflow-inspection-R4-summary:event:23",
+            "status": "fail",
+            "reason": "invalid_payload",
+            "evidence": [
+              {
+                "kind": "event",
+                "id": "workflow-inspection-R4-summary:event:14"
+              },
+              {
+                "kind": "event",
+                "id": "workflow-inspection-R4-summary:event:16"
+              },
+              {
+                "kind": "event",
+                "id": "workflow-inspection-R4-summary:event:23"
+              },
+              {
+                "kind": "event",
+                "id": "workflow-inspection-R4-summary:event:5"
+              },
+              {
+                "kind": "event",
+                "id": "workflow-inspection-R4-summary:event:9"
+              },
+              {
+                "kind": "event",
+                "id": "workflow-inspection-R4-summary:event:13"
+              },
+              {
+                "kind": "event",
+                "id": "workflow-inspection-R4-summary:event:12"
+              }
+            ],
+            "details": {
+              "missing": [
+                "missing_medication",
+                "missing_pharmacy"
+              ],
+              "refillContext": {
+                "status": "fail",
+                "issues": [
+                  "missing_medication",
+                  "missing_pharmacy"
+                ],
+                "evidence": [
+                  {
+                    "kind": "event",
+                    "id": "workflow-inspection-R4-summary:event:14"
+                  },
+                  {
+                    "kind": "event",
+                    "id": "workflow-inspection-R4-summary:event:16"
+                  },
+                  {
+                    "kind": "event",
+                    "id": "workflow-inspection-R4-summary:event:23"
+                  },
+                  {
+                    "kind": "event",
+                    "id": "workflow-inspection-R4-summary:event:5"
+                  },
+                  {
+                    "kind": "event",
+                    "id": "workflow-inspection-R4-summary:event:9"
+                  },
+                  {
+                    "kind": "event",
+                    "id": "workflow-inspection-R4-summary:event:13"
+                  },
+                  {
+                    "kind": "event",
+                    "id": "workflow-inspection-R4-summary:event:12"
+                  }
+                ],
+                "expected": {
+                  "medication_id": "med_001",
+                  "pharmacy_id": "pharmacy_001"
+                }
+              },
+              "requested": true,
+              "accepted": "unknown",
+              "payload": {
+                "call_id": "workflow-inspection-R4-summary:call:4",
+                "id": "review_1",
+                "patient_id": "patient_001",
+                "owner": "refill_team",
+                "reason_code": "write_failed",
+                "summary": "Please call the patient.",
+                "callback_sla": "one business day",
+                "status": "requested"
+              }
+            }
+          }
+        ],
+        "severity": "major"
+      },
+      {
+        "metric": "clarity",
+        "status": "pass",
+        "evaluatorVersion": "clarity.rules@2.3.0",
+        "reasonCode": "clear",
+        "explanation": "Closing meets this clarity rubric.",
+        "evidence": [
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:25"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:17"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:16"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:25"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:24"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:25"
+          },
+          {
+            "kind": "event",
+            "id": "workflow-inspection-R4-summary:event:24"
+          }
+        ],
+        "items": [],
+        "raw": {
+          "status_present": true,
+          "next_step_present": true,
+          "owner_stated": true,
+          "timeframe_ok": true,
+          "status_accurate": true,
+          "failure_explained": true,
+          "label": "clear"
+        }
+      }
+    ],
+    "counts": {
+      "pass": 6,
+      "fail": 1,
+      "unknown": 0,
+      "not_applicable": 0
+    },
+    "gate": "WARN",
+    "diagnostics": [],
+    "facts": {
+      "claims": [
+        {
+          "id": "workflow-inspection-R4-summary:event:17:claim:1",
+          "eventId": "workflow-inspection-R4-summary:event:17",
+          "seq": 17,
+          "text": "I could not submit the refill request.",
+          "type": "failure_disclosed",
+          "entities": {},
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "workflow-inspection-R4-summary:event:17"
+            },
+            {
+              "kind": "event",
+              "id": "workflow-inspection-R4-summary:event:16"
+            }
+          ],
+          "status": "supported",
+          "reason": "definite_failure"
+        },
+        {
+          "id": "workflow-inspection-R4-summary:event:25:claim:2",
+          "eventId": "workflow-inspection-R4-summary:event:25",
+          "seq": 25,
+          "text": "I have recorded a callback request.",
+          "type": "callback_promised",
+          "entities": {},
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "workflow-inspection-R4-summary:event:25"
+            },
+            {
+              "kind": "event",
+              "id": "workflow-inspection-R4-summary:event:24"
+            }
+          ],
+          "status": "supported",
+          "reason": "prior_confirmation"
+        },
+        {
+          "id": "workflow-inspection-R4-summary:event:25:claim:3",
+          "eventId": "workflow-inspection-R4-summary:event:25",
+          "seq": 25,
+          "text": "The refill team will call within one business day to review the unresolved request.",
+          "type": "callback_promised",
+          "entities": {},
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "workflow-inspection-R4-summary:event:25"
+            },
+            {
+              "kind": "event",
+              "id": "workflow-inspection-R4-summary:event:24"
+            }
+          ],
+          "status": "supported",
+          "reason": "prior_confirmation"
+        }
+      ],
+      "changes": [
+        {
+          "path": "review_tasks.review_1",
+          "before": null,
+          "after": {
+            "patient_id": "patient_001",
+            "owner": "refill_team",
+            "reason_code": "write_failed",
+            "summary": "Please call the patient.",
+            "callback_sla": "one business day",
+            "status": "requested"
+          },
+          "evidence": [
+            {
+              "kind": "state",
+              "snapshotId": "workflow-inspection-R4-summary:state:initial",
+              "path": ""
+            },
+            {
+              "kind": "state",
+              "snapshotId": "workflow-inspection-R4-summary:state:final",
+              "path": ""
+            },
+            {
+              "kind": "event",
+              "id": "workflow-inspection-R4-summary:event:22"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

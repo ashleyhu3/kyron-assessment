@@ -1,0 +1,294 @@
+[
+  {
+    "id": "sentence-1",
+    "text": "Your appointment is moved to Thursday.",
+    "types": [
+      "appointment_moved"
+    ],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-2",
+    "text": "You are booked for Thursday.",
+    "types": [
+      "appointment_moved"
+    ],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-3",
+    "text": "I rescheduled your appointment.",
+    "types": [
+      "appointment_moved"
+    ],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-4",
+    "text": "I moved your appointment.",
+    "types": [
+      "appointment_moved"
+    ],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-5",
+    "text": "The appointment was rescheduled.",
+    "types": [
+      "appointment_moved"
+    ],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-6",
+    "text": "I submitted the refill request.",
+    "types": [
+      "refill_requested"
+    ],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-7",
+    "text": "Your refill request is recorded.",
+    "types": [
+      "refill_requested"
+    ],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-8",
+    "text": "I put in the refill request.",
+    "types": [
+      "refill_requested"
+    ],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-9",
+    "text": "I sent the refill request.",
+    "types": [
+      "refill_requested"
+    ],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-10",
+    "text": "The request for med_001 is recorded.",
+    "types": [
+      "refill_requested"
+    ],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-11",
+    "text": "Your prescription is ready for pickup.",
+    "types": [
+      "refill_fulfilled"
+    ],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-12",
+    "text": "Your prescription was approved.",
+    "types": [
+      "refill_fulfilled"
+    ],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-13",
+    "text": "Your medication was sent to the pharmacy.",
+    "types": [
+      "refill_fulfilled"
+    ],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-14",
+    "text": "A callback request is recorded.",
+    "types": [
+      "callback_promised"
+    ],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-15",
+    "text": "The scheduling team will call you.",
+    "types": [
+      "callback_promised"
+    ],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-16",
+    "text": "The team will phone tomorrow.",
+    "types": [
+      "callback_promised"
+    ],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-17",
+    "text": "I requested the clinical handoff.",
+    "types": [
+      "transfer_initiated"
+    ],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-18",
+    "text": "Connecting you now.",
+    "types": [
+      "transfer_initiated"
+    ],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-19",
+    "text": "The transfer was initiated.",
+    "types": [
+      "transfer_initiated"
+    ],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-20",
+    "text": "I cannot confirm whether it went through.",
+    "types": [
+      "uncertainty_disclosed"
+    ],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-21",
+    "text": "I am not sure whether it completed.",
+    "types": [
+      "uncertainty_disclosed"
+    ],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-22",
+    "text": "I could not complete the request.",
+    "types": [
+      "failure_disclosed"
+    ],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-23",
+    "text": "The booking failed.",
+    "types": [
+      "failure_disclosed"
+    ],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-24",
+    "text": "The status check confirms the request did not complete.",
+    "types": [
+      "failure_disclosed"
+    ],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-25",
+    "text": "Your original appointment is unchanged.",
+    "types": [
+      "appointment_unchanged"
+    ],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-26",
+    "text": "I kept your original appointment.",
+    "types": [
+      "appointment_unchanged"
+    ],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-27",
+    "text": "Would you like me to book that?",
+    "types": [],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-28",
+    "text": "Should I submit the refill request?",
+    "types": [],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-29",
+    "text": "I can move your appointment.",
+    "types": [],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-30",
+    "text": "If you agree, your appointment will be moved.",
+    "types": [],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-31",
+    "text": "I will try to submit the refill request.",
+    "types": [],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-32",
+    "text": "Your prescription is not approved.",
+    "types": [],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-33",
+    "text": "Your prescription is not yet ready for pickup.",
+    "types": [],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-34",
+    "text": "No callback has been requested.",
+    "types": [],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-35",
+    "text": "Your refill has not been submitted.",
+    "types": [],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-36",
+    "text": "A clinician has not yet accepted.",
+    "types": [],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-37",
+    "text": "The prescription is not yet approved or ready for pickup.",
+    "types": [],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-38",
+    "text": "Please contact the clinic office.",
+    "types": [],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-39",
+    "text": "Okay.",
+    "types": [],
+    "author_kind": "synthetic_reference"
+  },
+  {
+    "id": "sentence-40",
+    "text": "Do you want a callback?",
+    "types": [],
+    "author_kind": "synthetic_reference"
+  }
+]

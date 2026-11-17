@@ -1,0 +1,30 @@
+{
+  "description": "Two user-reported controlled claim mutations",
+  "provenance": "Statements and adverse expectations supplied in user assessment; evaluator changes were tuned on them, so these are development examples, not held-out validation.",
+  "items": [
+    {
+      "bundle": "user-A1.json",
+      "source_group": "A1",
+      "split": "development",
+      "references": [
+        {
+          "event_id": "user-reported-A1:event:20",
+          "exact_statement": "We have you down for Friday, December 4, 2026 at 2:00 PM.",
+          "expected": "unsupported"
+        }
+      ]
+    },
+    {
+      "bundle": "user-R1.json",
+      "source_group": "R1",
+      "split": "development",
+      "references": [
+        {
+          "event_id": "user-reported-R1:event:18",
+          "exact_statement": "The refill is waiting at the pharmacy.",
+          "expected": "unsupported"
+        }
+      ]
+    }
+  ]
+}

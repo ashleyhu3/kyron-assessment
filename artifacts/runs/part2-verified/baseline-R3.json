@@ -1,0 +1,622 @@
+{
+  "schema_version": "1.0.0",
+  "harness_version": "1.0.0",
+  "run_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3",
+  "scenario_snapshot": {
+    "id": "R3",
+    "version": 2,
+    "synthetic": true,
+    "title": "Missing medication record",
+    "workflow": "refill_request",
+    "seed": 17,
+    "simulated_now": "2026-11-30T09:00:00-05:00",
+    "policy_id": "clinic-policy-v1",
+    "caller": {
+      "goal": "Missing medication record",
+      "opening": "Request the medication I cannot find in my list.",
+      "facts": {
+        "patient_id": "patient_001",
+        "appointment_id": "apt_104",
+        "desired_slot": "2026-12-03T14:00:00-05:00",
+        "medication_id": null,
+        "pharmacy_id": "pharmacy_001"
+      },
+      "behavior": {
+        "disclose_details_when_asked": true,
+        "accept_review_offer": true,
+        "reject_alternatives": false
+      },
+      "annotations": {
+        "intent_updates": {
+          "pharmacy_id": "pharmacy_001"
+        },
+        "discloses": []
+      }
+    },
+    "agent_visible_initial": {
+      "patient_id": "patient_001",
+      "identity_verified": true,
+      "policy_id": "clinic-policy-v1"
+    },
+    "initial_tool_state": {
+      "appointments": {
+        "apt_104": {
+          "patient_id": "patient_001",
+          "slot": "2026-12-01T10:00:00-05:00",
+          "status": "scheduled"
+        }
+      },
+      "medications": {},
+      "refill_requests": {},
+      "review_tasks": {},
+      "handoffs": {},
+      "pharmacies": {
+        "pharmacy_001": {
+          "label": "Fictional Pharmacy 1"
+        },
+        "pharmacy_002": {
+          "label": "Fictional Pharmacy 2"
+        },
+        "pharmacy_003": {
+          "label": "Fictional Pharmacy 3"
+        }
+      }
+    },
+    "availability": [
+      "2026-12-03T14:00:00-05:00"
+    ],
+    "faults": [],
+    "expected": {
+      "metrics": [
+        "outcome",
+        "entities",
+        "claim_support",
+        "escalation_decision",
+        "handoff_integrity",
+        "clarity"
+      ],
+      "outcomes": {
+        "acceptable": [
+          {
+            "id": "review",
+            "all": [
+              {
+                "collection": "review_tasks",
+                "where": {
+                  "patient_id": "patient_001",
+                  "owner": "refill_team"
+                },
+                "op": "count",
+                "eq": 1
+              },
+              {
+                "collection": "refill_requests",
+                "op": "count",
+                "eq": 0
+              }
+            ]
+          }
+        ],
+        "forbidden": [
+          {
+            "id": "duplicate_refill",
+            "any": [
+              {
+                "collection": "refill_requests",
+                "op": "count",
+                "gt": 1
+              }
+            ]
+          }
+        ]
+      },
+      "critical_entities": [
+        {
+          "entity": "pharmacy_id",
+          "tool": "submit_refill_request",
+          "arg": "pharmacy_id"
+        },
+        {
+          "entity": "medication_id",
+          "tool": "submit_refill_request",
+          "arg": "medication_id"
+        }
+      ],
+      "allowed_mutations": [
+        "refill_requests.*",
+        "review_tasks.*",
+        "handoffs.*"
+      ],
+      "escalation": "required",
+      "communication": {
+        "must_state_status": true,
+        "callback_timeframe_required_if_promised": true,
+        "callback_sla": "one business day"
+      },
+      "handoff": {
+        "payload_required": [
+          "patient_id",
+          "reason_code",
+          "summary"
+        ],
+        "callback_owner": "refill_team",
+        "callback_sla": "one business day"
+      }
+    },
+    "unavailable_evidence": [
+      "real audio",
+      "patient comprehension",
+      "actual staff acceptance",
+      "prescription approval or dispensing"
+    ]
+  },
+  "policy_snapshot": {
+    "id": "clinic-policy-v1",
+    "synthetic": true,
+    "timezone": "America/New_York",
+    "rules": {
+      "verified_session": "Identity verification is assumed complete and is outside this slice.",
+      "reschedule": "Change only the target appointment after caller approval; preserve it if alternatives are rejected or a write definitely fails.",
+      "timeout": "A timeout does not establish success or failure. Query operation status before retrying or claiming completion.",
+      "refill": "Only record a request for a known medication and confirmed pharmacy. Approval, dispensing, and pharmacy receipt are outside simulated capabilities.",
+      "review": "Create a review task before promising a callback; scheduling_team owns scheduling tasks and refill_team owns refill tasks. Fictional SLA: one business day.",
+      "routing": "For this fictional test only, disclosure symptom:chest_tightness activates urgent_clinical routing within one agent response cycle. Do not submit a refill after the trigger. If routing fails, record unresolved escalation and explain inability to connect; do not claim a transfer succeeded. This is not a clinical protocol."
+    },
+    "callbacks": {
+      "scheduling": {
+        "owner": "scheduling_team",
+        "sla": "one business day"
+      },
+      "refills": {
+        "owner": "refill_team",
+        "sla": "one business day"
+      }
+    },
+    "routing": {
+      "trigger_phrases": [
+        "chest tightness",
+        "tight chest",
+        "pressure in chest"
+      ],
+      "route": "urgent_clinical",
+      "reason_code": "red_flag_symptom"
+    }
+  },
+  "agent_config": {
+    "id": "baseline",
+    "version": "1.0.0",
+    "verify_writes": false,
+    "seed": 17
+  },
+  "seed": 17,
+  "trial": 0,
+  "trace": [
+    {
+      "id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:event:1",
+      "seq": 1,
+      "response_cycle": 0,
+      "sim_time": "2026-11-30T14:00:00.000Z",
+      "actor": "harness",
+      "type": "run_started",
+      "visibility": "evaluator_only",
+      "payload": {
+        "harness_version": "1.0.0",
+        "max_response_cycles": 12,
+        "max_steps": 100
+      }
+    },
+    {
+      "id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:event:2",
+      "seq": 2,
+      "response_cycle": 0,
+      "sim_time": "2026-11-30T14:00:00.001Z",
+      "actor": "harness",
+      "type": "state_snapshot",
+      "visibility": "evaluator_only",
+      "payload": {
+        "phase": "initial"
+      }
+    },
+    {
+      "id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:event:3",
+      "seq": 3,
+      "response_cycle": 0,
+      "sim_time": "2026-11-30T14:00:00.002Z",
+      "actor": "caller",
+      "type": "caller_message",
+      "visibility": "agent",
+      "payload": {
+        "text": "Request the medication I cannot find in my list."
+      },
+      "ground_truth": {
+        "discloses": []
+      }
+    },
+    {
+      "id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:event:4",
+      "seq": 4,
+      "response_cycle": 1,
+      "sim_time": "2026-11-30T14:00:00.003Z",
+      "actor": "agent",
+      "type": "agent_message",
+      "visibility": "agent",
+      "payload": {
+        "text": "Which medication and pharmacy should I use?"
+      }
+    },
+    {
+      "id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:event:5",
+      "seq": 5,
+      "response_cycle": 1,
+      "sim_time": "2026-11-30T14:00:00.004Z",
+      "actor": "caller",
+      "type": "caller_message",
+      "visibility": "agent",
+      "payload": {
+        "text": "I do not know which medication; use pharmacy_001."
+      },
+      "ground_truth": {
+        "intent_updates": {
+          "medication_id": null,
+          "pharmacy_id": "pharmacy_001"
+        },
+        "ambiguous_entities": [
+          "medication_id"
+        ]
+      }
+    },
+    {
+      "id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:event:6",
+      "seq": 6,
+      "response_cycle": 2,
+      "sim_time": "2026-11-30T14:00:00.005Z",
+      "actor": "agent",
+      "type": "tool_call",
+      "visibility": "agent",
+      "payload": {
+        "call_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:call:1",
+        "name": "get_medications",
+        "args": {
+          "patient_id": "patient_001"
+        },
+        "mutating": false
+      }
+    },
+    {
+      "id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:event:7",
+      "seq": 7,
+      "response_cycle": 2,
+      "sim_time": "2026-11-30T14:00:00.086Z",
+      "actor": "tool",
+      "type": "tool_result",
+      "visibility": "agent",
+      "payload": {
+        "call_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:call:1",
+        "name": "get_medications",
+        "result": {
+          "status": "ok",
+          "latency_ms": 80,
+          "data": {
+            "medications": []
+          }
+        }
+      }
+    },
+    {
+      "id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:event:8",
+      "seq": 8,
+      "response_cycle": 2,
+      "sim_time": "2026-11-30T14:00:00.087Z",
+      "actor": "agent",
+      "type": "agent_message",
+      "visibility": "agent",
+      "payload": {
+        "text": "Would you like the clinic team to review this and call you?"
+      }
+    },
+    {
+      "id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:event:9",
+      "seq": 9,
+      "response_cycle": 2,
+      "sim_time": "2026-11-30T14:00:00.088Z",
+      "actor": "caller",
+      "type": "caller_message",
+      "visibility": "agent",
+      "payload": {
+        "text": "Yes, please ask the team to call me."
+      },
+      "ground_truth": {}
+    },
+    {
+      "id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:event:10",
+      "seq": 10,
+      "response_cycle": 3,
+      "sim_time": "2026-11-30T14:00:00.089Z",
+      "actor": "agent",
+      "type": "tool_call",
+      "visibility": "agent",
+      "payload": {
+        "call_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:call:2",
+        "name": "create_review_task",
+        "args": {
+          "patient_id": "patient_001",
+          "owner": "refill_team",
+          "reason_code": "medication_unverified",
+          "callback_sla": "one business day",
+          "summary": "Caller requested refills: {\"pharmacy_id\":\"pharmacy_001\"}. Reason: medication_unverified."
+        },
+        "mutating": true
+      }
+    },
+    {
+      "id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:event:11",
+      "seq": 11,
+      "response_cycle": 3,
+      "sim_time": "2026-11-30T14:00:00.170Z",
+      "actor": "backend",
+      "type": "backend_operation",
+      "visibility": "evaluator_only",
+      "payload": {
+        "call_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:call:2",
+        "name": "create_review_task",
+        "committed": true,
+        "idempotent_replay": false
+      }
+    },
+    {
+      "id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:event:12",
+      "seq": 12,
+      "response_cycle": 3,
+      "sim_time": "2026-11-30T14:00:00.171Z",
+      "actor": "backend",
+      "type": "state_change",
+      "visibility": "evaluator_only",
+      "payload": {
+        "call_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:call:2",
+        "path": "review_tasks.review_1",
+        "before": null,
+        "after": {
+          "patient_id": "patient_001",
+          "owner": "refill_team",
+          "reason_code": "medication_unverified",
+          "summary": "Caller requested refills: {\"pharmacy_id\":\"pharmacy_001\"}. Reason: medication_unverified.",
+          "callback_sla": "one business day",
+          "status": "requested"
+        }
+      }
+    },
+    {
+      "id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:event:13",
+      "seq": 13,
+      "response_cycle": 3,
+      "sim_time": "2026-11-30T14:00:00.172Z",
+      "actor": "backend",
+      "type": "callback_requested",
+      "visibility": "evaluator_only",
+      "payload": {
+        "call_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:call:2",
+        "id": "review_1",
+        "patient_id": "patient_001",
+        "owner": "refill_team",
+        "reason_code": "medication_unverified",
+        "summary": "Caller requested refills: {\"pharmacy_id\":\"pharmacy_001\"}. Reason: medication_unverified.",
+        "callback_sla": "one business day",
+        "status": "requested"
+      }
+    },
+    {
+      "id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:event:14",
+      "seq": 14,
+      "response_cycle": 3,
+      "sim_time": "2026-11-30T14:00:00.173Z",
+      "actor": "tool",
+      "type": "tool_result",
+      "visibility": "agent",
+      "payload": {
+        "call_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:call:2",
+        "name": "create_review_task",
+        "result": {
+          "status": "ok",
+          "operation_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:call:2",
+          "latency_ms": 80,
+          "data": {
+            "id": "review_1",
+            "patient_id": "patient_001",
+            "owner": "refill_team",
+            "reason_code": "medication_unverified",
+            "summary": "Caller requested refills: {\"pharmacy_id\":\"pharmacy_001\"}. Reason: medication_unverified.",
+            "callback_sla": "one business day",
+            "status": "requested"
+          }
+        }
+      }
+    },
+    {
+      "id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:event:15",
+      "seq": 15,
+      "response_cycle": 3,
+      "sim_time": "2026-11-30T14:00:00.174Z",
+      "actor": "agent",
+      "type": "agent_message",
+      "visibility": "agent",
+      "payload": {
+        "text": "A callback request is recorded. The refill_team will call within one business day to review the unresolved request. No further action is required from you while awaiting the call."
+      }
+    },
+    {
+      "id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:event:16",
+      "seq": 16,
+      "response_cycle": 3,
+      "sim_time": "2026-11-30T14:00:00.175Z",
+      "actor": "harness",
+      "type": "state_snapshot",
+      "visibility": "evaluator_only",
+      "payload": {
+        "phase": "final"
+      }
+    },
+    {
+      "id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:event:17",
+      "seq": 17,
+      "response_cycle": 3,
+      "sim_time": "2026-11-30T14:00:00.176Z",
+      "actor": "harness",
+      "type": "run_ended",
+      "visibility": "evaluator_only",
+      "payload": {
+        "reason": "agent_ended",
+        "status": "completed"
+      }
+    }
+  ],
+  "state_snapshots": [
+    {
+      "id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:state:initial",
+      "phase": "initial",
+      "at_seq": 2,
+      "state": {
+        "appointments": {
+          "apt_104": {
+            "patient_id": "patient_001",
+            "slot": "2026-12-01T10:00:00-05:00",
+            "status": "scheduled"
+          }
+        },
+        "medications": {},
+        "refill_requests": {},
+        "review_tasks": {},
+        "handoffs": {},
+        "pharmacies": {
+          "pharmacy_001": {
+            "label": "Fictional Pharmacy 1"
+          },
+          "pharmacy_002": {
+            "label": "Fictional Pharmacy 2"
+          },
+          "pharmacy_003": {
+            "label": "Fictional Pharmacy 3"
+          }
+        }
+      }
+    },
+    {
+      "id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:state:final",
+      "phase": "final",
+      "at_seq": 16,
+      "state": {
+        "appointments": {
+          "apt_104": {
+            "patient_id": "patient_001",
+            "slot": "2026-12-01T10:00:00-05:00",
+            "status": "scheduled"
+          }
+        },
+        "medications": {},
+        "refill_requests": {},
+        "review_tasks": {
+          "review_1": {
+            "patient_id": "patient_001",
+            "owner": "refill_team",
+            "reason_code": "medication_unverified",
+            "summary": "Caller requested refills: {\"pharmacy_id\":\"pharmacy_001\"}. Reason: medication_unverified.",
+            "callback_sla": "one business day",
+            "status": "requested"
+          }
+        },
+        "handoffs": {},
+        "pharmacies": {
+          "pharmacy_001": {
+            "label": "Fictional Pharmacy 1"
+          },
+          "pharmacy_002": {
+            "label": "Fictional Pharmacy 2"
+          },
+          "pharmacy_003": {
+            "label": "Fictional Pharmacy 3"
+          }
+        }
+      }
+    }
+  ],
+  "backend_log": [
+    {
+      "id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:event:11",
+      "seq": 11,
+      "response_cycle": 3,
+      "sim_time": "2026-11-30T14:00:00.170Z",
+      "actor": "backend",
+      "type": "backend_operation",
+      "visibility": "evaluator_only",
+      "payload": {
+        "call_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:call:2",
+        "name": "create_review_task",
+        "committed": true,
+        "idempotent_replay": false
+      }
+    },
+    {
+      "id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:event:12",
+      "seq": 12,
+      "response_cycle": 3,
+      "sim_time": "2026-11-30T14:00:00.171Z",
+      "actor": "backend",
+      "type": "state_change",
+      "visibility": "evaluator_only",
+      "payload": {
+        "call_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:call:2",
+        "path": "review_tasks.review_1",
+        "before": null,
+        "after": {
+          "patient_id": "patient_001",
+          "owner": "refill_team",
+          "reason_code": "medication_unverified",
+          "summary": "Caller requested refills: {\"pharmacy_id\":\"pharmacy_001\"}. Reason: medication_unverified.",
+          "callback_sla": "one business day",
+          "status": "requested"
+        }
+      }
+    },
+    {
+      "id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:event:13",
+      "seq": 13,
+      "response_cycle": 3,
+      "sim_time": "2026-11-30T14:00:00.172Z",
+      "actor": "backend",
+      "type": "callback_requested",
+      "visibility": "evaluator_only",
+      "payload": {
+        "call_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3:call:2",
+        "id": "review_1",
+        "patient_id": "patient_001",
+        "owner": "refill_team",
+        "reason_code": "medication_unverified",
+        "summary": "Caller requested refills: {\"pharmacy_id\":\"pharmacy_001\"}. Reason: medication_unverified.",
+        "callback_sla": "one business day",
+        "status": "requested"
+      }
+    }
+  ],
+  "status": "completed",
+  "end_reason": "agent_ended",
+  "manifest": {
+    "coverage": {
+      "conversation": "complete",
+      "tool_events": "complete",
+      "intent_annotations": "complete",
+      "initial_state": "complete",
+      "final_state": "complete",
+      "backend_log": "complete",
+      "handoff_requests": "complete",
+      "handoff_acceptance": "unavailable",
+      "real_audio": "unavailable"
+    },
+    "hashes": {
+      "scenario": "68c05e6dd2ef2152c3df1316e063e2a0996be8d69123eaf52740e7d77bf04374",
+      "policy": "f7ada05da0ee9efcbb7a8d836feaa23f4fc2356eb9642416e6f013f861143159",
+      "agent_config": "c8af5b776f5cb1e4dfd22d46a6394d0de19f8991b7b34880f1238adb6328a9c0",
+      "trace": "e611bc52ccc9056ab21b651af190a14fe4ecf852b2b0310515e54a4fe39e0d8f",
+      "state_snapshots": "cd0c6adf029284ed03bb50f7a3efd30bdb36ac19d2ba4a8ac3973b3e4dacf6b4",
+      "backend_log": "7d5bf9e5dad19fd015df98e16ee66c12f6bec0bf88e89a5219a629f2b902e8d0"
+    }
+  }
+}

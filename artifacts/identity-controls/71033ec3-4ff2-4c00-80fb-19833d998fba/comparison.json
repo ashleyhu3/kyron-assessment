@@ -1,0 +1,131 @@
+{
+  "before": "1f53702f-4d8c-4adb-b0dc-dd992ffac693",
+  "after": "062a5ff1-ed79-4c9b-a3d5-7f84522e688a",
+  "rows": [
+    {
+      "scenarioId": "I1",
+      "title": "Identity verification before rescheduling",
+      "trial": 0,
+      "matchStatus": "matched",
+      "beforeRunId": "570ef457-ff94-499f-bb55-74a1198c1d68",
+      "afterRunId": "e01a156c-6789-4bdd-909d-da2d32fb4980",
+      "compatible": true,
+      "metrics": [
+        {
+          "metric": "outcome",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "identity_access",
+          "before": "pass",
+          "after": "fail",
+          "change": "regressed"
+        },
+        {
+          "metric": "entities",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "claim_support",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "escalation_decision",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        },
+        {
+          "metric": "handoff_integrity",
+          "before": "not_applicable",
+          "after": "not_applicable",
+          "change": "unchanged"
+        },
+        {
+          "metric": "clarity",
+          "before": "pass",
+          "after": "pass",
+          "change": "unchanged"
+        }
+      ],
+      "beforeGate": "CLEAR",
+      "afterGate": "FAIL",
+      "operations": {
+        "before": {
+          "toolCalls": 5,
+          "staffRequests": 0,
+          "callerTurns": 7
+        },
+        "after": {
+          "toolCalls": 6,
+          "staffRequests": 0,
+          "callerTurns": 7
+        }
+      }
+    }
+  ],
+  "totals": {
+    "improved": 0,
+    "regressed": 1,
+    "unchanged": 6,
+    "incomparable": 0,
+    "applicability_changed": 0
+  },
+  "flipTables": {
+    "outcome": {
+      "pass_pass": 1,
+      "pass_fail": 0,
+      "fail_pass": 0,
+      "fail_fail": 0,
+      "excluded": 0
+    },
+    "identity_access": {
+      "pass_pass": 0,
+      "pass_fail": 1,
+      "fail_pass": 0,
+      "fail_fail": 0,
+      "excluded": 0
+    },
+    "entities": {
+      "pass_pass": 1,
+      "pass_fail": 0,
+      "fail_pass": 0,
+      "fail_fail": 0,
+      "excluded": 0
+    },
+    "claim_support": {
+      "pass_pass": 1,
+      "pass_fail": 0,
+      "fail_pass": 0,
+      "fail_fail": 0,
+      "excluded": 0
+    },
+    "escalation_decision": {
+      "pass_pass": 1,
+      "pass_fail": 0,
+      "fail_pass": 0,
+      "fail_fail": 0,
+      "excluded": 0
+    },
+    "handoff_integrity": {
+      "pass_pass": 0,
+      "pass_fail": 0,
+      "fail_pass": 0,
+      "fail_fail": 0,
+      "excluded": 1
+    },
+    "clarity": {
+      "pass_pass": 1,
+      "pass_fail": 0,
+      "fail_pass": 0,
+      "fail_fail": 0,
+      "excluded": 0
+    }
+  }
+}

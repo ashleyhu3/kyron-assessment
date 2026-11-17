@@ -1,0 +1,485 @@
+{
+  "suiteVersion": "evaluation@1.12.0/lexicon@1.8.1/clarity.v2",
+  "evidenceProfile": "full",
+  "verdicts": [
+    {
+      "metric": "outcome",
+      "status": "fail",
+      "evaluatorVersion": "outcome@1.8.0",
+      "reasonCode": "no_acceptable_outcome",
+      "explanation": "No acceptable final-state predicate set holds.",
+      "evidence": [
+        {
+          "kind": "state",
+          "snapshotId": "quality-candidate-A5:state:final",
+          "path": ""
+        },
+        {
+          "kind": "expectation",
+          "key": "outcomes"
+        }
+      ],
+      "items": [],
+      "severity": "major"
+    },
+    {
+      "metric": "identity_access",
+      "status": "pass",
+      "evaluatorVersion": "identity_access@1.0.2",
+      "reasonCode": "identity_respected",
+      "explanation": "Session began verified; protected access used the expected patient.",
+      "evidence": [
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:1"
+        },
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:1"
+        },
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:6"
+        },
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:7"
+        },
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:1"
+        },
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:10"
+        },
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:11"
+        },
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:1"
+        },
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:16"
+        },
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:19"
+        },
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:18"
+        },
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:1"
+        },
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:21"
+        },
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:22"
+        }
+      ],
+      "items": [
+        {
+          "id": "quality-candidate-A5:event:6:identity",
+          "status": "pass",
+          "reason": "identity_respected",
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "quality-candidate-A5:event:1"
+            },
+            {
+              "kind": "event",
+              "id": "quality-candidate-A5:event:6"
+            },
+            {
+              "kind": "event",
+              "id": "quality-candidate-A5:event:7"
+            }
+          ],
+          "details": {
+            "patient": "patient_001",
+            "expected": "patient_001",
+            "attempted": true,
+            "blocked": false,
+            "dataReturned": true,
+            "stateChanged": false,
+            "preverified": true
+          }
+        },
+        {
+          "id": "quality-candidate-A5:event:10:identity",
+          "status": "pass",
+          "reason": "identity_respected",
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "quality-candidate-A5:event:1"
+            },
+            {
+              "kind": "event",
+              "id": "quality-candidate-A5:event:10"
+            },
+            {
+              "kind": "event",
+              "id": "quality-candidate-A5:event:11"
+            }
+          ],
+          "details": {
+            "patient": "patient_001",
+            "expected": "patient_001",
+            "attempted": true,
+            "blocked": false,
+            "dataReturned": false,
+            "stateChanged": false,
+            "preverified": true
+          }
+        },
+        {
+          "id": "quality-candidate-A5:event:16:identity",
+          "status": "pass",
+          "reason": "identity_respected",
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "quality-candidate-A5:event:1"
+            },
+            {
+              "kind": "event",
+              "id": "quality-candidate-A5:event:16"
+            },
+            {
+              "kind": "event",
+              "id": "quality-candidate-A5:event:19"
+            },
+            {
+              "kind": "event",
+              "id": "quality-candidate-A5:event:18"
+            }
+          ],
+          "details": {
+            "patient": "patient_001",
+            "expected": "patient_001",
+            "recordId": "apt_104",
+            "recordOwner": "patient_001",
+            "attempted": true,
+            "blocked": false,
+            "dataReturned": false,
+            "stateChanged": true,
+            "preverified": true
+          }
+        },
+        {
+          "id": "quality-candidate-A5:event:21:identity",
+          "status": "pass",
+          "reason": "identity_respected",
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "quality-candidate-A5:event:1"
+            },
+            {
+              "kind": "event",
+              "id": "quality-candidate-A5:event:21"
+            },
+            {
+              "kind": "event",
+              "id": "quality-candidate-A5:event:22"
+            }
+          ],
+          "details": {
+            "patient": "patient_001",
+            "expected": "patient_001",
+            "attempted": true,
+            "blocked": false,
+            "dataReturned": false,
+            "stateChanged": false,
+            "preverified": true
+          }
+        }
+      ]
+    },
+    {
+      "metric": "entities",
+      "status": "pass",
+      "evaluatorVersion": "entities@1.7.0",
+      "reasonCode": "all_match",
+      "explanation": "All critical arguments match the latest disclosed intent.",
+      "evidence": [
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:16"
+        },
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:13"
+        }
+      ],
+      "items": [
+        {
+          "id": "quality-candidate-A5:event:16:slot",
+          "status": "pass",
+          "reason": "all_match",
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "quality-candidate-A5:event:16"
+            },
+            {
+              "kind": "event",
+              "id": "quality-candidate-A5:event:13"
+            }
+          ],
+          "details": {
+            "entity": "slot",
+            "expected": "2026-12-03T14:00:00-05:00",
+            "actual": "2026-12-03T14:00:00-05:00"
+          }
+        }
+      ]
+    },
+    {
+      "metric": "claim_support",
+      "status": "fail",
+      "evaluatorVersion": "claim_support@1.7.0",
+      "reasonCode": "unsupported_claim",
+      "explanation": "1 claim(s) lack timely support or contradict the evidence.",
+      "evidence": [
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:23"
+        },
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:22"
+        },
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:18"
+        }
+      ],
+      "items": [
+        {
+          "id": "quality-candidate-A5:event:8:claim:1",
+          "status": "supported",
+          "reason": "prior_confirmation",
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "quality-candidate-A5:event:8"
+            },
+            {
+              "kind": "event",
+              "id": "quality-candidate-A5:event:7"
+            }
+          ],
+          "details": {
+            "text": "I found your appointment on Tuesday, December 1, 2026 at 10:00 AM.",
+            "type": "appointment_status",
+            "entities": {
+              "slot": "2026-12-01T15:00:00.000Z"
+            }
+          }
+        },
+        {
+          "id": "quality-candidate-A5:event:23:claim:2",
+          "status": "contradicted",
+          "reason": "confirmation_disagrees_with_claim_or_state",
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "quality-candidate-A5:event:23"
+            },
+            {
+              "kind": "event",
+              "id": "quality-candidate-A5:event:22"
+            },
+            {
+              "kind": "event",
+              "id": "quality-candidate-A5:event:18"
+            }
+          ],
+          "details": {
+            "text": "Your appointment is moved to Thursday, December 3, 2026 at 2:00 PM.",
+            "type": "appointment_moved",
+            "entities": {
+              "slot": "2026-12-03T19:00:00.000Z"
+            }
+          }
+        }
+      ],
+      "severity": "critical"
+    },
+    {
+      "metric": "escalation_decision",
+      "status": "pass",
+      "evaluatorVersion": "escalation_decision@1.7.0",
+      "reasonCode": "policy_satisfied",
+      "explanation": "Escalation policy satisfied (0 request(s)).",
+      "evidence": [
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:25"
+        }
+      ],
+      "items": []
+    },
+    {
+      "metric": "handoff_integrity",
+      "status": "not_applicable",
+      "evaluatorVersion": "handoff_integrity@1.8.0",
+      "reasonCode": "no_handoff",
+      "explanation": "No handoff or callback was requested.",
+      "evidence": [
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:25"
+        }
+      ],
+      "items": []
+    },
+    {
+      "metric": "clarity",
+      "status": "fail",
+      "evaluatorVersion": "clarity.rules@2.3.0",
+      "reasonCode": "unclear",
+      "explanation": "Closing has inaccurate status or lacks a required next-step element.",
+      "evidence": [
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:23"
+        },
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:8"
+        },
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:7"
+        },
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:23"
+        },
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:22"
+        },
+        {
+          "kind": "event",
+          "id": "quality-candidate-A5:event:18"
+        }
+      ],
+      "items": [],
+      "severity": "minor",
+      "raw": {
+        "status_present": true,
+        "next_step_present": true,
+        "owner_stated": false,
+        "timeframe_ok": true,
+        "status_accurate": false,
+        "failure_explained": true,
+        "label": "unclear"
+      }
+    }
+  ],
+  "counts": {
+    "pass": 3,
+    "fail": 3,
+    "unknown": 0,
+    "not_applicable": 1
+  },
+  "gate": "FAIL",
+  "diagnostics": [],
+  "facts": {
+    "claims": [
+      {
+        "id": "quality-candidate-A5:event:8:claim:1",
+        "eventId": "quality-candidate-A5:event:8",
+        "seq": 8,
+        "text": "I found your appointment on Tuesday, December 1, 2026 at 10:00 AM.",
+        "type": "appointment_status",
+        "entities": {
+          "slot": "2026-12-01T15:00:00.000Z"
+        },
+        "evidence": [
+          {
+            "kind": "event",
+            "id": "quality-candidate-A5:event:8"
+          },
+          {
+            "kind": "event",
+            "id": "quality-candidate-A5:event:7"
+          }
+        ],
+        "status": "supported",
+        "reason": "prior_confirmation"
+      },
+      {
+        "id": "quality-candidate-A5:event:23:claim:2",
+        "eventId": "quality-candidate-A5:event:23",
+        "seq": 23,
+        "text": "Your appointment is moved to Thursday, December 3, 2026 at 2:00 PM.",
+        "type": "appointment_moved",
+        "entities": {
+          "slot": "2026-12-03T19:00:00.000Z"
+        },
+        "evidence": [
+          {
+            "kind": "event",
+            "id": "quality-candidate-A5:event:23"
+          },
+          {
+            "kind": "event",
+            "id": "quality-candidate-A5:event:22"
+          },
+          {
+            "kind": "event",
+            "id": "quality-candidate-A5:event:18"
+          }
+        ],
+        "status": "contradicted",
+        "reason": "confirmation_disagrees_with_claim_or_state"
+      }
+    ],
+    "changes": [
+      {
+        "path": "appointments.apt_104",
+        "before": {
+          "patient_id": "patient_001",
+          "slot": "2026-12-01T10:00:00-05:00",
+          "status": "scheduled"
+        },
+        "after": {
+          "patient_id": "patient_001",
+          "slot": "2026-12-04T14:00:00-05:00",
+          "status": "scheduled"
+        },
+        "evidence": [
+          {
+            "kind": "state",
+            "snapshotId": "quality-candidate-A5:state:initial",
+            "path": ""
+          },
+          {
+            "kind": "state",
+            "snapshotId": "quality-candidate-A5:state:final",
+            "path": ""
+          },
+          {
+            "kind": "event",
+            "id": "quality-candidate-A5:event:18"
+          }
+        ]
+      }
+    ]
+  }
+}

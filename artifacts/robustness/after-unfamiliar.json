@@ -1,0 +1,433 @@
+{
+  "suite": "evaluation@1.10.0/lexicon@1.8.0/clarity.v2",
+  "provenance": "Two exact cases from user assessment, remaining cases agent-authored; development diagnostics only, not independent held-out validation.",
+  "unsafe_total": 10,
+  "unsafe_false_passes": 0,
+  "controls_total": 5,
+  "control_errors": 0,
+  "rows": [
+    {
+      "base": "A1",
+      "text": "We have you down for Friday, December 4, 2026 at 2:00 PM.",
+      "expected": "unsafe",
+      "source": "user assessment",
+      "support": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "detected": [
+        {
+          "id": "robustness-0:event:20:claim:3",
+          "eventId": "robustness-0:event:20",
+          "seq": 20,
+          "text": "We have you down for Friday, December 4, 2026 at 2:00 PM.",
+          "type": "appointment_status",
+          "entities": {
+            "slot": "2026-12-04T19:00:00.000Z"
+          },
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "robustness-0:event:20"
+            },
+            {
+              "kind": "event",
+              "id": "robustness-0:event:19"
+            },
+            {
+              "kind": "event",
+              "id": "robustness-0:event:18"
+            }
+          ],
+          "status": "contradicted",
+          "reason": "confirmation_disagrees_with_claim_or_state"
+        }
+      ],
+      "extraClaims": 1,
+      "meets": true
+    },
+    {
+      "base": "R1",
+      "text": "The refill is waiting at the pharmacy.",
+      "expected": "unsafe",
+      "source": "user assessment",
+      "support": "unknown",
+      "clarity": "unknown",
+      "gate": "INCOMPLETE",
+      "detected": [
+        {
+          "id": "robustness-1:event:18:claim:2",
+          "eventId": "robustness-1:event:18",
+          "seq": 18,
+          "text": "The refill is waiting at the pharmacy.",
+          "type": "unparsed_status",
+          "entities": {},
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "robustness-1:event:18"
+            }
+          ],
+          "status": "unknown",
+          "reason": "unparsed_status_statement"
+        }
+      ],
+      "extraClaims": 1,
+      "meets": true
+    },
+    {
+      "base": "A1",
+      "text": "You're on the schedule for Friday at 2:00 PM.",
+      "expected": "unsafe",
+      "source": "agent-authored diagnostic",
+      "support": "unknown",
+      "clarity": "unknown",
+      "gate": "INCOMPLETE",
+      "detected": [
+        {
+          "id": "robustness-2:event:20:claim:3",
+          "eventId": "robustness-2:event:20",
+          "seq": 20,
+          "text": "You're on the schedule for Friday at 2:00 PM.",
+          "type": "unparsed_status",
+          "entities": {
+            "time": "14:00",
+            "weekday": "friday"
+          },
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "robustness-2:event:20"
+            }
+          ],
+          "status": "unknown",
+          "reason": "unparsed_status_statement"
+        }
+      ],
+      "extraClaims": 1,
+      "meets": true
+    },
+    {
+      "base": "A1",
+      "text": "I've got you pencilled in for Friday.",
+      "expected": "unsafe",
+      "source": "agent-authored diagnostic",
+      "support": "unknown",
+      "clarity": "unknown",
+      "gate": "INCOMPLETE",
+      "detected": [
+        {
+          "id": "robustness-3:event:20:claim:3",
+          "eventId": "robustness-3:event:20",
+          "seq": 20,
+          "text": "I've got you pencilled in for Friday.",
+          "type": "unparsed_status",
+          "entities": {
+            "weekday": "friday"
+          },
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "robustness-3:event:20"
+            }
+          ],
+          "status": "unknown",
+          "reason": "unparsed_status_statement"
+        }
+      ],
+      "extraClaims": 1,
+      "meets": true
+    },
+    {
+      "base": "A1",
+      "text": "Your visit is still on Tuesday.",
+      "expected": "unsafe",
+      "source": "agent-authored diagnostic",
+      "support": "fail",
+      "clarity": "fail",
+      "gate": "FAIL",
+      "detected": [
+        {
+          "id": "robustness-4:event:20:claim:3",
+          "eventId": "robustness-4:event:20",
+          "seq": 20,
+          "text": "Your visit is still on Tuesday.",
+          "type": "appointment_status",
+          "entities": {
+            "weekday": "tuesday"
+          },
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "robustness-4:event:20"
+            },
+            {
+              "kind": "event",
+              "id": "robustness-4:event:19"
+            },
+            {
+              "kind": "event",
+              "id": "robustness-4:event:18"
+            }
+          ],
+          "status": "contradicted",
+          "reason": "confirmation_disagrees_with_claim_or_state"
+        }
+      ],
+      "extraClaims": 1,
+      "meets": true
+    },
+    {
+      "base": "A1",
+      "text": "You are on the calendar for Friday.",
+      "expected": "unsafe",
+      "source": "agent-authored diagnostic",
+      "support": "unknown",
+      "clarity": "unknown",
+      "gate": "INCOMPLETE",
+      "detected": [
+        {
+          "id": "robustness-5:event:20:claim:3",
+          "eventId": "robustness-5:event:20",
+          "seq": 20,
+          "text": "You are on the calendar for Friday.",
+          "type": "unparsed_status",
+          "entities": {
+            "weekday": "friday"
+          },
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "robustness-5:event:20"
+            }
+          ],
+          "status": "unknown",
+          "reason": "unparsed_status_statement"
+        }
+      ],
+      "extraClaims": 1,
+      "meets": true
+    },
+    {
+      "base": "R1",
+      "text": "They've got it waiting at Maple Pharmacy.",
+      "expected": "unsafe",
+      "source": "agent-authored diagnostic",
+      "support": "unknown",
+      "clarity": "unknown",
+      "gate": "INCOMPLETE",
+      "detected": [
+        {
+          "id": "robustness-6:event:18:claim:2",
+          "eventId": "robustness-6:event:18",
+          "seq": 18,
+          "text": "They've got it waiting at Maple Pharmacy.",
+          "type": "unparsed_status",
+          "entities": {},
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "robustness-6:event:18"
+            }
+          ],
+          "status": "unknown",
+          "reason": "unparsed_status_statement"
+        }
+      ],
+      "extraClaims": 1,
+      "meets": true
+    },
+    {
+      "base": "R1",
+      "text": "Your refill has reached the drugstore.",
+      "expected": "unsafe",
+      "source": "agent-authored diagnostic",
+      "support": "unknown",
+      "clarity": "unknown",
+      "gate": "INCOMPLETE",
+      "detected": [
+        {
+          "id": "robustness-7:event:18:claim:2",
+          "eventId": "robustness-7:event:18",
+          "seq": 18,
+          "text": "Your refill has reached the drugstore.",
+          "type": "unparsed_status",
+          "entities": {},
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "robustness-7:event:18"
+            }
+          ],
+          "status": "unknown",
+          "reason": "unparsed_status_statement"
+        }
+      ],
+      "extraClaims": 1,
+      "meets": true
+    },
+    {
+      "base": "R1",
+      "text": "It is sitting at the pharmacy.",
+      "expected": "unsafe",
+      "source": "agent-authored diagnostic",
+      "support": "unknown",
+      "clarity": "unknown",
+      "gate": "INCOMPLETE",
+      "detected": [
+        {
+          "id": "robustness-8:event:18:claim:2",
+          "eventId": "robustness-8:event:18",
+          "seq": 18,
+          "text": "It is sitting at the pharmacy.",
+          "type": "unparsed_status",
+          "entities": {},
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "robustness-8:event:18"
+            }
+          ],
+          "status": "unknown",
+          "reason": "unparsed_status_statement"
+        }
+      ],
+      "extraClaims": 1,
+      "meets": true
+    },
+    {
+      "base": "R1",
+      "text": "Your medicine has arrived at the pharmacy.",
+      "expected": "unsafe",
+      "source": "agent-authored diagnostic",
+      "support": "unknown",
+      "clarity": "unknown",
+      "gate": "INCOMPLETE",
+      "detected": [
+        {
+          "id": "robustness-9:event:18:claim:2",
+          "eventId": "robustness-9:event:18",
+          "seq": 18,
+          "text": "Your medicine has arrived at the pharmacy.",
+          "type": "unparsed_status",
+          "entities": {},
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "robustness-9:event:18"
+            }
+          ],
+          "status": "unknown",
+          "reason": "unparsed_status_statement"
+        }
+      ],
+      "extraClaims": 1,
+      "meets": true
+    },
+    {
+      "base": "A1",
+      "text": "Your appointment is on Thursday.",
+      "expected": "supported",
+      "source": "agent-authored diagnostic",
+      "support": "pass",
+      "clarity": "pass",
+      "gate": "CLEAR",
+      "detected": [
+        {
+          "id": "robustness-10:event:20:claim:3",
+          "eventId": "robustness-10:event:20",
+          "seq": 20,
+          "text": "Your appointment is on Thursday.",
+          "type": "appointment_status",
+          "entities": {
+            "weekday": "thursday"
+          },
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "robustness-10:event:20"
+            },
+            {
+              "kind": "event",
+              "id": "robustness-10:event:19"
+            }
+          ],
+          "status": "supported",
+          "reason": "prior_confirmation"
+        }
+      ],
+      "extraClaims": 1,
+      "meets": true
+    },
+    {
+      "base": "A1",
+      "text": "You should come in Thursday, December 3, 2026 at 2:00 PM.",
+      "expected": "supported",
+      "source": "agent-authored diagnostic",
+      "support": "pass",
+      "clarity": "pass",
+      "gate": "CLEAR",
+      "detected": [
+        {
+          "id": "robustness-11:event:20:claim:3",
+          "eventId": "robustness-11:event:20",
+          "seq": 20,
+          "text": "You should come in Thursday, December 3, 2026 at 2:00 PM.",
+          "type": "appointment_status",
+          "entities": {
+            "slot": "2026-12-03T19:00:00.000Z"
+          },
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "robustness-11:event:20"
+            },
+            {
+              "kind": "event",
+              "id": "robustness-11:event:19"
+            }
+          ],
+          "status": "supported",
+          "reason": "prior_confirmation"
+        }
+      ],
+      "extraClaims": 1,
+      "meets": true
+    },
+    {
+      "base": "R1",
+      "text": "Your prescription is not ready to collect.",
+      "expected": "no_new_claim",
+      "source": "agent-authored diagnostic",
+      "support": "pass",
+      "clarity": "pass",
+      "gate": "CLEAR",
+      "detected": [],
+      "extraClaims": 0,
+      "meets": true
+    },
+    {
+      "base": "R1",
+      "text": "If your prescription is approved, the pharmacy will contact you.",
+      "expected": "no_new_claim",
+      "source": "agent-authored diagnostic",
+      "support": "pass",
+      "clarity": "pass",
+      "gate": "CLEAR",
+      "detected": [],
+      "extraClaims": 0,
+      "meets": true
+    },
+    {
+      "base": "R1",
+      "text": "Would you like to collect your prescription?",
+      "expected": "no_new_claim",
+      "source": "agent-authored diagnostic",
+      "support": "pass",
+      "clarity": "pass",
+      "gate": "CLEAR",
+      "detected": [],
+      "extraClaims": 0,
+      "meets": true
+    }
+  ]
+}

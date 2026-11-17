@@ -1,0 +1,380 @@
+{
+  "before": "evaluation@1.10.0",
+  "after": "evaluation@1.11.0",
+  "summary": {
+    "traces": 46,
+    "pass_to_unknown": 0,
+    "pass_to_fail": 0,
+    "changed": []
+  },
+  "rows": [
+    {
+      "agent": "baseline",
+      "scenario": "A1",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "baseline",
+      "scenario": "A2",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "baseline",
+      "scenario": "A3",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "baseline",
+      "scenario": "A4",
+      "before": "fail",
+      "after": "fail",
+      "beforeReason": "unsupported_claim",
+      "afterReason": "unsupported_claim"
+    },
+    {
+      "agent": "baseline",
+      "scenario": "A5",
+      "before": "fail",
+      "after": "fail",
+      "beforeReason": "unsupported_claim",
+      "afterReason": "unsupported_claim"
+    },
+    {
+      "agent": "baseline",
+      "scenario": "A6",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "baseline",
+      "scenario": "A7",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "baseline",
+      "scenario": "A8",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "baseline",
+      "scenario": "I1",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "baseline",
+      "scenario": "I2",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "baseline",
+      "scenario": "I3",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "baseline",
+      "scenario": "I4",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "baseline",
+      "scenario": "I5",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "baseline",
+      "scenario": "I6",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "baseline",
+      "scenario": "I7",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "baseline",
+      "scenario": "R1",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "baseline",
+      "scenario": "R2",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "baseline",
+      "scenario": "R3",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "baseline",
+      "scenario": "R4",
+      "before": "fail",
+      "after": "fail",
+      "beforeReason": "unsupported_claim",
+      "afterReason": "unsupported_claim"
+    },
+    {
+      "agent": "baseline",
+      "scenario": "R5",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "baseline",
+      "scenario": "R6",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "baseline",
+      "scenario": "R7",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "baseline",
+      "scenario": "R8",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "candidate",
+      "scenario": "A1",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "candidate",
+      "scenario": "A2",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "candidate",
+      "scenario": "A3",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "candidate",
+      "scenario": "A4",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "candidate",
+      "scenario": "A5",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "candidate",
+      "scenario": "A6",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "candidate",
+      "scenario": "A7",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "candidate",
+      "scenario": "A8",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "candidate",
+      "scenario": "I1",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "candidate",
+      "scenario": "I2",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "candidate",
+      "scenario": "I3",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "candidate",
+      "scenario": "I4",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "candidate",
+      "scenario": "I5",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "candidate",
+      "scenario": "I6",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "candidate",
+      "scenario": "I7",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "candidate",
+      "scenario": "R1",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "candidate",
+      "scenario": "R2",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "candidate",
+      "scenario": "R3",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "candidate",
+      "scenario": "R4",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "candidate",
+      "scenario": "R5",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "candidate",
+      "scenario": "R6",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "candidate",
+      "scenario": "R7",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    },
+    {
+      "agent": "candidate",
+      "scenario": "R8",
+      "before": "pass",
+      "after": "pass",
+      "beforeReason": "supported",
+      "afterReason": "supported"
+    }
+  ]
+}

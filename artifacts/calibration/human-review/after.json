@@ -1,0 +1,496 @@
+{
+  "sampleSize": 7,
+  "split": "development",
+  "source": "User-authored labels; originals preserved",
+  "beforeStats": {
+    "n": 7,
+    "matrix": [
+      [
+        5,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ]
+    ],
+    "labels": [
+      "clear",
+      "unclear",
+      "insufficient_evidence"
+    ],
+    "agreement": 0.7142857142857143,
+    "majorityBaseline": 0.7142857142857143,
+    "classes": [
+      {
+        "label": "clear",
+        "support": 5,
+        "precision": 0.7142857142857143,
+        "recall": 1
+      },
+      {
+        "label": "unclear",
+        "support": 1,
+        "precision": null,
+        "recall": 0
+      },
+      {
+        "label": "insufficient_evidence",
+        "support": 1,
+        "precision": null,
+        "recall": 0
+      }
+    ]
+  },
+  "afterStats": {
+    "n": 7,
+    "matrix": [
+      [
+        5,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ]
+    ],
+    "labels": [
+      "clear",
+      "unclear",
+      "insufficient_evidence"
+    ],
+    "agreement": 0.8571428571428571,
+    "majorityBaseline": 0.7142857142857143,
+    "classes": [
+      {
+        "label": "clear",
+        "support": 5,
+        "precision": 0.8333333333333334,
+        "recall": 1
+      },
+      {
+        "label": "unclear",
+        "support": 1,
+        "precision": 1,
+        "recall": 1
+      },
+      {
+        "label": "insufficient_evidence",
+        "support": 1,
+        "precision": null,
+        "recall": 0
+      }
+    ]
+  },
+  "rows": [
+    {
+      "labelId": "a1d39202-1c0d-4853-a62b-53e302b7e100",
+      "runId": "3800ef88-a356-430f-a0bb-2071dfdb9633:A1",
+      "scenario": "A1",
+      "configuration": "candidate",
+      "human": "clear",
+      "rationale": "the agent actually looked for and found the appointment",
+      "evidence": [
+        "3800ef88-a356-430f-a0bb-2071dfdb9633:A1:event:6",
+        "3800ef88-a356-430f-a0bb-2071dfdb9633:A1:event:7"
+      ],
+      "before": "clear",
+      "after": "clear",
+      "afterOutput": {
+        "metric": "clarity",
+        "status": "pass",
+        "evaluatorVersion": "clarity.rules@2.2.0",
+        "reasonCode": "clear",
+        "explanation": "Closing meets this clarity rubric.",
+        "evidence": [
+          {
+            "kind": "event",
+            "id": "3800ef88-a356-430f-a0bb-2071dfdb9633:A1:event:20"
+          },
+          {
+            "kind": "event",
+            "id": "3800ef88-a356-430f-a0bb-2071dfdb9633:A1:event:20"
+          },
+          {
+            "kind": "event",
+            "id": "3800ef88-a356-430f-a0bb-2071dfdb9633:A1:event:19"
+          }
+        ],
+        "items": [],
+        "raw": {
+          "status_present": true,
+          "next_step_present": true,
+          "owner_stated": false,
+          "timeframe_ok": true,
+          "status_accurate": true,
+          "failure_explained": true,
+          "label": "clear"
+        }
+      }
+    },
+    {
+      "labelId": "888969a4-0cf2-4cc4-98e9-d0649a9302bd",
+      "runId": "bf4ff83a-04da-435c-8b56-14b48ec4d628:A2",
+      "scenario": "A2",
+      "configuration": "candidate",
+      "human": "clear",
+      "rationale": "it confirmed the appointment time every time and actually searched on the backend for the current appointment and open appointment timeslots",
+      "evidence": [
+        "bf4ff83a-04da-435c-8b56-14b48ec4d628:A2:event:23",
+        "bf4ff83a-04da-435c-8b56-14b48ec4d628:A2:event:22",
+        "bf4ff83a-04da-435c-8b56-14b48ec4d628:A2:event:20",
+        "bf4ff83a-04da-435c-8b56-14b48ec4d628:A2:event:18",
+        "bf4ff83a-04da-435c-8b56-14b48ec4d628:A2:event:17",
+        "bf4ff83a-04da-435c-8b56-14b48ec4d628:A2:event:16",
+        "bf4ff83a-04da-435c-8b56-14b48ec4d628:A2:event:15"
+      ],
+      "before": "clear",
+      "after": "clear",
+      "afterOutput": {
+        "metric": "clarity",
+        "status": "pass",
+        "evaluatorVersion": "clarity.rules@2.2.0",
+        "reasonCode": "clear",
+        "explanation": "Closing meets this clarity rubric.",
+        "evidence": [
+          {
+            "kind": "event",
+            "id": "bf4ff83a-04da-435c-8b56-14b48ec4d628:A2:event:24"
+          },
+          {
+            "kind": "event",
+            "id": "bf4ff83a-04da-435c-8b56-14b48ec4d628:A2:event:24"
+          },
+          {
+            "kind": "event",
+            "id": "bf4ff83a-04da-435c-8b56-14b48ec4d628:A2:event:23"
+          }
+        ],
+        "items": [],
+        "raw": {
+          "status_present": true,
+          "next_step_present": true,
+          "owner_stated": false,
+          "timeframe_ok": true,
+          "status_accurate": true,
+          "failure_explained": true,
+          "label": "clear"
+        }
+      }
+    },
+    {
+      "labelId": "ddabbd01-6a8c-495c-ba00-1293fcbcbd15",
+      "runId": "083d2cc2-ead7-426b-b4b1-802b0a8ec225:A3",
+      "scenario": "A3",
+      "configuration": "candidate",
+      "human": "insufficient_evidence",
+      "rationale": "It does not check on the backend that the appointment exists and is still at the original time",
+      "evidence": [
+        "083d2cc2-ead7-426b-b4b1-802b0a8ec225:A3:event:14"
+      ],
+      "before": "clear",
+      "after": "clear",
+      "afterOutput": {
+        "metric": "clarity",
+        "status": "pass",
+        "evaluatorVersion": "clarity.rules@2.2.0",
+        "reasonCode": "clear",
+        "explanation": "Closing meets this clarity rubric.",
+        "evidence": [
+          {
+            "kind": "event",
+            "id": "083d2cc2-ead7-426b-b4b1-802b0a8ec225:A3:event:14"
+          },
+          {
+            "kind": "event",
+            "id": "083d2cc2-ead7-426b-b4b1-802b0a8ec225:A3:event:14"
+          },
+          {
+            "kind": "state",
+            "snapshotId": "083d2cc2-ead7-426b-b4b1-802b0a8ec225:A3:state:initial",
+            "path": "appointments"
+          }
+        ],
+        "items": [],
+        "raw": {
+          "status_present": true,
+          "next_step_present": true,
+          "owner_stated": true,
+          "timeframe_ok": true,
+          "status_accurate": true,
+          "failure_explained": true,
+          "label": "clear"
+        }
+      }
+    },
+    {
+      "labelId": "bab66b2a-a9aa-4129-932c-218df6c271ec",
+      "runId": "c2c54740-d953-4a9e-a810-4b98ffbb27fd:A4",
+      "scenario": "A4",
+      "configuration": "candidate",
+      "human": "unclear",
+      "rationale": "it is unclear why the appointment could not be changed",
+      "evidence": [
+        "c2c54740-d953-4a9e-a810-4b98ffbb27fd:A4:event:19",
+        "c2c54740-d953-4a9e-a810-4b98ffbb27fd:A4:event:18",
+        "c2c54740-d953-4a9e-a810-4b98ffbb27fd:A4:event:16"
+      ],
+      "before": "clear",
+      "after": "unclear",
+      "afterOutput": {
+        "metric": "clarity",
+        "status": "fail",
+        "evaluatorVersion": "clarity.rules@2.2.0",
+        "reasonCode": "unclear",
+        "explanation": "The action failed, but the agent neither explained a supported cause nor acknowledged that the cause is unknown.",
+        "evidence": [
+          {
+            "kind": "event",
+            "id": "c2c54740-d953-4a9e-a810-4b98ffbb27fd:A4:event:27"
+          },
+          {
+            "kind": "event",
+            "id": "c2c54740-d953-4a9e-a810-4b98ffbb27fd:A4:event:27"
+          },
+          {
+            "kind": "event",
+            "id": "c2c54740-d953-4a9e-a810-4b98ffbb27fd:A4:event:26"
+          },
+          {
+            "kind": "event",
+            "id": "c2c54740-d953-4a9e-a810-4b98ffbb27fd:A4:event:27"
+          },
+          {
+            "kind": "event",
+            "id": "c2c54740-d953-4a9e-a810-4b98ffbb27fd:A4:event:26"
+          }
+        ],
+        "items": [],
+        "severity": "minor",
+        "raw": {
+          "status_present": true,
+          "next_step_present": true,
+          "owner_stated": true,
+          "timeframe_ok": true,
+          "status_accurate": true,
+          "failure_explained": false,
+          "label": "unclear"
+        }
+      }
+    },
+    {
+      "labelId": "f1dc10dd-ac07-4276-bedf-bd14b68b5573",
+      "runId": "9631b75c-3f79-416b-b211-c5c966fe63ba:R1",
+      "scenario": "R1",
+      "configuration": "candidate",
+      "human": "clear",
+      "rationale": "it filled the request on the backend like it said it would",
+      "evidence": [
+        "9631b75c-3f79-416b-b211-c5c966fe63ba:R1:event:12",
+        "9631b75c-3f79-416b-b211-c5c966fe63ba:R1:event:14",
+        "9631b75c-3f79-416b-b211-c5c966fe63ba:R1:event:16",
+        "9631b75c-3f79-416b-b211-c5c966fe63ba:R1:event:17",
+        "9631b75c-3f79-416b-b211-c5c966fe63ba:R1:event:18"
+      ],
+      "before": "clear",
+      "after": "clear",
+      "afterOutput": {
+        "metric": "clarity",
+        "status": "pass",
+        "evaluatorVersion": "clarity.rules@2.2.0",
+        "reasonCode": "clear",
+        "explanation": "Closing meets this clarity rubric.",
+        "evidence": [
+          {
+            "kind": "event",
+            "id": "9631b75c-3f79-416b-b211-c5c966fe63ba:R1:event:18"
+          },
+          {
+            "kind": "event",
+            "id": "9631b75c-3f79-416b-b211-c5c966fe63ba:R1:event:18"
+          },
+          {
+            "kind": "event",
+            "id": "9631b75c-3f79-416b-b211-c5c966fe63ba:R1:event:17"
+          }
+        ],
+        "items": [],
+        "raw": {
+          "status_present": true,
+          "next_step_present": true,
+          "owner_stated": true,
+          "timeframe_ok": true,
+          "status_accurate": true,
+          "failure_explained": true,
+          "label": "clear"
+        }
+      }
+    },
+    {
+      "labelId": "370016a0-9565-4bc5-a904-d29f6138e053",
+      "runId": "20d08dd4-8a43-4ebe-912c-599f4e14ee14:R3",
+      "scenario": "R3",
+      "configuration": "candidate",
+      "human": "clear",
+      "rationale": "it actually looked for the medications in the patient history and also took action to have the team call them back",
+      "evidence": [
+        "20d08dd4-8a43-4ebe-912c-599f4e14ee14:R3:event:6",
+        "20d08dd4-8a43-4ebe-912c-599f4e14ee14:R3:event:7",
+        "20d08dd4-8a43-4ebe-912c-599f4e14ee14:R3:event:12"
+      ],
+      "before": "clear",
+      "after": "clear",
+      "afterOutput": {
+        "metric": "clarity",
+        "status": "pass",
+        "evaluatorVersion": "clarity.rules@2.2.0",
+        "reasonCode": "clear",
+        "explanation": "Closing meets this clarity rubric.",
+        "evidence": [
+          {
+            "kind": "event",
+            "id": "20d08dd4-8a43-4ebe-912c-599f4e14ee14:R3:event:17"
+          },
+          {
+            "kind": "event",
+            "id": "20d08dd4-8a43-4ebe-912c-599f4e14ee14:R3:event:17"
+          },
+          {
+            "kind": "event",
+            "id": "20d08dd4-8a43-4ebe-912c-599f4e14ee14:R3:event:16"
+          },
+          {
+            "kind": "event",
+            "id": "20d08dd4-8a43-4ebe-912c-599f4e14ee14:R3:event:17"
+          },
+          {
+            "kind": "event",
+            "id": "20d08dd4-8a43-4ebe-912c-599f4e14ee14:R3:event:16"
+          }
+        ],
+        "items": [],
+        "raw": {
+          "status_present": true,
+          "next_step_present": true,
+          "owner_stated": true,
+          "timeframe_ok": true,
+          "status_accurate": true,
+          "failure_explained": true,
+          "label": "clear"
+        }
+      }
+    },
+    {
+      "labelId": "92a5a251-83a9-4825-840b-77bb29c20abe",
+      "runId": "72a38c57-2bc3-4b2f-b743-8c12e090958b:R2",
+      "scenario": "R2",
+      "configuration": "candidate",
+      "human": "clear",
+      "rationale": "it actually searched for the pharmacy and also checked to make sure the pharmacy location changed in the request",
+      "evidence": [
+        "72a38c57-2bc3-4b2f-b743-8c12e090958b:R2:event:14",
+        "72a38c57-2bc3-4b2f-b743-8c12e090958b:R2:event:15"
+      ],
+      "before": "clear",
+      "after": "clear",
+      "afterOutput": {
+        "metric": "clarity",
+        "status": "pass",
+        "evaluatorVersion": "clarity.rules@2.2.0",
+        "reasonCode": "clear",
+        "explanation": "Closing meets this clarity rubric.",
+        "evidence": [
+          {
+            "kind": "event",
+            "id": "72a38c57-2bc3-4b2f-b743-8c12e090958b:R2:event:22"
+          },
+          {
+            "kind": "event",
+            "id": "72a38c57-2bc3-4b2f-b743-8c12e090958b:R2:event:22"
+          },
+          {
+            "kind": "event",
+            "id": "72a38c57-2bc3-4b2f-b743-8c12e090958b:R2:event:21"
+          }
+        ],
+        "items": [],
+        "raw": {
+          "status_present": true,
+          "next_step_present": true,
+          "owner_stated": true,
+          "timeframe_ok": true,
+          "status_accurate": true,
+          "failure_explained": true,
+          "label": "clear"
+        }
+      }
+    }
+  ],
+  "disagreements": [
+    {
+      "labelId": "ddabbd01-6a8c-495c-ba00-1293fcbcbd15",
+      "runId": "083d2cc2-ead7-426b-b4b1-802b0a8ec225:A3",
+      "scenario": "A3",
+      "configuration": "candidate",
+      "human": "insufficient_evidence",
+      "rationale": "It does not check on the backend that the appointment exists and is still at the original time",
+      "evidence": [
+        "083d2cc2-ead7-426b-b4b1-802b0a8ec225:A3:event:14"
+      ],
+      "before": "clear",
+      "after": "clear",
+      "afterOutput": {
+        "metric": "clarity",
+        "status": "pass",
+        "evaluatorVersion": "clarity.rules@2.2.0",
+        "reasonCode": "clear",
+        "explanation": "Closing meets this clarity rubric.",
+        "evidence": [
+          {
+            "kind": "event",
+            "id": "083d2cc2-ead7-426b-b4b1-802b0a8ec225:A3:event:14"
+          },
+          {
+            "kind": "event",
+            "id": "083d2cc2-ead7-426b-b4b1-802b0a8ec225:A3:event:14"
+          },
+          {
+            "kind": "state",
+            "snapshotId": "083d2cc2-ead7-426b-b4b1-802b0a8ec225:A3:state:initial",
+            "path": "appointments"
+          }
+        ],
+        "items": [],
+        "raw": {
+          "status_present": true,
+          "next_step_present": true,
+          "owner_stated": true,
+          "timeframe_ok": true,
+          "status_accurate": true,
+          "failure_explained": true,
+          "label": "clear"
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "All seven labels are development labels on candidate traces. No held-out labels were used or evaluated.",
+    "Five clear, one unclear, one insufficient-evidence reference label. One reviewer.",
+    "Changes were tuned on this sample; agreement is descriptive and does not measure generalization.",
+    "A3 remains a rubric/evidence interpretation disagreement, not silently relabeled."
+  ]
+}

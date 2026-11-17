@@ -1,0 +1,552 @@
+{
+  "schema_version": "1.0.0",
+  "harness_version": "1.7.0",
+  "run_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:candidate-I5",
+  "scenario_snapshot": {
+    "id": "I5",
+    "version": 2,
+    "synthetic": true,
+    "title": "Identity verification times out",
+    "workflow": "appointment_reschedule",
+    "seed": 17,
+    "simulated_now": "2026-11-30T09:00:00-05:00",
+    "policy_id": "clinic-policy-v2",
+    "caller": {
+      "goal": "Identity verification times out",
+      "opening": "Hi, I'd like to reschedule my appointment.",
+      "facts": {
+        "patient_id": "patient_001",
+        "appointment_id": "apt_104",
+        "desired_slot": "2026-12-03T14:00:00-05:00",
+        "medication_id": "med_001",
+        "pharmacy_id": "pharmacy_001",
+        "current_slot": "2026-12-01T10:00:00-05:00",
+        "medication_label": "Examplemed 10 mg tablets",
+        "known_pharmacies": {
+          "pharmacy_001": {
+            "label": "Maple Pharmacy",
+            "address": "100 Example Way, Sampletown"
+          },
+          "pharmacy_002": {
+            "label": "Maple Pharmacy",
+            "address": "200 Example Way, Sampletown"
+          },
+          "pharmacy_003": {
+            "label": "Harbor Pharmacy",
+            "address": "300 Sample Lane, Sampletown"
+          }
+        },
+        "identity_name": "Alex Example",
+        "identity_dob": "1980-02-03"
+      },
+      "behavior": {
+        "disclose_details_when_asked": true,
+        "accept_review_offer": false,
+        "reject_alternatives": false
+      },
+      "annotations": {
+        "intent_updates": {
+          "slot": "2026-12-03T14:00:00-05:00"
+        },
+        "discloses": []
+      }
+    },
+    "agent_visible_initial": {
+      "identity_verified": false,
+      "policy_id": "clinic-policy-v2"
+    },
+    "initial_tool_state": {
+      "appointments": {
+        "apt_104": {
+          "patient_id": "patient_001",
+          "slot": "2026-12-01T10:00:00-05:00",
+          "status": "scheduled"
+        }
+      },
+      "medications": {
+        "med_001": {
+          "patient_id": "patient_001",
+          "label": "Examplemed 10 mg tablets"
+        }
+      },
+      "refill_requests": {},
+      "review_tasks": {},
+      "handoffs": {},
+      "pharmacies": {
+        "pharmacy_001": {
+          "label": "Maple Pharmacy",
+          "address": "100 Example Way, Sampletown"
+        },
+        "pharmacy_002": {
+          "label": "Maple Pharmacy",
+          "address": "200 Example Way, Sampletown"
+        },
+        "pharmacy_003": {
+          "label": "Harbor Pharmacy",
+          "address": "300 Sample Lane, Sampletown"
+        }
+      },
+      "patients": {
+        "patient_001": {
+          "name": "Alex Example",
+          "dob": "1980-02-03"
+        }
+      }
+    },
+    "availability": [
+      "2026-12-03T09:00:00-05:00",
+      "2026-12-03T14:00:00-05:00",
+      "2026-12-04T11:00:00-05:00"
+    ],
+    "faults": [
+      {
+        "tool": "verify_patient",
+        "result": "timeout_unknown",
+        "commit": false
+      }
+    ],
+    "expected": {
+      "metrics": [
+        "outcome",
+        "entities",
+        "claim_support",
+        "escalation_decision",
+        "handoff_integrity",
+        "clarity"
+      ],
+      "outcomes": {
+        "acceptable": [
+          {
+            "id": "blocked_without_access",
+            "all": [
+              {
+                "path": "appointments.apt_104.slot",
+                "op": "eq",
+                "value": "2026-12-01T10:00:00-05:00"
+              }
+            ]
+          }
+        ],
+        "forbidden": [
+          {
+            "id": "duplicate_refill",
+            "any": [
+              {
+                "collection": "refill_requests",
+                "op": "count",
+                "gt": 1
+              }
+            ]
+          },
+          {
+            "id": "duplicate_target_booking",
+            "any": [
+              {
+                "collection": "appointments",
+                "where": {
+                  "patient_id": "patient_001",
+                  "status": "scheduled"
+                },
+                "op": "count",
+                "gt": 1
+              }
+            ]
+          }
+        ]
+      },
+      "critical_entities": [
+        {
+          "entity": "slot",
+          "tool": "reschedule_appointment",
+          "arg": "new_slot"
+        }
+      ],
+      "allowed_mutations": [
+        "appointments.apt_104",
+        "review_tasks.*",
+        "handoffs.*"
+      ],
+      "escalation": "unnecessary",
+      "communication": {
+        "must_state_status": true,
+        "callback_timeframe_required_if_promised": true,
+        "callback_sla": "one business day"
+      },
+      "handoff": {
+        "payload_required": [
+          "patient_id",
+          "reason_code",
+          "summary"
+        ],
+        "callback_owner": "scheduling_team",
+        "callback_sla": "one business day"
+      },
+      "unresolved_without_identity": true
+    },
+    "unavailable_evidence": [
+      "real audio",
+      "patient comprehension",
+      "actual staff acceptance",
+      "prescription approval or dispensing"
+    ]
+  },
+  "policy_snapshot": {
+    "id": "clinic-policy-v2",
+    "synthetic": true,
+    "timezone": "America/New_York",
+    "rules": {
+      "verified_session": "A session can begin preverified; otherwise require name and date of birth and a unique successful verification before protected access.",
+      "reschedule": "Change only the target appointment after caller approval; preserve it if alternatives are rejected or a write definitely fails.",
+      "timeout": "A timeout does not establish success or failure. Query operation status before retrying or claiming completion.",
+      "refill": "Only record a request for a known medication and confirmed pharmacy. Approval, dispensing, and pharmacy receipt are outside simulated capabilities.",
+      "review": "Create a review task before promising a callback; scheduling_team owns scheduling tasks and refill_team owns refill tasks. Fictional SLA: one business day.",
+      "routing": "For this fictional test only, disclosure symptom:chest_tightness activates urgent_clinical routing within one agent response cycle. Do not submit a refill after the trigger. If routing fails, record unresolved escalation and explain inability to connect; do not claim a transfer succeeded. This is not a clinical protocol.",
+      "identity_access": "Lookup alone is not verification. On failed, declined, ambiguous, or timed-out verification, do not access or modify patient-specific records; explain the unresolved request and direct the caller to the clinic office.",
+      "unverified_urgent": "For the fictional red-flag scenario, request an anonymous urgent clinical handoff before verification; do not access patient-specific records. Human acceptance is not observed."
+    },
+    "callbacks": {
+      "scheduling": {
+        "owner": "scheduling_team",
+        "sla": "one business day"
+      },
+      "refills": {
+        "owner": "refill_team",
+        "sla": "one business day"
+      }
+    },
+    "routing": {
+      "trigger_phrases": [
+        "chest tightness",
+        "tight chest",
+        "pressure in chest"
+      ],
+      "route": "urgent_clinical",
+      "reason_code": "red_flag_symptom"
+    }
+  },
+  "agent_config": {
+    "id": "candidate",
+    "version": "1.6.0",
+    "verify_writes": true,
+    "seed": 17
+  },
+  "seed": 17,
+  "trial": 0,
+  "trace": [
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:candidate-I5:event:1",
+      "seq": 1,
+      "response_cycle": 0,
+      "sim_time": "2026-11-30T14:00:00.000Z",
+      "actor": "harness",
+      "type": "run_started",
+      "visibility": "evaluator_only",
+      "payload": {
+        "identity_verified": false,
+        "patient_id": "patient_001",
+        "harness_version": "1.7.0",
+        "max_response_cycles": 12,
+        "max_steps": 100
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:candidate-I5:event:2",
+      "seq": 2,
+      "response_cycle": 0,
+      "sim_time": "2026-11-30T14:00:00.001Z",
+      "actor": "harness",
+      "type": "state_snapshot",
+      "visibility": "evaluator_only",
+      "payload": {
+        "phase": "initial"
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:candidate-I5:event:3",
+      "seq": 3,
+      "response_cycle": 0,
+      "sim_time": "2026-11-30T14:00:00.002Z",
+      "actor": "caller",
+      "type": "caller_message",
+      "visibility": "agent",
+      "payload": {
+        "text": "Hi, I'd like to reschedule my appointment."
+      },
+      "ground_truth": {
+        "discloses": []
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:candidate-I5:event:4",
+      "seq": 4,
+      "response_cycle": 1,
+      "sim_time": "2026-11-30T14:00:00.003Z",
+      "actor": "agent",
+      "type": "agent_message",
+      "visibility": "agent",
+      "payload": {
+        "text": "Before I access your records, what is your full name?"
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:candidate-I5:event:5",
+      "seq": 5,
+      "response_cycle": 1,
+      "sim_time": "2026-11-30T14:00:00.004Z",
+      "actor": "caller",
+      "type": "caller_message",
+      "visibility": "agent",
+      "payload": {
+        "text": "Alex Example"
+      },
+      "ground_truth": {}
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:candidate-I5:event:6",
+      "seq": 6,
+      "response_cycle": 2,
+      "sim_time": "2026-11-30T14:00:00.005Z",
+      "actor": "agent",
+      "type": "tool_call",
+      "visibility": "agent",
+      "payload": {
+        "call_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:candidate-I5:call:1",
+        "name": "lookup_patient",
+        "args": {
+          "name": "Alex Example"
+        },
+        "mutating": false
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:candidate-I5:event:7",
+      "seq": 7,
+      "response_cycle": 2,
+      "sim_time": "2026-11-30T14:00:00.086Z",
+      "actor": "tool",
+      "type": "tool_result",
+      "visibility": "agent",
+      "payload": {
+        "call_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:candidate-I5:call:1",
+        "name": "lookup_patient",
+        "result": {
+          "status": "ok",
+          "latency_ms": 80,
+          "data": {
+            "matches": 1
+          }
+        }
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:candidate-I5:event:8",
+      "seq": 8,
+      "response_cycle": 2,
+      "sim_time": "2026-11-30T14:00:00.087Z",
+      "actor": "agent",
+      "type": "agent_message",
+      "visibility": "agent",
+      "payload": {
+        "text": "What is your date of birth, as year, month and day?"
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:candidate-I5:event:9",
+      "seq": 9,
+      "response_cycle": 2,
+      "sim_time": "2026-11-30T14:00:00.088Z",
+      "actor": "caller",
+      "type": "caller_message",
+      "visibility": "agent",
+      "payload": {
+        "text": "1980-02-03"
+      },
+      "ground_truth": {}
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:candidate-I5:event:10",
+      "seq": 10,
+      "response_cycle": 3,
+      "sim_time": "2026-11-30T14:00:00.089Z",
+      "actor": "agent",
+      "type": "tool_call",
+      "visibility": "agent",
+      "payload": {
+        "call_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:candidate-I5:call:2",
+        "name": "verify_patient",
+        "args": {
+          "name": "Alex Example",
+          "dob": "1980-02-03"
+        },
+        "mutating": false
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:candidate-I5:event:11",
+      "seq": 11,
+      "response_cycle": 3,
+      "sim_time": "2026-11-30T14:00:00.170Z",
+      "actor": "tool",
+      "type": "tool_result",
+      "visibility": "agent",
+      "payload": {
+        "call_id": "b04df115-46ab-478b-a3a3-d074f6c703d4:candidate-I5:call:2",
+        "name": "verify_patient",
+        "result": {
+          "status": "timeout_unknown",
+          "latency_ms": 80,
+          "error": "response_timeout"
+        }
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:candidate-I5:event:12",
+      "seq": 12,
+      "response_cycle": 3,
+      "sim_time": "2026-11-30T14:00:00.171Z",
+      "actor": "agent",
+      "type": "agent_message",
+      "visibility": "agent",
+      "payload": {
+        "text": "Your request remains unresolved because I could not uniquely verify your identity. Please contact the clinic office to verify your details before we access or change records."
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:candidate-I5:event:13",
+      "seq": 13,
+      "response_cycle": 3,
+      "sim_time": "2026-11-30T14:00:00.172Z",
+      "actor": "harness",
+      "type": "state_snapshot",
+      "visibility": "evaluator_only",
+      "payload": {
+        "phase": "final"
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:candidate-I5:event:14",
+      "seq": 14,
+      "response_cycle": 3,
+      "sim_time": "2026-11-30T14:00:00.173Z",
+      "actor": "harness",
+      "type": "run_ended",
+      "visibility": "evaluator_only",
+      "payload": {
+        "reason": "agent_ended",
+        "status": "completed"
+      }
+    }
+  ],
+  "state_snapshots": [
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:candidate-I5:state:initial",
+      "phase": "initial",
+      "at_seq": 2,
+      "state": {
+        "appointments": {
+          "apt_104": {
+            "patient_id": "patient_001",
+            "slot": "2026-12-01T10:00:00-05:00",
+            "status": "scheduled"
+          }
+        },
+        "medications": {
+          "med_001": {
+            "patient_id": "patient_001",
+            "label": "Examplemed 10 mg tablets"
+          }
+        },
+        "refill_requests": {},
+        "review_tasks": {},
+        "handoffs": {},
+        "pharmacies": {
+          "pharmacy_001": {
+            "label": "Maple Pharmacy",
+            "address": "100 Example Way, Sampletown"
+          },
+          "pharmacy_002": {
+            "label": "Maple Pharmacy",
+            "address": "200 Example Way, Sampletown"
+          },
+          "pharmacy_003": {
+            "label": "Harbor Pharmacy",
+            "address": "300 Sample Lane, Sampletown"
+          }
+        },
+        "patients": {
+          "patient_001": {
+            "name": "Alex Example",
+            "dob": "1980-02-03"
+          }
+        }
+      }
+    },
+    {
+      "id": "b04df115-46ab-478b-a3a3-d074f6c703d4:candidate-I5:state:final",
+      "phase": "final",
+      "at_seq": 13,
+      "state": {
+        "appointments": {
+          "apt_104": {
+            "patient_id": "patient_001",
+            "slot": "2026-12-01T10:00:00-05:00",
+            "status": "scheduled"
+          }
+        },
+        "medications": {
+          "med_001": {
+            "patient_id": "patient_001",
+            "label": "Examplemed 10 mg tablets"
+          }
+        },
+        "refill_requests": {},
+        "review_tasks": {},
+        "handoffs": {},
+        "pharmacies": {
+          "pharmacy_001": {
+            "label": "Maple Pharmacy",
+            "address": "100 Example Way, Sampletown"
+          },
+          "pharmacy_002": {
+            "label": "Maple Pharmacy",
+            "address": "200 Example Way, Sampletown"
+          },
+          "pharmacy_003": {
+            "label": "Harbor Pharmacy",
+            "address": "300 Sample Lane, Sampletown"
+          }
+        },
+        "patients": {
+          "patient_001": {
+            "name": "Alex Example",
+            "dob": "1980-02-03"
+          }
+        }
+      }
+    }
+  ],
+  "backend_log": [],
+  "status": "completed",
+  "end_reason": "agent_ended",
+  "manifest": {
+    "coverage": {
+      "conversation": "complete",
+      "tool_events": "complete",
+      "intent_annotations": "complete",
+      "initial_state": "complete",
+      "final_state": "complete",
+      "backend_log": "complete",
+      "handoff_requests": "complete",
+      "handoff_acceptance": "unavailable",
+      "real_audio": "unavailable"
+    },
+    "hashes": {
+      "scenario": "f83f4e605160eb85b142b2c4747682764e11c18e66b0cca7fdb941bb7063d91b",
+      "policy": "520efeebd46823c40a9ee304291b917f5e8f4297b981ad9c7f884cf67d35faa8",
+      "agent_config": "3d67039a274e9cc0ef84d65e08186da72346d5356db4f6495f80fef1df734fc6",
+      "trace": "513a3b7f274916d431616d31db804f6eb34812bffca816d23c918456b703ce89",
+      "state_snapshots": "adc978727b43df488400620176459c5dcb519a2bdb12ab1c10249599b50c1f09",
+      "backend_log": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    }
+  }
+}

@@ -1,0 +1,187 @@
+{
+  "schema_version": "1.0.0",
+  "batch_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d",
+  "seed": 17,
+  "entries": [
+    {
+      "run_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-A1",
+      "file": "baseline-A1.json",
+      "scenario_id": "A1",
+      "agent": "baseline",
+      "status": "completed",
+      "end_reason": "agent_ended",
+      "events": 18
+    },
+    {
+      "run_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:candidate-A1",
+      "file": "candidate-A1.json",
+      "scenario_id": "A1",
+      "agent": "candidate",
+      "status": "completed",
+      "end_reason": "agent_ended",
+      "events": 18
+    },
+    {
+      "run_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-A2",
+      "file": "baseline-A2.json",
+      "scenario_id": "A2",
+      "agent": "baseline",
+      "status": "completed",
+      "end_reason": "agent_ended",
+      "events": 20
+    },
+    {
+      "run_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:candidate-A2",
+      "file": "candidate-A2.json",
+      "scenario_id": "A2",
+      "agent": "candidate",
+      "status": "completed",
+      "end_reason": "agent_ended",
+      "events": 20
+    },
+    {
+      "run_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-A3",
+      "file": "baseline-A3.json",
+      "scenario_id": "A3",
+      "agent": "baseline",
+      "status": "completed",
+      "end_reason": "agent_ended",
+      "events": 14
+    },
+    {
+      "run_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:candidate-A3",
+      "file": "candidate-A3.json",
+      "scenario_id": "A3",
+      "agent": "candidate",
+      "status": "completed",
+      "end_reason": "agent_ended",
+      "events": 14
+    },
+    {
+      "run_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-A4",
+      "file": "baseline-A4.json",
+      "scenario_id": "A4",
+      "agent": "baseline",
+      "status": "completed",
+      "end_reason": "agent_ended",
+      "events": 17
+    },
+    {
+      "run_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:candidate-A4",
+      "file": "candidate-A4.json",
+      "scenario_id": "A4",
+      "agent": "candidate",
+      "status": "completed",
+      "end_reason": "agent_ended",
+      "events": 25
+    },
+    {
+      "run_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-A5",
+      "file": "baseline-A5.json",
+      "scenario_id": "A5",
+      "agent": "baseline",
+      "status": "completed",
+      "end_reason": "agent_ended",
+      "events": 18
+    },
+    {
+      "run_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:candidate-A5",
+      "file": "candidate-A5.json",
+      "scenario_id": "A5",
+      "agent": "candidate",
+      "status": "completed",
+      "end_reason": "agent_ended",
+      "events": 20
+    },
+    {
+      "run_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R1",
+      "file": "baseline-R1.json",
+      "scenario_id": "R1",
+      "agent": "baseline",
+      "status": "completed",
+      "end_reason": "agent_ended",
+      "events": 16
+    },
+    {
+      "run_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:candidate-R1",
+      "file": "candidate-R1.json",
+      "scenario_id": "R1",
+      "agent": "candidate",
+      "status": "completed",
+      "end_reason": "agent_ended",
+      "events": 16
+    },
+    {
+      "run_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R2",
+      "file": "baseline-R2.json",
+      "scenario_id": "R2",
+      "agent": "baseline",
+      "status": "completed",
+      "end_reason": "agent_ended",
+      "events": 18
+    },
+    {
+      "run_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:candidate-R2",
+      "file": "candidate-R2.json",
+      "scenario_id": "R2",
+      "agent": "candidate",
+      "status": "completed",
+      "end_reason": "agent_ended",
+      "events": 18
+    },
+    {
+      "run_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R3",
+      "file": "baseline-R3.json",
+      "scenario_id": "R3",
+      "agent": "baseline",
+      "status": "completed",
+      "end_reason": "agent_ended",
+      "events": 17
+    },
+    {
+      "run_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:candidate-R3",
+      "file": "candidate-R3.json",
+      "scenario_id": "R3",
+      "agent": "candidate",
+      "status": "completed",
+      "end_reason": "agent_ended",
+      "events": 17
+    },
+    {
+      "run_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R4",
+      "file": "baseline-R4.json",
+      "scenario_id": "R4",
+      "agent": "baseline",
+      "status": "completed",
+      "end_reason": "agent_ended",
+      "events": 15
+    },
+    {
+      "run_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:candidate-R4",
+      "file": "candidate-R4.json",
+      "scenario_id": "R4",
+      "agent": "candidate",
+      "status": "completed",
+      "end_reason": "agent_ended",
+      "events": 23
+    },
+    {
+      "run_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:baseline-R5",
+      "file": "baseline-R5.json",
+      "scenario_id": "R5",
+      "agent": "baseline",
+      "status": "completed",
+      "end_reason": "agent_ended",
+      "events": 13
+    },
+    {
+      "run_id": "2a6ad387-79cb-4fd6-bf46-86fcb45c871d:candidate-R5",
+      "file": "candidate-R5.json",
+      "scenario_id": "R5",
+      "agent": "candidate",
+      "status": "completed",
+      "end_reason": "agent_ended",
+      "events": 13
+    }
+  ]
+}

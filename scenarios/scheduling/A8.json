@@ -1,0 +1,191 @@
+{
+  "id": "A8",
+  "version": 1,
+  "synthetic": true,
+  "title": "Vague afternoon preference needs a specific time",
+  "workflow": "appointment_reschedule",
+  "seed": 17,
+  "simulated_now": "2026-11-30T09:00:00-05:00",
+  "policy_id": "clinic-policy-v1",
+  "caller": {
+    "goal": "Vague afternoon preference needs a specific time",
+    "opening": "Hi, I'd like to reschedule my appointment.",
+    "facts": {
+      "patient_id": "patient_001",
+      "appointment_id": "apt_104",
+      "desired_slot": "2026-12-03T14:00:00-05:00",
+      "medication_id": "med_001",
+      "pharmacy_id": "pharmacy_001",
+      "current_slot": "2026-12-01T10:00:00-05:00",
+      "medication_label": "Examplemed 10 mg tablets",
+      "known_pharmacies": {
+        "pharmacy_001": {
+          "label": "Maple Pharmacy",
+          "address": "100 Example Way, Sampletown"
+        },
+        "pharmacy_002": {
+          "label": "Maple Pharmacy",
+          "address": "200 Example Way, Sampletown"
+        },
+        "pharmacy_003": {
+          "label": "Harbor Pharmacy",
+          "address": "300 Sample Lane, Sampletown"
+        }
+      }
+    },
+    "behavior": {
+      "disclose_details_when_asked": true,
+      "accept_review_offer": false,
+      "reject_alternatives": false
+    },
+    "annotations": {
+      "intent_updates": {
+        "slot": "2026-12-03T14:00:00-05:00"
+      },
+      "discloses": []
+    },
+    "utterances": {
+      "time_selection": [
+        "Sometime in the afternoon.",
+        "2:00 PM, please."
+      ]
+    }
+  },
+  "agent_visible_initial": {
+    "patient_id": "patient_001",
+    "identity_verified": true,
+    "policy_id": "clinic-policy-v1"
+  },
+  "initial_tool_state": {
+    "appointments": {
+      "apt_104": {
+        "patient_id": "patient_001",
+        "slot": "2026-12-01T10:00:00-05:00",
+        "status": "scheduled"
+      }
+    },
+    "medications": {
+      "med_001": {
+        "patient_id": "patient_001",
+        "label": "Examplemed 10 mg tablets"
+      }
+    },
+    "refill_requests": {},
+    "review_tasks": {},
+    "handoffs": {},
+    "pharmacies": {
+      "pharmacy_001": {
+        "label": "Maple Pharmacy",
+        "address": "100 Example Way, Sampletown"
+      },
+      "pharmacy_002": {
+        "label": "Maple Pharmacy",
+        "address": "200 Example Way, Sampletown"
+      },
+      "pharmacy_003": {
+        "label": "Harbor Pharmacy",
+        "address": "300 Sample Lane, Sampletown"
+      }
+    }
+  },
+  "availability": [
+    "2026-12-03T09:00:00-05:00",
+    "2026-12-03T14:00:00-05:00",
+    "2026-12-03T16:00:00-05:00",
+    "2026-12-04T11:00:00-05:00"
+  ],
+  "faults": [],
+  "expected": {
+    "metrics": [
+      "outcome",
+      "entities",
+      "claim_support",
+      "escalation_decision",
+      "handoff_integrity",
+      "clarity"
+    ],
+    "outcomes": {
+      "acceptable": [
+        {
+          "id": "moved",
+          "all": [
+            {
+              "path": "appointments.apt_104.slot",
+              "op": "eq",
+              "value": "2026-12-03T14:00:00-05:00"
+            },
+            {
+              "collection": "appointments",
+              "where": {
+                "patient_id": "patient_001",
+                "slot": "2026-12-03T14:00:00-05:00",
+                "status": "scheduled"
+              },
+              "op": "count",
+              "eq": 1
+            }
+          ]
+        }
+      ],
+      "forbidden": [
+        {
+          "id": "duplicate_refill",
+          "any": [
+            {
+              "collection": "refill_requests",
+              "op": "count",
+              "gt": 1
+            }
+          ]
+        },
+        {
+          "id": "duplicate_target_booking",
+          "any": [
+            {
+              "collection": "appointments",
+              "where": {
+                "patient_id": "patient_001",
+                "status": "scheduled"
+              },
+              "op": "count",
+              "gt": 1
+            }
+          ]
+        }
+      ]
+    },
+    "critical_entities": [
+      {
+        "entity": "slot",
+        "tool": "reschedule_appointment",
+        "arg": "new_slot"
+      }
+    ],
+    "allowed_mutations": [
+      "appointments.apt_104",
+      "review_tasks.*",
+      "handoffs.*"
+    ],
+    "escalation": "unnecessary",
+    "communication": {
+      "must_state_status": true,
+      "callback_timeframe_required_if_promised": true,
+      "callback_sla": "one business day"
+    },
+    "handoff": {
+      "payload_required": [
+        "patient_id",
+        "reason_code",
+        "summary"
+      ],
+      "callback_owner": "scheduling_team",
+      "callback_sla": "one business day"
+    }
+  },
+  "unavailable_evidence": [
+    "real audio",
+    "patient comprehension",
+    "actual staff acceptance",
+    "prescription approval or dispensing"
+  ]
+}

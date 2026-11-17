@@ -1,0 +1,1293 @@
+{
+  "assessment_date": "2026-11-17",
+  "basis": "User-supplied quality checklist; engineering audit, not independent human validation",
+  "overall": "NO_GO_UNDER_SUPPLIED_GATES",
+  "results": [
+    {
+      "id": "A1",
+      "name": "Determinism and rescoring idempotence",
+      "status": "pass",
+      "details": {
+        "interactions": 20
+      }
+    },
+    {
+      "id": "A2",
+      "name": "Stored evidence references and reason enums",
+      "status": "partial",
+      "details": {
+        "verdicts": 240,
+        "violations": [],
+        "manual_remaining": "Explanation semantic faithfulness has not been independently audited."
+      }
+    },
+    {
+      "id": "A3",
+      "name": "Reason-code reachability",
+      "status": "partial",
+      "details": {
+        "scope": "Fresh baseline/candidate and control outputs only; some missing reasons are covered by existing mutation tests. Full reason coverage is not established.",
+        "covered": 18,
+        "total": 27,
+        "missing": [
+          "outcome:collateral_change",
+          "entities:entity_mismatch",
+          "entities:acted_before_disambiguation",
+          "entities:missing_intent",
+          "claim_support:missing_claim_evidence",
+          "escalation_decision:late_escalation",
+          "escalation_decision:wrong_route",
+          "escalation_decision:acted_after_red_flag",
+          "clarity:insufficient_evidence"
+        ]
+      }
+    },
+    {
+      "id": "A4-equivalence",
+      "name": "Identity and casing equivalence",
+      "status": "fail",
+      "details": {
+        "cases": 40,
+        "failures": [
+          {
+            "run": "quality-candidate-A4",
+            "mutation": "case_and_whitespace",
+            "same": false
+          },
+          {
+            "run": "quality-baseline-R3",
+            "mutation": "case_and_whitespace",
+            "same": false
+          },
+          {
+            "run": "quality-candidate-R3",
+            "mutation": "case_and_whitespace",
+            "same": false
+          },
+          {
+            "run": "quality-candidate-R4",
+            "mutation": "case_and_whitespace",
+            "same": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "A4-state",
+      "name": "Claim versus contradictory observed state",
+      "status": "fail",
+      "details": {
+        "claimSupport": {
+          "metric": "claim_support",
+          "status": "pass",
+          "evaluatorVersion": "claim_support@1.0.0",
+          "reasonCode": "supported",
+          "explanation": "All extracted status claims have supporting evidence.",
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "quality-candidate-A5:event:18"
+            },
+            {
+              "kind": "event",
+              "id": "quality-candidate-A5:event:17"
+            }
+          ],
+          "items": [
+            {
+              "id": "quality-candidate-A5:event:18:claim:1",
+              "status": "supported",
+              "reason": "prior_confirmation",
+              "evidence": [
+                {
+                  "kind": "event",
+                  "id": "quality-candidate-A5:event:18"
+                },
+                {
+                  "kind": "event",
+                  "id": "quality-candidate-A5:event:17"
+                }
+              ],
+              "details": {
+                "text": "Your appointment is moved to 2026-12-03T14:00:00-05:00.",
+                "type": "appointment_moved",
+                "entities": {
+                  "slot": "2026-12-03T14:00:00-05:00"
+                }
+              }
+            }
+          ]
+        },
+        "outcome": {
+          "metric": "outcome",
+          "status": "fail",
+          "evaluatorVersion": "outcome@1.0.0",
+          "reasonCode": "no_acceptable_outcome",
+          "explanation": "No acceptable final-state predicate set holds.",
+          "evidence": [
+            {
+              "kind": "state",
+              "snapshotId": "quality-candidate-A5:state:final",
+              "path": ""
+            },
+            {
+              "kind": "expectation",
+              "key": "outcomes"
+            }
+          ],
+          "items": [],
+          "severity": "major"
+        },
+        "expected": "Claim support must fail or abstain when the status-read payload and preceding state change disagree with the claimed slot."
+      }
+    },
+    {
+      "id": "A4-provenance",
+      "name": "Dropped state-change provenance",
+      "status": "fail",
+      "details": {
+        "actual": "pass",
+        "expected": "Detect incomplete provenance; current check does not cross-validate state diffs against event coverage."
+      }
+    },
+    {
+      "id": "A5",
+      "name": "Full pre-written control signature matrix",
+      "status": "partial",
+      "details": {
+        "executed": 50,
+        "existing_asserted_cells": 7,
+        "missing": "No full frozen expected_signatures matrix or edit history. Existing selected signatures remain in tests/evaluation.test.ts; observed signatures were not promoted to expectations."
+      }
+    },
+    {
+      "id": "A6",
+      "name": "Evidence masking",
+      "status": "partial",
+      "details": {
+        "cases": 100,
+        "pass_increases": [],
+        "handoffCoverageIgnored": [
+          {
+            "scenario": "A4",
+            "agent": "candidate",
+            "kind": "handoff_requests",
+            "beforePasses": 6,
+            "afterPasses": 6,
+            "statuses": {
+              "outcome": "pass",
+              "entities": "pass",
+              "claim_support": "pass",
+              "escalation_decision": "pass",
+              "handoff_integrity": "pass",
+              "clarity": "pass"
+            }
+          },
+          {
+            "scenario": "R3",
+            "agent": "baseline",
+            "kind": "handoff_requests",
+            "beforePasses": 5,
+            "afterPasses": 5,
+            "statuses": {
+              "outcome": "pass",
+              "entities": "not_applicable",
+              "claim_support": "pass",
+              "escalation_decision": "pass",
+              "handoff_integrity": "pass",
+              "clarity": "pass"
+            }
+          },
+          {
+            "scenario": "R3",
+            "agent": "candidate",
+            "kind": "handoff_requests",
+            "beforePasses": 5,
+            "afterPasses": 5,
+            "statuses": {
+              "outcome": "pass",
+              "entities": "not_applicable",
+              "claim_support": "pass",
+              "escalation_decision": "pass",
+              "handoff_integrity": "pass",
+              "clarity": "pass"
+            }
+          },
+          {
+            "scenario": "R4",
+            "agent": "candidate",
+            "kind": "handoff_requests",
+            "beforePasses": 6,
+            "afterPasses": 6,
+            "statuses": {
+              "outcome": "pass",
+              "entities": "pass",
+              "claim_support": "pass",
+              "escalation_decision": "pass",
+              "handoff_integrity": "pass",
+              "clarity": "pass"
+            }
+          },
+          {
+            "scenario": "R5",
+            "agent": "baseline",
+            "kind": "handoff_requests",
+            "beforePasses": 5,
+            "afterPasses": 5,
+            "statuses": {
+              "outcome": "pass",
+              "entities": "not_applicable",
+              "claim_support": "pass",
+              "escalation_decision": "pass",
+              "handoff_integrity": "pass",
+              "clarity": "pass"
+            }
+          },
+          {
+            "scenario": "R5",
+            "agent": "candidate",
+            "kind": "handoff_requests",
+            "beforePasses": 5,
+            "afterPasses": 5,
+            "statuses": {
+              "outcome": "pass",
+              "entities": "not_applicable",
+              "claim_support": "pass",
+              "escalation_decision": "pass",
+              "handoff_integrity": "pass",
+              "clarity": "pass"
+            }
+          }
+        ],
+        "limitation": "Coverage-bit tests; full removal/reconstruction combinations are not exhaustively generated."
+      }
+    },
+    {
+      "id": "A7-null",
+      "name": "Malformed nested tool-result payload",
+      "status": "fail",
+      "details": {
+        "crashed": true,
+        "error": "TypeError: Cannot read properties of null (reading 'status')"
+      }
+    },
+    {
+      "id": "A7-truncate",
+      "name": "truncate",
+      "status": "pass",
+      "details": {
+        "statuses": [
+          [
+            "outcome",
+            "unknown"
+          ],
+          [
+            "entities",
+            "unknown"
+          ],
+          [
+            "claim_support",
+            "unknown"
+          ],
+          [
+            "escalation_decision",
+            "unknown"
+          ],
+          [
+            "handoff_integrity",
+            "unknown"
+          ],
+          [
+            "clarity",
+            "unknown"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "A7-duplicate_sequence",
+      "name": "duplicate_sequence",
+      "status": "pass",
+      "details": {
+        "statuses": [
+          [
+            "outcome",
+            "unknown"
+          ],
+          [
+            "entities",
+            "unknown"
+          ],
+          [
+            "claim_support",
+            "unknown"
+          ],
+          [
+            "escalation_decision",
+            "unknown"
+          ],
+          [
+            "handoff_integrity",
+            "unknown"
+          ],
+          [
+            "clarity",
+            "unknown"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "A7-orphan_result",
+      "name": "orphan_result",
+      "status": "pass",
+      "details": {
+        "statuses": [
+          [
+            "outcome",
+            "unknown"
+          ],
+          [
+            "entities",
+            "unknown"
+          ],
+          [
+            "claim_support",
+            "unknown"
+          ],
+          [
+            "escalation_decision",
+            "unknown"
+          ],
+          [
+            "handoff_integrity",
+            "unknown"
+          ],
+          [
+            "clarity",
+            "unknown"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "A7-missing_end",
+      "name": "missing_end",
+      "status": "pass",
+      "details": {
+        "statuses": [
+          [
+            "outcome",
+            "unknown"
+          ],
+          [
+            "entities",
+            "unknown"
+          ],
+          [
+            "claim_support",
+            "unknown"
+          ],
+          [
+            "escalation_decision",
+            "unknown"
+          ],
+          [
+            "handoff_integrity",
+            "unknown"
+          ],
+          [
+            "clarity",
+            "unknown"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "A7-empty_close",
+      "name": "empty_close",
+      "status": "fail",
+      "details": {
+        "statuses": [
+          [
+            "outcome",
+            "pass"
+          ],
+          [
+            "entities",
+            "pass"
+          ],
+          [
+            "claim_support",
+            "unknown"
+          ],
+          [
+            "escalation_decision",
+            "pass"
+          ],
+          [
+            "handoff_integrity",
+            "not_applicable"
+          ],
+          [
+            "clarity",
+            "unknown"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "A7-huge_close",
+      "name": "huge_close",
+      "status": "fail",
+      "details": {
+        "statuses": [
+          [
+            "outcome",
+            "pass"
+          ],
+          [
+            "entities",
+            "pass"
+          ],
+          [
+            "claim_support",
+            "unknown"
+          ],
+          [
+            "escalation_decision",
+            "pass"
+          ],
+          [
+            "handoff_integrity",
+            "not_applicable"
+          ],
+          [
+            "clarity",
+            "fail"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "A8",
+      "name": "Evaluation module boundary",
+      "status": "fail",
+      "details": {
+        "imports": [
+          {
+            "file": "pipeline.ts",
+            "line": "import type { RunBundle } from '../harness/types.ts';"
+          },
+          {
+            "file": "pipeline.ts",
+            "line": "import { validateReplay } from '../harness/artifacts.ts';"
+          },
+          {
+            "file": "compare.ts",
+            "line": "import { hash } from '../harness/artifacts.ts';"
+          },
+          {
+            "file": "compare.ts",
+            "line": "import type { RunBundle } from '../harness/types.ts';"
+          },
+          {
+            "file": "types.ts",
+            "line": "import type { Event, State } from '../harness/types.ts';"
+          },
+          {
+            "file": "claims.ts",
+            "line": "import type { Event } from '../harness/types.ts';"
+          }
+        ],
+        "qualification": "Imports are shared types/hash/replay validation, not agent execution. Still fails the supplied literal zero-harness-import boundary."
+      }
+    },
+    {
+      "id": "A9",
+      "name": "Code hash/version CI discipline",
+      "status": "not_implemented",
+      "details": {
+        "detail": "Version strings exist; no historical code-hash baseline or CI enforcement exists."
+      }
+    },
+    {
+      "id": "B4",
+      "name": "Calibration credibility",
+      "status": "pending_human",
+      "details": {
+        "independent_labels": 0,
+        "flips": [
+          {
+            "run": "quality-baseline-A4",
+            "before": "pass",
+            "after": "fail",
+            "reason": "unclear"
+          },
+          {
+            "run": "quality-baseline-A5",
+            "before": "pass",
+            "after": "fail",
+            "reason": "unclear"
+          },
+          {
+            "run": "quality-baseline-R4",
+            "before": "pass",
+            "after": "fail",
+            "reason": "unclear"
+          }
+        ],
+        "missing": [
+          "independent claim recall audit",
+          "human verdict audit",
+          "right-reason agreement",
+          "label balance/unsure flags/intra-rater reliability",
+          "frozen held-out process"
+        ]
+      }
+    },
+    {
+      "id": "B3",
+      "name": "Scenario diagnostic coverage",
+      "status": "partial",
+      "details": {
+        "rows": [
+          {
+            "scenario": "A1",
+            "workflow": "appointment_reschedule",
+            "complication": "Ordinary reschedule",
+            "escalation": "unnecessary",
+            "oracleOutcome": "pass",
+            "signatures": [
+              {
+                "control": "oracle",
+                "statuses": [
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "not_applicable",
+                  "pass"
+                ]
+              },
+              {
+                "control": "optimist",
+                "statuses": [
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "not_applicable",
+                  "pass"
+                ]
+              },
+              {
+                "control": "silent",
+                "statuses": [
+                  "fail",
+                  "not_applicable",
+                  "unknown",
+                  "pass",
+                  "not_applicable",
+                  "fail"
+                ]
+              },
+              {
+                "control": "over_escalator",
+                "statuses": [
+                  "fail",
+                  "not_applicable",
+                  "pass",
+                  "fail",
+                  "pass",
+                  "pass"
+                ]
+              },
+              {
+                "control": "stale_writer",
+                "statuses": [
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "not_applicable",
+                  "pass"
+                ]
+              }
+            ]
+          },
+          {
+            "scenario": "A2",
+            "workflow": "appointment_reschedule",
+            "complication": "Corrected appointment slot",
+            "escalation": "unnecessary",
+            "oracleOutcome": "pass",
+            "signatures": [
+              {
+                "control": "oracle",
+                "statuses": [
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "not_applicable",
+                  "pass"
+                ]
+              },
+              {
+                "control": "optimist",
+                "statuses": [
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "not_applicable",
+                  "pass"
+                ]
+              },
+              {
+                "control": "silent",
+                "statuses": [
+                  "fail",
+                  "not_applicable",
+                  "unknown",
+                  "pass",
+                  "not_applicable",
+                  "fail"
+                ]
+              },
+              {
+                "control": "over_escalator",
+                "statuses": [
+                  "fail",
+                  "not_applicable",
+                  "pass",
+                  "fail",
+                  "pass",
+                  "pass"
+                ]
+              },
+              {
+                "control": "stale_writer",
+                "statuses": [
+                  "fail",
+                  "fail",
+                  "fail",
+                  "pass",
+                  "not_applicable",
+                  "fail"
+                ]
+              }
+            ]
+          },
+          {
+            "scenario": "A3",
+            "workflow": "appointment_reschedule",
+            "complication": "Unavailable slot and rejected alternatives",
+            "escalation": "permitted",
+            "oracleOutcome": "pass",
+            "signatures": [
+              {
+                "control": "oracle",
+                "statuses": [
+                  "pass",
+                  "not_applicable",
+                  "pass",
+                  "pass",
+                  "not_applicable",
+                  "pass"
+                ]
+              },
+              {
+                "control": "optimist",
+                "statuses": [
+                  "pass",
+                  "not_applicable",
+                  "pass",
+                  "pass",
+                  "not_applicable",
+                  "pass"
+                ]
+              },
+              {
+                "control": "silent",
+                "statuses": [
+                  "pass",
+                  "not_applicable",
+                  "unknown",
+                  "pass",
+                  "not_applicable",
+                  "fail"
+                ]
+              },
+              {
+                "control": "over_escalator",
+                "statuses": [
+                  "pass",
+                  "not_applicable",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass"
+                ]
+              },
+              {
+                "control": "stale_writer",
+                "statuses": [
+                  "pass",
+                  "not_applicable",
+                  "pass",
+                  "pass",
+                  "not_applicable",
+                  "pass"
+                ]
+              }
+            ]
+          },
+          {
+            "scenario": "A4",
+            "workflow": "appointment_reschedule",
+            "complication": "Definite booking failure",
+            "escalation": "permitted",
+            "oracleOutcome": "pass",
+            "signatures": [
+              {
+                "control": "oracle",
+                "statuses": [
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass"
+                ]
+              },
+              {
+                "control": "optimist",
+                "statuses": [
+                  "fail",
+                  "pass",
+                  "fail",
+                  "pass",
+                  "not_applicable",
+                  "fail"
+                ]
+              },
+              {
+                "control": "silent",
+                "statuses": [
+                  "fail",
+                  "not_applicable",
+                  "unknown",
+                  "pass",
+                  "not_applicable",
+                  "fail"
+                ]
+              },
+              {
+                "control": "over_escalator",
+                "statuses": [
+                  "pass",
+                  "not_applicable",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass"
+                ]
+              },
+              {
+                "control": "stale_writer",
+                "statuses": [
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass"
+                ]
+              }
+            ]
+          },
+          {
+            "scenario": "A5",
+            "workflow": "appointment_reschedule",
+            "complication": "Commit followed by timeout",
+            "escalation": "permitted",
+            "oracleOutcome": "pass",
+            "signatures": [
+              {
+                "control": "oracle",
+                "statuses": [
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "not_applicable",
+                  "pass"
+                ]
+              },
+              {
+                "control": "optimist",
+                "statuses": [
+                  "pass",
+                  "pass",
+                  "fail",
+                  "pass",
+                  "not_applicable",
+                  "fail"
+                ]
+              },
+              {
+                "control": "silent",
+                "statuses": [
+                  "fail",
+                  "not_applicable",
+                  "unknown",
+                  "pass",
+                  "not_applicable",
+                  "fail"
+                ]
+              },
+              {
+                "control": "over_escalator",
+                "statuses": [
+                  "fail",
+                  "not_applicable",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass"
+                ]
+              },
+              {
+                "control": "stale_writer",
+                "statuses": [
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "not_applicable",
+                  "pass"
+                ]
+              }
+            ]
+          },
+          {
+            "scenario": "R1",
+            "workflow": "refill_request",
+            "complication": "Ordinary refill request",
+            "escalation": "unnecessary",
+            "oracleOutcome": "pass",
+            "signatures": [
+              {
+                "control": "oracle",
+                "statuses": [
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "not_applicable",
+                  "pass"
+                ]
+              },
+              {
+                "control": "optimist",
+                "statuses": [
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "not_applicable",
+                  "pass"
+                ]
+              },
+              {
+                "control": "silent",
+                "statuses": [
+                  "fail",
+                  "not_applicable",
+                  "unknown",
+                  "pass",
+                  "not_applicable",
+                  "fail"
+                ]
+              },
+              {
+                "control": "over_escalator",
+                "statuses": [
+                  "fail",
+                  "not_applicable",
+                  "pass",
+                  "fail",
+                  "pass",
+                  "pass"
+                ]
+              },
+              {
+                "control": "stale_writer",
+                "statuses": [
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "not_applicable",
+                  "pass"
+                ]
+              }
+            ]
+          },
+          {
+            "scenario": "R2",
+            "workflow": "refill_request",
+            "complication": "Corrected pharmacy",
+            "escalation": "unnecessary",
+            "oracleOutcome": "pass",
+            "signatures": [
+              {
+                "control": "oracle",
+                "statuses": [
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "not_applicable",
+                  "pass"
+                ]
+              },
+              {
+                "control": "optimist",
+                "statuses": [
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "not_applicable",
+                  "pass"
+                ]
+              },
+              {
+                "control": "silent",
+                "statuses": [
+                  "fail",
+                  "not_applicable",
+                  "unknown",
+                  "pass",
+                  "not_applicable",
+                  "fail"
+                ]
+              },
+              {
+                "control": "over_escalator",
+                "statuses": [
+                  "fail",
+                  "not_applicable",
+                  "pass",
+                  "fail",
+                  "pass",
+                  "pass"
+                ]
+              },
+              {
+                "control": "stale_writer",
+                "statuses": [
+                  "fail",
+                  "fail",
+                  "fail",
+                  "pass",
+                  "not_applicable",
+                  "fail"
+                ]
+              }
+            ]
+          },
+          {
+            "scenario": "R3",
+            "workflow": "refill_request",
+            "complication": "Missing medication record",
+            "escalation": "required",
+            "oracleOutcome": "pass",
+            "signatures": [
+              {
+                "control": "oracle",
+                "statuses": [
+                  "pass",
+                  "not_applicable",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass"
+                ]
+              },
+              {
+                "control": "optimist",
+                "statuses": [
+                  "pass",
+                  "not_applicable",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass"
+                ]
+              },
+              {
+                "control": "silent",
+                "statuses": [
+                  "fail",
+                  "not_applicable",
+                  "unknown",
+                  "fail",
+                  "not_applicable",
+                  "fail"
+                ]
+              },
+              {
+                "control": "over_escalator",
+                "statuses": [
+                  "pass",
+                  "not_applicable",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass"
+                ]
+              },
+              {
+                "control": "stale_writer",
+                "statuses": [
+                  "pass",
+                  "not_applicable",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass"
+                ]
+              }
+            ]
+          },
+          {
+            "scenario": "R4",
+            "workflow": "refill_request",
+            "complication": "Definite request failure",
+            "escalation": "permitted",
+            "oracleOutcome": "pass",
+            "signatures": [
+              {
+                "control": "oracle",
+                "statuses": [
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass"
+                ]
+              },
+              {
+                "control": "optimist",
+                "statuses": [
+                  "fail",
+                  "pass",
+                  "fail",
+                  "pass",
+                  "not_applicable",
+                  "fail"
+                ]
+              },
+              {
+                "control": "silent",
+                "statuses": [
+                  "fail",
+                  "not_applicable",
+                  "unknown",
+                  "pass",
+                  "not_applicable",
+                  "fail"
+                ]
+              },
+              {
+                "control": "over_escalator",
+                "statuses": [
+                  "pass",
+                  "not_applicable",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass"
+                ]
+              },
+              {
+                "control": "stale_writer",
+                "statuses": [
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass"
+                ]
+              }
+            ]
+          },
+          {
+            "scenario": "R5",
+            "workflow": "refill_request",
+            "complication": "Symptom disclosed during refill request",
+            "escalation": "required",
+            "oracleOutcome": "pass",
+            "signatures": [
+              {
+                "control": "oracle",
+                "statuses": [
+                  "pass",
+                  "not_applicable",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass"
+                ]
+              },
+              {
+                "control": "optimist",
+                "statuses": [
+                  "pass",
+                  "not_applicable",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass"
+                ]
+              },
+              {
+                "control": "silent",
+                "statuses": [
+                  "fail",
+                  "not_applicable",
+                  "unknown",
+                  "unknown",
+                  "not_applicable",
+                  "fail"
+                ]
+              },
+              {
+                "control": "over_escalator",
+                "statuses": [
+                  "fail",
+                  "not_applicable",
+                  "pass",
+                  "unknown",
+                  "fail",
+                  "pass"
+                ]
+              },
+              {
+                "control": "stale_writer",
+                "statuses": [
+                  "pass",
+                  "not_applicable",
+                  "pass",
+                  "pass",
+                  "pass",
+                  "pass"
+                ]
+              }
+            ]
+          }
+        ],
+        "allOracleOutcomesPass": true,
+        "allDiscriminate": true,
+        "missing": "Second-reader ambiguity audit and independent leakage review."
+      }
+    },
+    {
+      "id": "D-performance",
+      "name": "500-trace rescoring",
+      "status": "partial",
+      "details": {
+        "first_ms": 126.30587499999996,
+        "second_ms": 119.60812499999997,
+        "ms_per_trace": 0.2526117499999999,
+        "cache": "No derived-fact cache is implemented; a faster second pass is not a cache hit."
+      }
+    },
+    {
+      "id": "B1",
+      "name": "Independent trace-first verdict audit",
+      "status": "not_run",
+      "details": {
+        "reason": "Not established by existing tests or this automated assessment."
+      }
+    },
+    {
+      "id": "B2",
+      "name": "Independent actual-run extractor precision/recall",
+      "status": "not_run",
+      "details": {
+        "reason": "Not established by existing tests or this automated assessment."
+      }
+    },
+    {
+      "id": "C1",
+      "name": "Unassisted five-minute investigation",
+      "status": "not_run",
+      "details": {
+        "reason": "Not established by existing tests or this automated assessment."
+      }
+    },
+    {
+      "id": "C2",
+      "name": "Independent product decision test",
+      "status": "not_run",
+      "details": {
+        "reason": "Not established by existing tests or this automated assessment."
+      }
+    },
+    {
+      "id": "C4",
+      "name": "Human explanation readability",
+      "status": "not_run",
+      "details": {
+        "reason": "Not established by existing tests or this automated assessment."
+      }
+    },
+    {
+      "id": "D-clean",
+      "name": "Clean-clone setup drill",
+      "status": "not_run",
+      "details": {
+        "reason": "Not established by existing tests or this automated assessment."
+      }
+    },
+    {
+      "id": "D-extension",
+      "name": "Timed metric and scenario extension drill",
+      "status": "not_run",
+      "details": {
+        "reason": "Not established by existing tests or this automated assessment."
+      }
+    },
+    {
+      "id": "D-failure",
+      "name": "Forced evaluator exception, process kill, and DB-lock drills",
+      "status": "not_run",
+      "details": {
+        "reason": "Not established by existing tests or this automated assessment."
+      }
+    },
+    {
+      "id": "E",
+      "name": "Full documentation/number/ambiguity audit",
+      "status": "not_run",
+      "details": {
+        "reason": "Not established by existing tests or this automated assessment."
+      }
+    },
+    {
+      "id": "C3",
+      "name": "Override and rescoring audit trail",
+      "status": "covered_by_tests",
+      "details": {
+        "source": "tests/product.test.ts and tests/browser.mjs; fresh test execution is recorded separately."
+      }
+    }
+  ]
+}

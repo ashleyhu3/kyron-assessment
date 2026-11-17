@@ -1,0 +1,446 @@
+{
+  "source": "../R4-generic-callback-summary.json",
+  "run_id": "workflow-inspection-R4-summary",
+  "original": {
+    "suite": "evaluation@1.11.1/lexicon@1.8.1/clarity.v2",
+    "verdict": {
+      "metric": "handoff_integrity",
+      "status": "pass",
+      "evaluatorVersion": "handoff_integrity@1.7.0",
+      "reasonCode": "payload_valid",
+      "explanation": "Requested handoff context meets the rubric. Human acceptance remains unknown.",
+      "evidence": [
+        {
+          "kind": "event",
+          "id": "workflow-inspection-R4-summary:event:23"
+        }
+      ],
+      "items": [
+        {
+          "id": "workflow-inspection-R4-summary:event:23",
+          "status": "pass",
+          "reason": "payload_valid",
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "workflow-inspection-R4-summary:event:23"
+            }
+          ],
+          "details": {
+            "missing": [],
+            "requested": true,
+            "accepted": "unknown",
+            "payload": {
+              "call_id": "workflow-inspection-R4-summary:call:4",
+              "id": "review_1",
+              "patient_id": "patient_001",
+              "owner": "refill_team",
+              "reason_code": "write_failed",
+              "summary": "Please call the patient.",
+              "callback_sla": "one business day",
+              "status": "requested"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "current": {
+    "suite": "evaluation@1.12.0/lexicon@1.8.1/clarity.v2",
+    "verdict": {
+      "metric": "handoff_integrity",
+      "status": "fail",
+      "evaluatorVersion": "handoff_integrity@1.8.0",
+      "reasonCode": "invalid_payload",
+      "explanation": "The callback summary omits or mismatches the caller-confirmed medication or pharmacy.",
+      "evidence": [
+        {
+          "kind": "event",
+          "id": "workflow-inspection-R4-summary:event:14"
+        },
+        {
+          "kind": "event",
+          "id": "workflow-inspection-R4-summary:event:16"
+        },
+        {
+          "kind": "event",
+          "id": "workflow-inspection-R4-summary:event:23"
+        },
+        {
+          "kind": "event",
+          "id": "workflow-inspection-R4-summary:event:5"
+        },
+        {
+          "kind": "event",
+          "id": "workflow-inspection-R4-summary:event:9"
+        },
+        {
+          "kind": "event",
+          "id": "workflow-inspection-R4-summary:event:13"
+        },
+        {
+          "kind": "event",
+          "id": "workflow-inspection-R4-summary:event:12"
+        }
+      ],
+      "items": [
+        {
+          "id": "workflow-inspection-R4-summary:event:23",
+          "status": "fail",
+          "reason": "invalid_payload",
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "workflow-inspection-R4-summary:event:14"
+            },
+            {
+              "kind": "event",
+              "id": "workflow-inspection-R4-summary:event:16"
+            },
+            {
+              "kind": "event",
+              "id": "workflow-inspection-R4-summary:event:23"
+            },
+            {
+              "kind": "event",
+              "id": "workflow-inspection-R4-summary:event:5"
+            },
+            {
+              "kind": "event",
+              "id": "workflow-inspection-R4-summary:event:9"
+            },
+            {
+              "kind": "event",
+              "id": "workflow-inspection-R4-summary:event:13"
+            },
+            {
+              "kind": "event",
+              "id": "workflow-inspection-R4-summary:event:12"
+            }
+          ],
+          "details": {
+            "missing": [
+              "missing_medication",
+              "missing_pharmacy"
+            ],
+            "refillContext": {
+              "status": "fail",
+              "issues": [
+                "missing_medication",
+                "missing_pharmacy"
+              ],
+              "evidence": [
+                {
+                  "kind": "event",
+                  "id": "workflow-inspection-R4-summary:event:14"
+                },
+                {
+                  "kind": "event",
+                  "id": "workflow-inspection-R4-summary:event:16"
+                },
+                {
+                  "kind": "event",
+                  "id": "workflow-inspection-R4-summary:event:23"
+                },
+                {
+                  "kind": "event",
+                  "id": "workflow-inspection-R4-summary:event:5"
+                },
+                {
+                  "kind": "event",
+                  "id": "workflow-inspection-R4-summary:event:9"
+                },
+                {
+                  "kind": "event",
+                  "id": "workflow-inspection-R4-summary:event:13"
+                },
+                {
+                  "kind": "event",
+                  "id": "workflow-inspection-R4-summary:event:12"
+                }
+              ],
+              "expected": {
+                "medication_id": "med_001",
+                "pharmacy_id": "pharmacy_001"
+              }
+            },
+            "requested": true,
+            "accepted": "unknown",
+            "payload": {
+              "call_id": "workflow-inspection-R4-summary:call:4",
+              "id": "review_1",
+              "patient_id": "patient_001",
+              "owner": "refill_team",
+              "reason_code": "write_failed",
+              "summary": "Please call the patient.",
+              "callback_sla": "one business day",
+              "status": "requested"
+            }
+          }
+        }
+      ],
+      "severity": "major"
+    }
+  },
+  "controls": {
+    "complete": {
+      "metric": "handoff_integrity",
+      "status": "pass",
+      "evaluatorVersion": "handoff_integrity@1.8.0",
+      "reasonCode": "payload_valid",
+      "explanation": "Requested handoff context meets the rubric. Human acceptance remains unknown.",
+      "evidence": [
+        {
+          "kind": "event",
+          "id": "refill-handoff-complete:event:14"
+        },
+        {
+          "kind": "event",
+          "id": "refill-handoff-complete:event:16"
+        },
+        {
+          "kind": "event",
+          "id": "refill-handoff-complete:event:23"
+        },
+        {
+          "kind": "event",
+          "id": "refill-handoff-complete:event:5"
+        },
+        {
+          "kind": "event",
+          "id": "refill-handoff-complete:event:9"
+        },
+        {
+          "kind": "event",
+          "id": "refill-handoff-complete:event:13"
+        },
+        {
+          "kind": "event",
+          "id": "refill-handoff-complete:event:12"
+        }
+      ],
+      "items": [
+        {
+          "id": "refill-handoff-complete:event:23",
+          "status": "pass",
+          "reason": "payload_valid",
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "refill-handoff-complete:event:14"
+            },
+            {
+              "kind": "event",
+              "id": "refill-handoff-complete:event:16"
+            },
+            {
+              "kind": "event",
+              "id": "refill-handoff-complete:event:23"
+            },
+            {
+              "kind": "event",
+              "id": "refill-handoff-complete:event:5"
+            },
+            {
+              "kind": "event",
+              "id": "refill-handoff-complete:event:9"
+            },
+            {
+              "kind": "event",
+              "id": "refill-handoff-complete:event:13"
+            },
+            {
+              "kind": "event",
+              "id": "refill-handoff-complete:event:12"
+            }
+          ],
+          "details": {
+            "missing": [],
+            "refillContext": {
+              "status": "pass",
+              "issues": [],
+              "evidence": [
+                {
+                  "kind": "event",
+                  "id": "refill-handoff-complete:event:14"
+                },
+                {
+                  "kind": "event",
+                  "id": "refill-handoff-complete:event:16"
+                },
+                {
+                  "kind": "event",
+                  "id": "refill-handoff-complete:event:23"
+                },
+                {
+                  "kind": "event",
+                  "id": "refill-handoff-complete:event:5"
+                },
+                {
+                  "kind": "event",
+                  "id": "refill-handoff-complete:event:9"
+                },
+                {
+                  "kind": "event",
+                  "id": "refill-handoff-complete:event:13"
+                },
+                {
+                  "kind": "event",
+                  "id": "refill-handoff-complete:event:12"
+                }
+              ],
+              "expected": {
+                "medication_id": "med_001",
+                "pharmacy_id": "pharmacy_001"
+              }
+            },
+            "requested": true,
+            "accepted": "unknown",
+            "payload": {
+              "call_id": "refill-handoff-complete:call:4",
+              "id": "review_1",
+              "patient_id": "patient_001",
+              "owner": "refill_team",
+              "reason_code": "write_failed",
+              "summary": "Caller requested refills: {\"medication_id\":\"med_001\",\"pharmacy_id\":\"pharmacy_001\"}. Caller description: Examplemed 10 mg tablets. Reason: write_failed.",
+              "callback_sla": "one business day",
+              "status": "requested"
+            }
+          }
+        }
+      ]
+    },
+    "wrong_pharmacy": {
+      "metric": "handoff_integrity",
+      "status": "fail",
+      "evaluatorVersion": "handoff_integrity@1.8.0",
+      "reasonCode": "invalid_payload",
+      "explanation": "The callback summary omits or mismatches the caller-confirmed medication or pharmacy.",
+      "evidence": [
+        {
+          "kind": "event",
+          "id": "workflow-inspection-R4-summary:event:14"
+        },
+        {
+          "kind": "event",
+          "id": "workflow-inspection-R4-summary:event:16"
+        },
+        {
+          "kind": "event",
+          "id": "workflow-inspection-R4-summary:event:23"
+        },
+        {
+          "kind": "event",
+          "id": "workflow-inspection-R4-summary:event:5"
+        },
+        {
+          "kind": "event",
+          "id": "workflow-inspection-R4-summary:event:9"
+        },
+        {
+          "kind": "event",
+          "id": "workflow-inspection-R4-summary:event:13"
+        },
+        {
+          "kind": "event",
+          "id": "workflow-inspection-R4-summary:event:12"
+        }
+      ],
+      "items": [
+        {
+          "id": "workflow-inspection-R4-summary:event:23",
+          "status": "fail",
+          "reason": "invalid_payload",
+          "evidence": [
+            {
+              "kind": "event",
+              "id": "workflow-inspection-R4-summary:event:14"
+            },
+            {
+              "kind": "event",
+              "id": "workflow-inspection-R4-summary:event:16"
+            },
+            {
+              "kind": "event",
+              "id": "workflow-inspection-R4-summary:event:23"
+            },
+            {
+              "kind": "event",
+              "id": "workflow-inspection-R4-summary:event:5"
+            },
+            {
+              "kind": "event",
+              "id": "workflow-inspection-R4-summary:event:9"
+            },
+            {
+              "kind": "event",
+              "id": "workflow-inspection-R4-summary:event:13"
+            },
+            {
+              "kind": "event",
+              "id": "workflow-inspection-R4-summary:event:12"
+            }
+          ],
+          "details": {
+            "missing": [
+              "wrong_pharmacy"
+            ],
+            "refillContext": {
+              "status": "fail",
+              "issues": [
+                "wrong_pharmacy"
+              ],
+              "evidence": [
+                {
+                  "kind": "event",
+                  "id": "workflow-inspection-R4-summary:event:14"
+                },
+                {
+                  "kind": "event",
+                  "id": "workflow-inspection-R4-summary:event:16"
+                },
+                {
+                  "kind": "event",
+                  "id": "workflow-inspection-R4-summary:event:23"
+                },
+                {
+                  "kind": "event",
+                  "id": "workflow-inspection-R4-summary:event:5"
+                },
+                {
+                  "kind": "event",
+                  "id": "workflow-inspection-R4-summary:event:9"
+                },
+                {
+                  "kind": "event",
+                  "id": "workflow-inspection-R4-summary:event:13"
+                },
+                {
+                  "kind": "event",
+                  "id": "workflow-inspection-R4-summary:event:12"
+                }
+              ],
+              "expected": {
+                "medication_id": "med_001",
+                "pharmacy_id": "pharmacy_001"
+              }
+            },
+            "requested": true,
+            "accepted": "unknown",
+            "payload": {
+              "call_id": "workflow-inspection-R4-summary:call:4",
+              "id": "review_1",
+              "patient_id": "patient_001",
+              "owner": "refill_team",
+              "reason_code": "write_failed",
+              "summary": "Please review Examplemed 10 mg tablets at Maple Pharmacy at 200 Example Way, Sampletown.",
+              "callback_sla": "one business day",
+              "status": "requested"
+            }
+          }
+        }
+      ],
+      "severity": "major"
+    }
+  }
+}
